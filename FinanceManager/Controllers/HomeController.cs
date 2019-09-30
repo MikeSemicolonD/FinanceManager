@@ -26,5 +26,23 @@ namespace FinanceManager.Controllers
 
             return View();
         }
+        public ActionResult Analytics()
+        {
+            ViewBag.Message = "Your analytics page.";
+
+            return View();
+        }
+        public ActionResult Budget()
+        {
+            ViewBag.Message = "Your Budget page.";
+
+            return View();
+        }
+        public ActionResult Transaction()
+        {
+            ViewBag.Message = "Your Transaction page.";
+
+            return View();
+        }
     }
 }
