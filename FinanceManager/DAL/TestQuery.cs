@@ -10,30 +10,37 @@ namespace FinanceManager.DAL
     {
         public void TestSelect()
         {
-        //https://docs.microsoft.com/en-us/dotnet/api/system.data.sqlclient.sqlcommand?view=netframework-4.8
-        //    SqlConnection dp = new SqlConnection();
-        //    string query = "USE UserInfo GO SELECT name, database_id, create_dateFROM sys.databases; GO";
-        //    using (DbConnection conn = dp.GetConnection())
-        //    {
-        //        try
-        //        {
-        //            SqlCommand command = dp.CreateCommand();
-        //            conn.Open();
-        //            cmd.ExecuteNonQuery();
-        //            conn.Close();
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            throw ex;
-        //        }
-        //        finally
-        //        {
-        //            if (conn.State == ConnectionState.Open)
-        //            {
-        //                conn.Close();
-        //            }
-        //        }
-        //    }
+            //https://docs.microsoft.com/en-us/dotnet/api/system.data.sqlclient.sqlcommand?view=netframework-4.8
+            
+            string query = "USE UserInfo GO SELECT name, database_id, create_dateFROM sys.databases; GO";
+            using (SqlConnection dp = new SqlConnection())
+            {
+                try
+                {
+                    SqlCommand command = new SqlCommand(query,dp);
+
+                    dp.Open();
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Console.WriteLine(String.Format("{0}, {1}",
+                                reader[0], reader[1]));
+                        }
+                    }
+
+                    dp.Close();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    dp.Close();
+                }
+            }
         }
     }
 }
