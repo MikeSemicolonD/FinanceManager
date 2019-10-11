@@ -9,29 +9,46 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-expand navbar-dark bg-dark navbar-fixed-top">
-        <div class="container">
-            @Html.ActionLink("MiTiM", "Index", "Home", new { @class = "navbar-brand" }, new { @style = "color:white;  font-size:22px" })
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+    @if (Request.IsAuthenticated)
+    {
+        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+        {
+            @Html.AntiForgeryToken()
+            <nav class="navbar navbar-expand navbar-dark bg-dark navbar-fixed-top">
+                <div class="container">
+                    @Html.ActionLink("MiTiM", "Index", "Home", new { @class = "navbar-brand" }, new { @style = "color:white;  font-size:22px" })
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
 
-            <div class="collapse navbar-collapse" id="navbarsExample02">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <span class="nav-link">@Html.ActionLink("Home", "Index", "Home", routeValues: null, htmlAttributes: new { @style = "color:darkgray;" })</span>
-                    </li>
-                    <li class="nav-item">
-                        <span class="nav-link">@Html.ActionLink("About", "About", "Home", routeValues: null, htmlAttributes: new { @style = "color:darkgray;" })</span>
-                    </li>
-                    <li class="nav-item">
-                        <span class="nav-link">@Html.ActionLink("Contact", "Contact", "Home", routeValues: null, htmlAttributes: new { @style = "color:darkgray;" })</span>
-                    </li>
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
-        </div>
-    </nav>
+                    <div class="collapse navbar-collapse" id="navbarsExample02">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <span class="nav-link">@Html.ActionLink("DASHBOARD", "Index", "Home", routeValues: null, htmlAttributes: new { @style = "color:darkgray;" })</span>
+                            </li>
+                            <li class="nav-item">
+                                <span class="nav-link">@Html.ActionLink("ANALYTICS", "Analytics", "Home", routeValues: null, htmlAttributes: new { @style = "color:darkgray;" })</span>
+                            </li>
+                            <li class="nav-item">
+                                <span class="nav-link">@Html.ActionLink("BUDGET", "Budget", "Home", routeValues: null, htmlAttributes: new { @style = "color:darkgray;" })</span>
+                            </li>
+                            <li class="nav-item">
+                                <span class="nav-link">@Html.ActionLink("TRANSACTION", "Transaction", "Home", routeValues: null, htmlAttributes: new { @style = "color:darkgray;" })</span>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ACCOUNT</a>
+                                <div class="dropdown-menu" aria-labelledby="accountDropdown">
+                                    <span class="dropdown-item">ADD ACCOUNT</span>
+                                </div>
+                            </li>
+                        </ul>
+                        @Html.Partial("_LoginPartial")
+                    </div>
+                </div>
+            </nav>
+        }
+    }
+
 
     <div class="container body-content">
         @RenderBody()
