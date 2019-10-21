@@ -10,7 +10,7 @@ namespace FinanceManager.DAL
     {
         public TransactionsModel GetTransactionByUID(string UID)
         {
-            string query = "SELECT * FROM [dbo].[Transaction] t left join [dbo].[User_Transactions] ut on t.ID = ut.UID Where ut.UID = "+UID+";";
+            string query = "SELECT * FROM [dbo].[Transaction] t left join [dbo].[User_Transactions] ut on t.ID = ut.UID Where ut.UID = " + UID + ";";
             using (SqlConnection dp = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString()))
             {
                 try
@@ -23,11 +23,11 @@ namespace FinanceManager.DAL
 
                         while (reader.Read())
                         {
-                           // reader.get
+                            // reader.get
 
                             for (int i = 0; i < reader.FieldCount; i++)
                             {
-                              //  output += reader[i] + " ";
+                                //  output += reader[i] + " ";
                             }
 
                             //output += reader[i++] + " ";
@@ -45,7 +45,8 @@ namespace FinanceManager.DAL
                     dp.Close();
                 }
 
-                return new TransactionsModel { }
+                return new TransactionsModel { };
+            }
         }
     }
 }
