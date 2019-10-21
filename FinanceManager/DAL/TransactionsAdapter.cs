@@ -1,32 +1,33 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Configuration;
+using FinanceManager.Models;
+using System.Data;
 
 namespace FinanceManager.DAL
 {
-    public class TestQuery
+    public class TransactionsAdapter
     {
-        public string TestSelect()
+        public TransactionsModel GetTransactionByUID(string UID)
         {
-            //https://docs.microsoft.com/en-us/dotnet/api/system.data.sqlclient.sqlcommand?view=netframework-4.8
-
-
-            string output = "";
-            string query = "SELECT * FROM sys.databases;";
+            string query = "SELECT * FROM [dbo].[Transaction] t left join [dbo].[User_Transactions] ut on t.ID = ut.UID Where ut.UID = "+UID+";";
             using (SqlConnection dp = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString()))
             {
                 try
                 {
-                    SqlCommand command = new SqlCommand(query,dp);
+                    SqlCommand command = new SqlCommand(query, dp);
                     dp.Open();
-                    
+
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
+
                         while (reader.Read())
                         {
-                            for(int i = 0; i < reader.FieldCount; i++)
+                           // reader.get
+
+                            for (int i = 0; i < reader.FieldCount; i++)
                             {
-                                output += reader[i] + " ";
+                              //  output += reader[i] + " ";
                             }
 
                             //output += reader[i++] + " ";
@@ -43,8 +44,8 @@ namespace FinanceManager.DAL
                 {
                     dp.Close();
                 }
-                    return output;
-            }
+
+                return new TransactionsModel { }
         }
     }
 }
