@@ -32,14 +32,14 @@ namespace FinanceManager.DAL
                     {
                         TransactionModel transaction = new TransactionModel()
                         {
-                            //TODO: Finish this
                             ID = Utilities.ParseInt(reader["ID"].ToString()),
-                            Category = reader["Category"].ToString(),
+                            Name = reader["Name"].ToString(),
                             Description = reader["Description"].ToString(),
+                            IsEssential = Utilities.ParseBool(reader["IsEssential"].ToString()),
+                            Category = reader["Category"].ToString(),
                             Price = Utilities.ParseDecimal(reader["Amount"].ToString()),
                             AccountID = Utilities.ParseInt(reader["Account_ID"].ToString()),
-                            Date = Utilities.ParseDateTime(reader["Date"].ToString()),
-                            IsEssential = Utilities.ParseBool(reader["IsEssential"].ToString())
+                            AccountType = reader["AccountType"].ToString()
                         };
 
                         transactions.Add(transaction);
@@ -59,10 +59,10 @@ namespace FinanceManager.DAL
         public void DeleteTransactions(List<TransactionModel> transactions)
         {
             //Parse each id into query
-
             string template = "DELETE * FROM [dbo].[Transaction] t WHERE t.ID IN ({0});";
             string IDs = "";
 
+            //Create a string full of all transaction IDs to delete
             for(int i = 0; i < transactions.Count; i++)
             {
                 IDs += transactions[i].ID.ToString();
@@ -88,7 +88,7 @@ namespace FinanceManager.DAL
 
                     while (reader.Read())
                     {
-                        //TODO: Does deleting return a number or something?
+                        //TODO: Test this, Does deleting return a number or something?
                         var obj1 = reader[0];
                         var obj2 = reader[1];
                     }
@@ -121,7 +121,7 @@ namespace FinanceManager.DAL
 
                     while (reader.Read())
                     {
-                        //TODO: Does deleting return a number or something?
+                        //TODO: Test this, Does deleting return a number or something?
                         var obj1 = reader[0];
                         var obj2 = reader[1];
                     }
@@ -156,12 +156,13 @@ namespace FinanceManager.DAL
                         transaction = new TransactionModel()
                         {
                             ID = Utilities.ParseInt(reader["ID"].ToString()),
-                            Category = reader["Category"].ToString(),
+                            Name = reader["Name"].ToString(),
                             Description = reader["Description"].ToString(),
+                            IsEssential = Utilities.ParseBool(reader["IsEssential"].ToString()),
+                            Category = reader["Category"].ToString(),
                             Price = Utilities.ParseDecimal(reader["Amount"].ToString()),
                             AccountID = Utilities.ParseInt(reader["Account_ID"].ToString()),
-                            Date = Utilities.ParseDateTime(reader["Date"].ToString()),
-                            IsEssential = Utilities.ParseBool(reader["IsEssential"].ToString())
+                            AccountType = reader["AccountType"].ToString()
                         };
                     }
 
@@ -183,14 +184,13 @@ namespace FinanceManager.DAL
 
         public void SetTransactions(List<TransactionModel> transactions)
         {
-            //TODO: Finish this template
-            string queryTemplate = "UPDATE [dbo].[Transaction] t SET Category = \"{0}\", Description = \"{1}\", Amount = {2}, Account_ID = {3}, Date = {4} IsEssential = {5} WHERE t.ID = " + transactions[0].ID + ";";
+            string queryTemplate = "UPDATE [dbo].[Transaction] t SET Name = \"{0}\", Description = \"{1}\", IsEssential = {2}, Category = {3}, Price = {4}, AccountID = {5}, AccountType = {6} WHERE t.ID = {7}; ";
             string query = "";
 
             foreach (TransactionModel transaction in transactions)
             {
-                //Category, Description, Amount, Account_ID, Date, IsEssential
-                query += string.Format(queryTemplate, "Category", "Description",4.20,123,DateTime.Now,0);
+                //Name, Description, IsEssential, Category, Price, Account_ID, AccountType, ID
+                query += string.Format(queryTemplate, transaction.Name, transaction.Description, transaction.IsEssential, transaction.Category, transaction.Price, transaction.AccountID, transaction.AccountType, transaction.ID);
             }
 
             SqlDataProvider db = new SqlDataProvider();
@@ -225,8 +225,8 @@ namespace FinanceManager.DAL
 
             foreach (TransactionModel transaction in transactions)
             {
-                //ID, Category, Description, Amount, Account_ID, Date, IsEssential
-                query += string.Format(queryTemplate,124,"Category","Description",4.20,121,DateTime.Now,0);
+                //Name, Description, IsEssential, Category, Price, Account_ID, AccountType
+                query += string.Format(queryTemplate, transaction.Name, transaction.Description,transaction.IsEssential,transaction.Category,transaction.Price, transaction.AccountID, transaction.AccountType);
             }
 
             SqlDataProvider db = new SqlDataProvider();
