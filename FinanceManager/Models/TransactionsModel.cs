@@ -1,4 +1,6 @@
-﻿namespace FinanceManager.Models
+﻿using System;
+
+namespace FinanceManager.Models
 {
     public class TransactionModel
     {
@@ -17,6 +19,8 @@
         public int AccountID { get; set; }
 
         public string AccountType { get; set; }
+
+        public DateTime Date { get; set; }
 
     }
 }

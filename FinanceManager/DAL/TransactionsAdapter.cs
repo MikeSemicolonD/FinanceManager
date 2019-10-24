@@ -33,7 +33,13 @@ namespace FinanceManager.DAL
                         TransactionModel transaction = new TransactionModel()
                         {
                             //TODO: Finish this
-                            ID = Utilities.ParseInt(reader["ID"].ToString())
+                            ID = Utilities.ParseInt(reader["ID"].ToString()),
+                            Category = reader["Category"].ToString(),
+                            Description = reader["Description"].ToString(),
+                            Price = Utilities.ParseDecimal(reader["Amount"].ToString()),
+                            AccountID = Utilities.ParseInt(reader["Account_ID"].ToString()),
+                            Date = Utilities.ParseDateTime(reader["Date"].ToString()),
+                            IsEssential = Utilities.ParseBool(reader["IsEssential"].ToString())
                         };
 
                         transactions.Add(transaction);
@@ -50,7 +56,39 @@ namespace FinanceManager.DAL
             return transactions;
         }
 
-        public TransactionModel GetTransactionsByID(long ID)
+        public void DeleteTransactionByID(long ID)
+        {
+            string query = "DELETE * FROM [dbo].[Transaction] t WHERE t.ID = " + ID + ";";
+
+            TransactionModel transaction = new TransactionModel();
+            SqlDataProvider db = new SqlDataProvider();
+
+            try
+            {
+                using (SqlConnection connection = db.GetConnection())
+                {
+                    connection.Open();
+
+                    SqlCommand command = db.CreateCommand(query, connection);
+                    SqlDataReader reader = db.ExecuteReader(command);
+
+                    while (reader.Read())
+                    {
+                        //TODO: Does deleting return a number or something?
+                        var obj1 = reader[0];
+                        var obj2 = reader[1];
+                    }
+
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public TransactionModel GetTransactionByID(long ID)
         {
             string query = "SELECT * FROM [dbo].[Transaction] t WHERE t.ID = " + ID + ";";
 
@@ -70,8 +108,13 @@ namespace FinanceManager.DAL
                     {
                         transaction = new TransactionModel()
                         {
-                            //TODO: Finish this
-                            ID = Utilities.ParseInt(reader["ID"].ToString())
+                            ID = Utilities.ParseInt(reader["ID"].ToString()),
+                            Category = reader["Category"].ToString(),
+                            Description = reader["Description"].ToString(),
+                            Price = Utilities.ParseDecimal(reader["Amount"].ToString()),
+                            AccountID = Utilities.ParseInt(reader["Account_ID"].ToString()),
+                            Date = Utilities.ParseDateTime(reader["Date"].ToString()),
+                            IsEssential = Utilities.ParseBool(reader["IsEssential"].ToString())
                         };
                     }
 
@@ -93,9 +136,16 @@ namespace FinanceManager.DAL
 
         public void SetTransactions(List<TransactionModel> transactions)
         {
-            //TODO: Generate query of params and ID's for each transaction
-            string query = "UPDATE [dbo].[Transaction] t SET Param1 = 'asd', num = 11 WHERE t.ID = " + transactions[0].ID + ";";
-            
+            //TODO: Finish this template
+            string queryTemplate = "UPDATE [dbo].[Transaction] t SET Category = \"{0}\", Description = \"{1}\", Amount = {2}, Account_ID = {3}, Date = {4} IsEssential = {5} WHERE t.ID = " + transactions[0].ID + ";";
+            string query = "";
+
+            foreach (TransactionModel transaction in transactions)
+            {
+                //Category, Description, Amount, Account_ID, Date, IsEssential
+                query += string.Format(queryTemplate, "Category", "Description",4.20,123,DateTime.Now,0);
+            }
+
             SqlDataProvider db = new SqlDataProvider();
 
             try
@@ -122,8 +172,15 @@ namespace FinanceManager.DAL
 
         public void AddTransactions(List<TransactionModel> transactions)
         {
-            //TODO: Generate query of params for each transaction (Generate ID somehow?)
-            string query = "INSERT INTO [dbo].[Transaction] VALUES (param1,param2);";
+
+            string queryTemplate = "INSERT INTO [dbo].[Transaction] VALUES ({0},{1},{2},{3},{4},{5},{6});";
+            string query = "";
+
+            foreach (TransactionModel transaction in transactions)
+            {
+                //ID, Category, Description, Amount, Account_ID, Date, IsEssential
+                query += string.Format(queryTemplate,124,"Category","Description",4.20,121,DateTime.Now,0);
+            }
 
             SqlDataProvider db = new SqlDataProvider();
 
