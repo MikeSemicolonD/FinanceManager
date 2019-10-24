@@ -1,26 +1,22 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-
-namespace FinanceManager.Models
+﻿namespace FinanceManager.Models
 {
-    public class TransactionsModel
+    public class TransactionModel
     {
-        int ID { get; set; }
+        public int ID { get; set; }
 
-        string Name { get; set; }
+        public string Name { get; set; }
 
-        string Description { get; set; }
+        public string Description { get; set; }
 
-        bool IsEssential { get; set; }
+        public bool IsEssential { get; set; }
 
-        string Category { get; set; }
+        public string Category { get; set; }
 
-        decimal Price { get; set; }
+        public decimal Price { get; set; }
 
-        int AccountID { get; set; }
+        public int AccountID { get; set; }
 
-        string AccountType { get; set; }
-
+        public string AccountType { get; set; }
 
     }
 }
