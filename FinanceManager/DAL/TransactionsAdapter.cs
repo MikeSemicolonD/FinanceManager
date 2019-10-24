@@ -56,6 +56,53 @@ namespace FinanceManager.DAL
             return transactions;
         }
 
+        public void DeleteTransactions(List<TransactionModel> transactions)
+        {
+            //Parse each id into query
+
+            string template = "DELETE * FROM [dbo].[Transaction] t WHERE t.ID IN ({0});";
+            string IDs = "";
+
+            for(int i = 0; i < transactions.Count; i++)
+            {
+                IDs += transactions[i].ID.ToString();
+
+                if(i != transactions.Count-1)
+                {
+                    IDs += ',';
+                }
+            }
+
+            string query = string.Format(template,IDs);
+
+            SqlDataProvider db = new SqlDataProvider();
+
+            try
+            {
+                using (SqlConnection connection = db.GetConnection())
+                {
+                    connection.Open();
+
+                    SqlCommand command = db.CreateCommand(query, connection);
+                    SqlDataReader reader = db.ExecuteReader(command);
+
+                    while (reader.Read())
+                    {
+                        //TODO: Does deleting return a number or something?
+                        var obj1 = reader[0];
+                        var obj2 = reader[1];
+                    }
+
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
         public void DeleteTransactionByID(long ID)
         {
             string query = "DELETE * FROM [dbo].[Transaction] t WHERE t.ID = " + ID + ";";
