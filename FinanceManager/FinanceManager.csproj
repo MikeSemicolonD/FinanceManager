@@ -384,7 +384,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Home\Analytics.cshtml" />
     <Content Include="Views\Home\Budget.cshtml" />
-    <Content Include="Views\Home\Transaction.cshtml" />
+    <Content Include="Views\Shared\TransactionPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
