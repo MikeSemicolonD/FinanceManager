@@ -20,7 +20,5 @@ namespace FinanceManager.Models
 
         public string AccountType { get; set; }
 
-        public DateTime Date { get; set; }
-
     }
 }

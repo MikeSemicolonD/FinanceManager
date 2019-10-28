@@ -5,7 +5,7 @@ using FinanceManager.Models;
 using FinanceManager.DAL;
 using System.Web.Security;
 
-public class TransactionsAdapter
+public class AccountTypeAdapter
 {
     /// <summary>
     /// Returns a list of transactions for a given user
