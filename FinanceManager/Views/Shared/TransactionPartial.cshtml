@@ -1,0 +1,65 @@
+﻿@if (Request.IsAuthenticated)
+{
+    <div id="MyModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Transaction</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="needs-validation" novalidate="">
+                        <div class="mb-3">
+                            <label for="firstName">Type</label>
+                            <input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
+                            <div class="invalid-feedback">
+                                Valid first name is required.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="username">Description</label>
+                            <input type="text" class="form-control" id="username" placeholder="" required="">
+                            <div class="invalid-feedback" style="width: 100%;">
+                                Your username is required.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email">Amount</label>
+                            <input type="email" class="form-control" id="email" placeholder="">
+                            <div class="invalid-feedback">
+                                Please enter a valid email address for shipping updates.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="address">Account</label>
+                            <input type="text" class="form-control" id="address" placeholder="" required="">
+                            <div class="invalid-feedback">
+                                Please enter your shipping address.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="address2">Date</label>
+                            <input type="text" class="form-control" id="address2" placeholder="">
+                        </div>
+
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="same-address">
+                            <label class="custom-control-label" for="same-address">Is Essential</label>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">ADD</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
