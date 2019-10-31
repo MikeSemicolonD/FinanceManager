@@ -3,7 +3,6 @@ using System.Data.SqlClient;
 using System.Collections.Generic;
 using FinanceManager.Models;
 using FinanceManager.DAL;
-using System.Web.Security;
 
 public class TransactionsAdapter
 {
@@ -106,8 +105,7 @@ public class TransactionsAdapter
     public void DeleteTransactionByID(long ID)
     {
         string query = "DELETE * FROM [dbo].[Transaction] t WHERE t.ID = " + ID + ";";
-
-        TransactionModel transaction = new TransactionModel();
+        
         SqlDataProvider db = new SqlDataProvider();
 
         try
@@ -257,7 +255,7 @@ public class TransactionsAdapter
 
                 string UTQuery = "";
 
-                string UserUID = Membership.GetUser().ProviderUserKey.ToString();
+                string UserUID = Utilities.GetUsersUID();
 
                 foreach (int id in NewTransactionIDs)
                 {

@@ -1,22 +1,16 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-
-namespace FinanceManager.Models
+﻿namespace FinanceManager.Models
 {
     public class BudgetModel
     {
-        string UID { get; set; }
-        
-        int AccountID { get; set; }
+        public string UID { get; set; }
 
-        decimal Price { get; set; }
+        public int Account_ID { get; set; }
 
-        //Number of times a budget is alloted per frequency
-        int Times { get; set; }
+        public decimal Price { get; set; }
 
-        int FrequencyID { get; set; }
+        //Number of times a budget is alloted per frequency (Ex: 3 times Per/Month, 5 times Per/Week)
+        public int Times { get; set; }
 
-        //Ex: PerMonth, PerDay, PerWeek, PerYear
-        string Frequency { get; set; }
+        public int Frequency_ID { get; set; }
     }
 }

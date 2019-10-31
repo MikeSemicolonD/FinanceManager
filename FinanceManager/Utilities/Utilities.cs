@@ -1,10 +1,17 @@
 ﻿using System;
+using System.Web.Security;
 
 /// <summary>
 /// Any parsing functions that need to be simplified are stored here
 /// </summary>
 public static class Utilities
 {
+
+    public static string GetUsersUID()
+    {
+        return Membership.GetUser().ProviderUserKey.ToString();
+    }
+
     public static int ParseInt(string strNumber)
     {
         if(!int.TryParse(strNumber, out int number))

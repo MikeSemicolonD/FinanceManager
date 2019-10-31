@@ -3,20 +3,19 @@ using System.Data.SqlClient;
 using System.Collections.Generic;
 using FinanceManager.Models;
 using FinanceManager.DAL;
-using System.Web.Security;
 
 public class AccountTypeAdapter
 {
     /// <summary>
-    /// Returns a list of transactions for a given user
+    /// Returns a list of AccountTypes for a given user
     /// </summary>
     /// <param name="UID"></param>
     /// <returns></returns>
-    public List<TransactionModel> GetTransactionsByUID(string UID)
+    public List<AccountTypeModel> GetAccountTypesByUID(string UID)
     {
-        string query = "SELECT * FROM [dbo].[Transaction] t left join [dbo].[User_Transactions] ut on t.ID = ut.UID Where ut.UID = " + UID + ";";
+        string query = "SELECT * FROM [dbo].[User_Accounts] UA left join [dbo].[Account] A on UA.Account_ID = A.ID Where UA.UID = " + UID + ";";
 
-        List<TransactionModel> transactions = new List<TransactionModel>();
+        List<AccountTypeModel> AccountTypes = new List<AccountTypeModel>();
         SqlDataProvider db = new SqlDataProvider();
 
         try
@@ -30,19 +29,13 @@ public class AccountTypeAdapter
 
                 while (reader.Read())
                 {
-                    TransactionModel transaction = new TransactionModel()
+                    AccountTypeModel AccountType = new AccountTypeModel()
                     {
                         ID = Utilities.ParseInt(reader["ID"].ToString()),
-                        Name = reader["Name"].ToString(),
-                        Description = reader["Description"].ToString(),
-                        IsEssential = Utilities.ParseBool(reader["IsEssential"].ToString()),
-                        Category = reader["Category"].ToString(),
-                        Price = Utilities.ParseDecimal(reader["Amount"].ToString()),
-                        AccountID = Utilities.ParseInt(reader["Account_ID"].ToString()),
                         AccountType = reader["AccountType"].ToString()
                     };
 
-                    transactions.Add(transaction);
+                    AccountTypes.Add(AccountType);
                 }
 
                 reader.Close();
@@ -53,21 +46,21 @@ public class AccountTypeAdapter
             throw ex;
         }
 
-        return transactions;
+        return AccountTypes;
     }
 
-    public void DeleteTransactions(List<TransactionModel> transactions)
+    public void DeleteAccountTypes(List<AccountTypeModel> accountTypes)
     {
         //Parse each id into query
-        string template = "DELETE * FROM [dbo].[Transaction] t WHERE t.ID IN ({0});";
+        string template = "DELETE * FROM [dbo].[Account] a WHERE a.ID IN ({0}); DELETE * FROM [dbo].[User_Accounts] UA WHERE UA.Account_ID IN ({0});";
         string IDs = "";
 
-        //Create a string full of all transaction IDs to delete
-        for (int i = 0; i < transactions.Count; i++)
+        //Create a string full of all Account Types IDs to delete
+        for (int i = 0; i < accountTypes.Count; i++)
         {
-            IDs += transactions[i].ID.ToString();
+            IDs += accountTypes[i].ID.ToString();
 
-            if (i != transactions.Count - 1)
+            if (i != accountTypes.Count - 1)
             {
                 IDs += ',';
             }
@@ -103,11 +96,10 @@ public class AccountTypeAdapter
 
     }
 
-    public void DeleteTransactionByID(long ID)
+    public void DeleteAccountTypeByID(long ID)
     {
-        string query = "DELETE * FROM [dbo].[Transaction] t WHERE t.ID = " + ID + ";";
-
-        TransactionModel transaction = new TransactionModel();
+        string query = "DELETE * FROM [dbo].[Account] a WHERE a.ID = "+ID+ "; DELETE * FROM [dbo].[User_Accounts] UA WHERE UA.Account_ID = " + ID + ";";
+        
         SqlDataProvider db = new SqlDataProvider();
 
         try
@@ -135,11 +127,11 @@ public class AccountTypeAdapter
         }
     }
 
-    public TransactionModel GetTransactionByID(long ID)
+    public AccountTypeModel GetAccountTypeByID(long ID)
     {
-        string query = "SELECT * FROM [dbo].[Transaction] t WHERE t.ID = " + ID + ";";
+        string query = "SELECT * FROM [dbo].[Account] a WHERE a.ID = " + ID + ";";
 
-        TransactionModel transaction = new TransactionModel();
+        AccountTypeModel accountType = new AccountTypeModel();
         SqlDataProvider db = new SqlDataProvider();
 
         try
@@ -153,15 +145,9 @@ public class AccountTypeAdapter
 
                 while (reader.Read())
                 {
-                    transaction = new TransactionModel()
+                    accountType = new AccountTypeModel()
                     {
                         ID = Utilities.ParseInt(reader["ID"].ToString()),
-                        Name = reader["Name"].ToString(),
-                        Description = reader["Description"].ToString(),
-                        IsEssential = Utilities.ParseBool(reader["IsEssential"].ToString()),
-                        Category = reader["Category"].ToString(),
-                        Price = Utilities.ParseDecimal(reader["Amount"].ToString()),
-                        AccountID = Utilities.ParseInt(reader["Account_ID"].ToString()),
                         AccountType = reader["AccountType"].ToString()
                     };
                 }
@@ -174,64 +160,29 @@ public class AccountTypeAdapter
             throw ex;
         }
 
-        return transaction;
+        return accountType;
     }
 
-    public void SetTransaction(TransactionModel transaction)
+    public void AddAccountType(AccountTypeModel AccountType)
     {
-        SetTransactions(new List<TransactionModel>() { transaction });
+        AddAccountTypes(new List<AccountTypeModel>() { AccountType });
     }
 
-    public void SetTransactions(List<TransactionModel> transactions)
+    public void AddAccountTypes(List<AccountTypeModel> AccoutTypes)
     {
-        string queryTemplate = "UPDATE [dbo].[Transaction] t SET Name = \"{0}\", Description = \"{1}\", IsEssential = {2}, Category = {3}, Price = {4}, AccountID = {5}, AccountType = {6} WHERE t.ID = {7}; ";
+
+        string queryTemplate = "INSERT INTO [dbo].[Account] VALUES ({0});";
         string query = "";
 
-        foreach (TransactionModel transaction in transactions)
+        List<int> NewAccountTypeIDs = new List<int>();
+
+        foreach (AccountTypeModel Account in AccoutTypes)
         {
-            //Name, Description, IsEssential, Category, Price, Account_ID, AccountType, ID
-            query += string.Format(queryTemplate, transaction.Name, transaction.Description, transaction.IsEssential, transaction.Category, transaction.Price, transaction.AccountID, transaction.AccountType, transaction.ID);
+            //AccountType
+            query += string.Format(queryTemplate, Account.AccountType);
         }
 
-        SqlDataProvider db = new SqlDataProvider();
-
-        try
-        {
-            using (SqlConnection connection = db.GetConnection())
-            {
-                connection.Open();
-
-                SqlCommand command = db.CreateCommand(query, connection);
-
-                command.ExecuteScalar();
-            }
-        }
-        catch (Exception ex)
-        {
-            throw ex;
-        }
-    }
-
-    public void AddTransaction(TransactionModel transaction)
-    {
-        AddTransactions(new List<TransactionModel>() { transaction });
-    }
-
-    public void AddTransactions(List<TransactionModel> transactions)
-    {
-
-        string queryTemplate = "INSERT INTO [dbo].[Transaction] VALUES ({0},{1},{2},{3},{4},{5},{6});";
-        string query = "";
-
-        List<int> NewTransactionIDs = new List<int>();
-
-        foreach (TransactionModel transaction in transactions)
-        {
-            //Name, Description, IsEssential, Category, Price, Account_ID, AccountType
-            query += string.Format(queryTemplate, transaction.Name, transaction.Description, transaction.IsEssential, transaction.Category, transaction.Price, transaction.AccountID, transaction.AccountType);
-        }
-
-        //Returns the ID of the transactions we just created
+        //Returns the ID of the AccoutTypes we just created
         query += " SELECT SCOPE_IDENTITY() AS [NewIDs];";
 
         SqlDataProvider db = new SqlDataProvider();
@@ -248,23 +199,23 @@ public class AccountTypeAdapter
 
                 while (reader.Read())
                 {
-                    NewTransactionIDs.Add(Utilities.ParseInt(reader["NewIDs"].ToString()));
+                    NewAccountTypeIDs.Add(Utilities.ParseInt(reader["NewIDs"].ToString()));
                 }
 
                 reader.Close();
                 
-                string template = "INSERT INTO [dbo].[User_Transactions] VALUES({0},{1}); ";
+                string template = "INSERT INTO [dbo].[User_Accounts] VALUES({0},{1}); ";
 
-                string UTQuery = "";
+                string UAQuery = "";
 
-                string UserUID = Membership.GetUser().ProviderUserKey.ToString();
+                string UserUID = Utilities.GetUsersUID();
 
-                foreach (int id in NewTransactionIDs)
+                foreach (int id in NewAccountTypeIDs)
                 {
-                    UTQuery += string.Format(template,UserUID,id);
+                    UAQuery += string.Format(template,UserUID,id);
                 }
 
-                SqlCommand UTcommand = db.CreateCommand(UTQuery, connection);
+                SqlCommand UTcommand = db.CreateCommand(UAQuery, connection);
 
                 UTcommand.ExecuteScalar();
 

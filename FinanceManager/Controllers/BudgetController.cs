@@ -7,15 +7,15 @@ using System.Web.Security;
 
 namespace FinanceManager.Controllers
 {
-    public class TransactionController : Controller
+    public class BudgetController : Controller
     {
         [Authorize]
         public ActionResult Index()
         {
-            TransactionsAdapter transactionsAdapter = new TransactionsAdapter();
+            //TransactionsAdapter transactionsAdapter = new TransactionsAdapter();
 
             //Gets transactions for the given user, put them in a Viewbag to display it on the view
-            ViewBag.Transactions = transactionsAdapter.GetTransactionsByUID(Utilities.GetUsersUID());
+            //ViewBag.Transactions = transactionsAdapter.GetTransactionsByUID(Utilities.GetUsersUID());
             
             //Home page for transactions page
             return View();

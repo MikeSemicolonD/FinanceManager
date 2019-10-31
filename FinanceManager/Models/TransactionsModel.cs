@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace FinanceManager.Models
+﻿namespace FinanceManager.Models
 {
     public class TransactionModel
     {
