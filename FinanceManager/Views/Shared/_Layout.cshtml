@@ -27,23 +27,29 @@
                                 <span class="nav-link">@Html.ActionLink("DASHBOARD", "Index", "Home", routeValues: null, htmlAttributes: new { @style = "color:darkgray;" })</span>
                             </li>
                             <li class="nav-item">
-                                <span class="nav-link">@Html.ActionLink("ANALYTICS", "Analytics", "Home", routeValues: null, htmlAttributes: new { @style = "color:darkgray;" })</span>
+                                <span class="nav-link">@Html.ActionLink("ANALYTICS", "Index", "Analytics", routeValues: null, htmlAttributes: new { @style = "color:darkgray;" })</span>
                             </li>
                             <li class="nav-item">
-                                <span class="nav-link">@Html.ActionLink("BUDGET", "Budget", "Home", routeValues: null, htmlAttributes: new { @style = "color:darkgray;" })</span>
+                                <span class="nav-link">@Html.ActionLink("BUDGET", "Index", "Budget", routeValues: null, htmlAttributes: new { @style = "color:darkgray;" })</span>
                             </li>
                             <li class="nav-item">
+                                <span class="nav-link">@Html.ActionLink("TRANSACTIONS", "Index", "Transaction", routeValues: null, htmlAttributes: new { @style = "color:darkgray;" })</span>
+                            </li>
+                            @*<li class="nav-item">
                                 <span class="nav-link" data-target="#MyModal" data-toggle="modal">Transaction</span>
-                            </li>
+                            </li>*@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ACCOUNT</a>
                                 <div class="dropdown-menu" aria-labelledby="accountDropdown">
+                                    <!-- The below should be modified to have a modal pop up when clicked.-->
+                                    <!-- There should also be options to select different accounts here -->
+                                    <!-- Using the HomeController, it's possible to call the database and pre-populate this drop down-->
                                     <span class="dropdown-item">ADD ACCOUNT</span>
                                 </div>
                             </li>
                         </ul>
                         @Html.Partial("_LoginPartial")
-                        @Html.Partial("TransactionPartial")
+                        @*@Html.Partial("TransactionPartial")*@
                     </div>
                 </div>
             </nav>

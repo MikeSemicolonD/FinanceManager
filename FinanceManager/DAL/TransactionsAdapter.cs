@@ -13,7 +13,7 @@ public class TransactionsAdapter
     /// <returns></returns>
     public List<TransactionModel> GetTransactionsByUID(string UID)
     {
-        string query = "SELECT * FROM [dbo].[Transaction] t left join [dbo].[User_Transactions] ut on t.ID = ut.UID Where ut.UID = " + UID + ";";
+        string query = "SELECT * FROM [dbo].[Transaction] t left join [dbo].[User_Transactions] ut on t.ID = ut.UID Where ut.UID = '" + UID + "';";
 
         List<TransactionModel> transactions = new List<TransactionModel>();
         SqlDataProvider db = new SqlDataProvider();
@@ -182,7 +182,7 @@ public class TransactionsAdapter
 
     public void SetTransactions(List<TransactionModel> transactions)
     {
-        string queryTemplate = "UPDATE [dbo].[Transaction] t SET Name = \"{0}\", Description = \"{1}\", IsEssential = {2}, Category = {3}, Price = {4}, AccountID = {5}, AccountType = {6} WHERE t.ID = {7}; ";
+        string queryTemplate = "UPDATE [dbo].[Transaction] t SET Name = '{0}', Description = '{1}', IsEssential = {2}, Category = {3}, Price = {4}, AccountID = {5}, AccountType = {6} WHERE t.ID = {7}; ";
         string query = "";
 
         foreach (TransactionModel transaction in transactions)
@@ -210,12 +210,12 @@ public class TransactionsAdapter
         }
     }
 
-    public void AddTransaction(TransactionModel transaction)
+    public void AddTransaction(TransactionModel transaction, string UserEmail)
     {
-        AddTransactions(new List<TransactionModel>() { transaction });
+        AddTransactions(new List<TransactionModel>() { transaction }, UserEmail);
     }
 
-    public void AddTransactions(List<TransactionModel> transactions)
+    public void AddTransactions(List<TransactionModel> transactions, string UserEmail)
     {
 
         string queryTemplate = "INSERT INTO [dbo].[Transaction] VALUES ({0},{1},{2},{3},{4},{5},{6});";
@@ -251,11 +251,11 @@ public class TransactionsAdapter
 
                 reader.Close();
                 
-                string template = "INSERT INTO [dbo].[User_Transactions] VALUES({0},{1}); ";
+                string template = "INSERT INTO [dbo].[User_Transactions] VALUES('{0}',{1}); ";
 
                 string UTQuery = "";
 
-                string UserUID = Utilities.GetUsersUID();
+                string UserUID = Utilities.GetUsersUID(UserEmail);
 
                 foreach (int id in NewTransactionIDs)
                 {

@@ -1,26 +1,27 @@
 ﻿@{
-    ViewBag.Title = "DASHBOARD";
+    ViewBag.Title = "Dashboard";
 }
 
 <div class="jumbotron">
     <h1>MiTiM Financial Manager</h1>
     <p class="lead">MiTiM Financial Manager is a manager that manage your finance</p>
-    <p><a href="https://google.com" class="btn btn-primary btn-lg">Don click &raquo;</a></p>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Feature 1</h2>
-        <p>
-            A better name instead of "bug"
-        </p>
-    </div>
-    <div class="col-md-4">
-        <h2>Feature 2</h2>
-        <p>Hey Google how do I do this</p>
-    </div>
-    <div class="col-md-4">
-        <h2>Feature 3</h2>
-        <p>Why is this not working</p>
-    </div>
+<div class="col-lg-auto">
+    <h2>Transactions</h2>
+    <p>
+        @Html.Partial("Transaction/Index")
+    </p>
+</div>
+<div class="col-lg-auto">
+    <h2>Analytics</h2>
+    <p>
+        @Html.Partial("Analytics/Index")
+    </p>
+</div>
+<div class="col-lg-auto">
+    <h2>Budget</h2>
+    <p>
+        @Html.Partial("Budget/Index")
+    </p>
 </div>

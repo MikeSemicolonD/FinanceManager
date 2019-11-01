@@ -13,7 +13,7 @@ public class AccountTypeAdapter
     /// <returns></returns>
     public List<AccountTypeModel> GetAccountTypesByUID(string UID)
     {
-        string query = "SELECT * FROM [dbo].[User_Accounts] UA left join [dbo].[Account] A on UA.Account_ID = A.ID Where UA.UID = " + UID + ";";
+        string query = "SELECT * FROM [dbo].[User_Accounts] UA left join [dbo].[Account] A on UA.Account_ID = A.ID Where UA.UID = '" + UID + "';";
 
         List<AccountTypeModel> AccountTypes = new List<AccountTypeModel>();
         SqlDataProvider db = new SqlDataProvider();
@@ -163,12 +163,12 @@ public class AccountTypeAdapter
         return accountType;
     }
 
-    public void AddAccountType(AccountTypeModel AccountType)
+    public void AddAccountType(AccountTypeModel AccountType, string UserEmail)
     {
-        AddAccountTypes(new List<AccountTypeModel>() { AccountType });
+        AddAccountTypes(new List<AccountTypeModel>() { AccountType }, UserEmail);
     }
 
-    public void AddAccountTypes(List<AccountTypeModel> AccoutTypes)
+    public void AddAccountTypes(List<AccountTypeModel> AccoutTypes, string UserEmail)
     {
 
         string queryTemplate = "INSERT INTO [dbo].[Account] VALUES ({0});";
@@ -204,11 +204,11 @@ public class AccountTypeAdapter
 
                 reader.Close();
                 
-                string template = "INSERT INTO [dbo].[User_Accounts] VALUES({0},{1}); ";
+                string template = "INSERT INTO [dbo].[User_Accounts] VALUES('{0}',{1}); ";
 
                 string UAQuery = "";
 
-                string UserUID = Utilities.GetUsersUID();
+                string UserUID = Utilities.GetUsersUID(UserEmail);
 
                 foreach (int id in NewAccountTypeIDs)
                 {

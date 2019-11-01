@@ -12,6 +12,7 @@ namespace FinanceManager.Controllers
         [Authorize]
         public ActionResult Index()
         {
+            ViewBag.Message = "Your Budget page.";
             //TransactionsAdapter transactionsAdapter = new TransactionsAdapter();
 
             //Gets transactions for the given user, put them in a Viewbag to display it on the view
@@ -20,5 +21,6 @@ namespace FinanceManager.Controllers
             //Home page for transactions page
             return View();
         }
+
     }
 }

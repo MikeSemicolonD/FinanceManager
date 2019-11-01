@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web.Mvc;
 using System.Web.Security;
 
 /// <summary>
@@ -7,9 +8,10 @@ using System.Web.Security;
 public static class Utilities
 {
 
-    public static string GetUsersUID()
+    public static string GetUsersUID(string email)
     {
-        return Membership.GetUser().ProviderUserKey.ToString();
+        UserAdapter userAdapter = new UserAdapter();
+        return userAdapter.GetUIDByEmail(email);
     }
 
     public static int ParseInt(string strNumber)
