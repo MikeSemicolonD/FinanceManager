@@ -32,7 +32,6 @@ public class TransactionsAdapter
                     TransactionModel transaction = new TransactionModel()
                     {
                         ID = Utilities.ParseInt(reader["ID"].ToString()),
-                        Name = reader["Name"].ToString(),
                         Description = reader["Description"].ToString(),
                         IsEssential = Utilities.ParseBool(reader["IsEssential"].ToString()),
                         Category = reader["Category"].ToString(),
@@ -154,7 +153,6 @@ public class TransactionsAdapter
                     transaction = new TransactionModel()
                     {
                         ID = Utilities.ParseInt(reader["ID"].ToString()),
-                        Name = reader["Name"].ToString(),
                         Description = reader["Description"].ToString(),
                         IsEssential = Utilities.ParseBool(reader["IsEssential"].ToString()),
                         Category = reader["Category"].ToString(),
@@ -182,13 +180,13 @@ public class TransactionsAdapter
 
     public void SetTransactions(List<TransactionModel> transactions)
     {
-        string queryTemplate = "UPDATE [dbo].[Transaction] t SET Name = '{0}', Description = '{1}', IsEssential = {2}, Category = {3}, Price = {4}, AccountID = {5}, AccountType = {6} WHERE t.ID = {7}; ";
+        string queryTemplate = "UPDATE [dbo].[Transaction] t SET Description = '{0}', IsEssential = {1}, Category = '{2}', Amount = {3}, Account_ID = {4}, AccountType = '{5}' WHERE t.ID = {6}; ";
         string query = "";
 
         foreach (TransactionModel transaction in transactions)
         {
-            //Name, Description, IsEssential, Category, Price, Account_ID, AccountType, ID
-            query += string.Format(queryTemplate, transaction.Name, transaction.Description, transaction.IsEssential, transaction.Category, transaction.Price, transaction.AccountID, transaction.AccountType, transaction.ID);
+            //Description, IsEssential, Category, Price, Account_ID, AccountType, ID
+            query += string.Format(queryTemplate, transaction.Description, transaction.IsEssential, transaction.Category, transaction.Price, transaction.AccountID, transaction.AccountType, transaction.ID);
         }
 
         SqlDataProvider db = new SqlDataProvider();
@@ -218,7 +216,7 @@ public class TransactionsAdapter
     public void AddTransactions(List<TransactionModel> transactions, string UserEmail)
     {
 
-        string queryTemplate = "INSERT INTO [dbo].[Transaction] VALUES ({0},{1},{2},{3},{4},{5},{6});";
+        string queryTemplate = "INSERT INTO [dbo].[Transaction] VALUES ('{0}',{1},'{2}',{3},{4},'{5}');";
         string query = "";
 
         List<int> NewTransactionIDs = new List<int>();
@@ -226,7 +224,7 @@ public class TransactionsAdapter
         foreach (TransactionModel transaction in transactions)
         {
             //Name, Description, IsEssential, Category, Price, Account_ID, AccountType
-            query += string.Format(queryTemplate, transaction.Name, transaction.Description, transaction.IsEssential, transaction.Category, transaction.Price, transaction.AccountID, transaction.AccountType);
+            query += string.Format(queryTemplate, transaction.Description, transaction.IsEssential, transaction.Category, transaction.Price, transaction.AccountID, transaction.AccountType);
         }
 
         //Returns the ID of the transactions we just created
