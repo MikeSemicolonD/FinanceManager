@@ -35,9 +35,6 @@
                             <li class="nav-item">
                                 <span class="nav-link">@Html.ActionLink("TRANSACTIONS", "Index", "Transaction", routeValues: null, htmlAttributes: new { @style = "color:darkgray;" })</span>
                             </li>
-                            @*<li class="nav-item">
-                                <span class="nav-link" data-target="#MyModal" data-toggle="modal">Transaction</span>
-                            </li>*@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ACCOUNT</a>
                                 <div class="dropdown-menu" aria-labelledby="accountDropdown">
@@ -49,16 +46,16 @@
                             </li>
                         </ul>
                         @Html.Partial("_LoginPartial")
-                        @*@Html.Partial("TransactionPartial")*@
                     </div>
                 </div>
             </nav>
         }
     }
 
-
     <div class="container body-content">
+
         @RenderBody()
+
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - MiTiM Financial</p>

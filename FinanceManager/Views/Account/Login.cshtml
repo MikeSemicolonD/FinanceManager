@@ -11,9 +11,8 @@
 
             @if (Request.IsAuthenticated)
             {
-                //Redirect to Dashboard
+                Response.Redirect("~/Home/Index");
             }
-
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
@@ -55,7 +54,7 @@
                 @Html.ActionLink("Forgot your password?", "ForgotPassword")
             </p>*@
             }
-            </section>
+        </section>
     </div>
     @*<div class="col-md-4">
             <section id="socialLoginForm">

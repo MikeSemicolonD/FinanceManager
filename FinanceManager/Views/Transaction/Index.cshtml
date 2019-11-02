@@ -1,12 +1,33 @@
 ﻿@{
     ViewBag.Title = "Transactions";
 }
+@model FinanceManager.Models.TransactionModel
 
-<div class="jumbotron">
-    <h1>Transactions</h1>
-    <p class="lead">You can manage/add transactions here.</p>
-</div>
+@if (ViewBag.IsNotDashboard == null)
+{
+    <div class="jumbotron">
+        <h1>Transactions</h1>
+        <p class="lead">You can manage/add transactions here.</p>
+        <span class="btn btn-primary" data-target="#MyModal" data-toggle="modal">Add a Transaction</span>
+    </div>
 
-<div class="row">
-    <p>For each transaction, create a row with the information</p>
-</div>
+    <div class="row">
+        <p>For each transaction, create a row with the information</p>
+    </div>
+}
+else
+{
+    <div class="jumbotron">
+        <h1>Transactions</h1>
+        <p>@ViewBag.Message</p>
+        <span class="btn btn-primary" data-target="#MyModal" data-toggle="modal">Add a Transaction</span>
+    </div>
+    <div class="row">
+        <p>You can only see this on the main transaction page</p>
+    </div>
+}
+
+@using (Html.BeginForm("AddTransaction", "Transaction", FormMethod.Post, new { @class = "form" }))
+{
+    @Html.Partial("AddTransactionModal")
+}
