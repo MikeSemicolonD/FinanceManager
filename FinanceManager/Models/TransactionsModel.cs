@@ -1,4 +1,6 @@
-﻿namespace FinanceManager.Models
+﻿using System;
+
+namespace FinanceManager.Models
 {
     public class TransactionModel
     {
@@ -10,11 +12,13 @@
 
         public string Category { get; set; }
 
-        public decimal Price { get; set; }
+        public decimal Amount { get; set; }
 
-        public int AccountID { get; set; }
+        //public int AccountID { get; set; }
 
-        public string AccountType { get; set; }
+        public DateTime TransactionDate { get; set; }
+
+        public int AccountType { get; set; }
 
     }
 }

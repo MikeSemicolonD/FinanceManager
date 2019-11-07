@@ -13,15 +13,19 @@ namespace FinanceManager.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            //Gets transactions for the given user, put them in a Viewbag to display it on the view
-            //ViewBag.Transactions = transactionsAdapter.GetTransactionsByUID(Utilities.GetUsersUID());
+            TransactionsAdapter transactionsAdapter = new TransactionsAdapter();
+            //Gets transactions for the given user, put them in a model to display it on the view
+            TransactionModelList transactions = new TransactionModelList
+            {
+                TransactionModels = transactionsAdapter.GetTransactionsByUID(Utilities.GetUsersUID(User.Identity.Name))
+            };
+
             //string test = Utilities.GetUsersUID(User.Identity.Name).ToString();
 
             ViewBag.IsNotDashboard = true;
-            ViewBag.Message = "You can put stuff into the viewBag and use it in the view later.";
 
             //Home page for transactions page
-            return View();
+            return View(transactions);
         }
 
         [HttpPost]

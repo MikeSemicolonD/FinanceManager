@@ -196,6 +196,7 @@
     <Compile Include="Models\FrequencyModel.cs" />
     <Compile Include="Models\BudgetModel.cs" />
     <Compile Include="Models\AccountTypeModel.cs" />
+    <Compile Include="Models\TransactionModelList.cs" />
     <Compile Include="Models\TransactionsModel.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
