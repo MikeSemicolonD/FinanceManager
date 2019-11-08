@@ -1,5 +1,7 @@
 ﻿@model FinanceManager.Models.TransactionModelList
 
+<!--TODO: From validation -->
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 <div id="MyModal" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -13,50 +15,50 @@
                 <div class="container-fluid ml-auto">
                     <div class="mb-3">
                         <label>Category</label>
-                        @Html.TextBoxFor(m => m.NewModel.Category)
+                        @Html.TextBoxFor(m => m.AddNewTransactionModel.Category)
                         <div class="invalid-feedback">
                             Category is required.
                         </div>
                     </div>
 
                     <div class="mb-3">
-                        <label>Description</label>
-                        @Html.TextBoxFor(m => m.NewModel.Description)
+                        <label title="Transaction Details">Description</label>
+                        @Html.TextBoxFor(m => m.AddNewTransactionModel.Description)
                         <div class="invalid-feedback">
                             Description is required.
                         </div>
                     </div>
 
                     <div class="mb-3">
-                        <label>Amount</label>
-                        @Html.TextBoxFor(m => m.NewModel.Amount, new { @type = "number", step = "0.01" })
+                        <label title="Money spent on Transaction">Amount</label>
+                        @Html.TextBoxFor(m => m.AddNewTransactionModel.Amount, new { @type = "number", step = "0.01" })
                         <div class="invalid-feedback">
                             Please enter an amount.
                         </div>
                     </div>
 
-                    <!-- TODO: Setup before getting here using the controller or use js to populate drop down? -->
-                    @*<div class="mb-3">
+                    <div class="mb-3">
                         <label>Account Type</label>
-                        @Html.TextBoxFor(m => m.NewModel.AccountType)
-                    </div>*@
+                        @Html.DropDownListFor(m => m.AddNewTransactionModel.AccountType, new SelectList(Model.AvailableAccountTypes, "Value", "Text"))
+
+                    </div>
 
                     <div class="mb-3">
-                        <label>Date</label>
+                        <label title="Date of Transaction">Date</label>
                         <!--TODO: Set to today by default-->
-                        @Html.TextBoxFor(m => m.NewModel.TransactionDate, new { @type = "date" })
+                        @Html.TextBoxFor(m => m.AddNewTransactionModel.TransactionDate, new { @type = "date" })
                     </div>
 
                     <div class="mb-3">
                         <label title="(Example: Food, Gas, Water, Electricity)">Essential Transaction</label>
-                        @Html.TextBoxFor(m => m.NewModel.IsEssential, new { @type = "checkbox" })
+                        @Html.TextBoxFor(m => m.AddNewTransactionModel.IsEssential, new { @type = "checkbox" })
                     </div>
                 </div>
             </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">ADD</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">ADD</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
+</div>

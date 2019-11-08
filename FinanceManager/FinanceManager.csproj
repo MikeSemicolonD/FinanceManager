@@ -413,6 +413,7 @@
     <Content Include="Views\Analytics\Index.cshtml" />
     <Content Include="Views\Budget\Index.cshtml" />
     <Content Include="Views\Transaction\Index.cshtml" />
+    <Content Include="Views\Shared\AddAccountTypeModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

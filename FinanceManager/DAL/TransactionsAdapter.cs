@@ -102,9 +102,10 @@ public class TransactionsAdapter
 
     }
 
-    public void DeleteTransactionByID(long ID)
+    public void DeleteTransactionByID(long ID, string UserEmail)
     {
-        string query = "DELETE * FROM [dbo].[Transaction] t WHERE t.ID = " + ID + ";";
+        string UserUID = Utilities.GetUsersUID(UserEmail);
+        string query = "DELETE FROM [dbo].[User_Transactions] WHERE Transaction_ID = " + ID + " AND UID = '" + UserUID + "'; DELETE FROM [dbo].[Transaction] WHERE ID = " + ID + ";";
         
         SqlDataProvider db = new SqlDataProvider();
 
@@ -182,7 +183,7 @@ public class TransactionsAdapter
 
     public void SetTransactions(List<TransactionModel> transactions)
     {
-        string queryTemplate = "UPDATE [dbo].[Transaction] t SET Description = '{0}', IsEssential = {1}, Category = '{2}', Amount = {3}, Date = CONVERT(datetime,{4},101), Account_ID = '{5}' WHERE t.ID = {6}; ";
+        string queryTemplate = "UPDATE [dbo].[Transaction] SET Description = '{0}', IsEssential = {1}, Category = '{2}', Amount = {3}, Date = CONVERT(datetime,{4},101), Account_ID = '{5}' WHERE ID = {6}; ";
         string query = "";
 
         foreach (TransactionModel transaction in transactions)

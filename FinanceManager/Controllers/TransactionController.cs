@@ -4,23 +4,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
 
 namespace FinanceManager.Controllers
 {
     public class TransactionController : Controller
     {
+        TransactionsAdapter transactionsAdapter = new TransactionsAdapter();
+        AccountTypeAdapter accountTypeAdapter = new AccountTypeAdapter();
+
         [Authorize]
         public ActionResult Index()
         {
-            TransactionsAdapter transactionsAdapter = new TransactionsAdapter();
-            //Gets transactions for the given user, put them in a model to display it on the view
+
+            List<AccountTypeModel> types = accountTypeAdapter.GetAccountTypesByUID(Utilities.GetUsersUID(User.Identity.Name));
+
+            //Gets transactions / available account types for the given user, put them in a model to display it on the view
             TransactionModelList transactions = new TransactionModelList
             {
-                TransactionModels = transactionsAdapter.GetTransactionsByUID(Utilities.GetUsersUID(User.Identity.Name))
+                TransactionModels = transactionsAdapter.GetTransactionsByUID(Utilities.GetUsersUID(User.Identity.Name)),
+                AvailableAccountTypes = accountTypeAdapter.GetAccountTypesByUID(Utilities.GetUsersUID(User.Identity.Name)).Select(x => new SelectListItem { Value = x.ID.ToString(), Text = x.AccountType })
             };
-
-            //string test = Utilities.GetUsersUID(User.Identity.Name).ToString();
 
             ViewBag.IsNotDashboard = true;
 
@@ -29,13 +32,18 @@ namespace FinanceManager.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddTransaction(TransactionModel transaction)
+        public ActionResult AddTransaction(TransactionModelList transaction)
         {
-            TransactionsAdapter transactionsAdapter = new TransactionsAdapter();
-
-            transactionsAdapter.AddTransaction(transaction, User.Identity.Name);
+            transactionsAdapter.AddTransaction(transaction.AddNewTransactionModel, User.Identity.Name);
 
             return Index();
+        }
+        
+        public ActionResult DeleteTransaction(long ID)
+        {
+            transactionsAdapter.DeleteTransactionByID(ID,User.Identity.Name);
+
+            return RedirectToAction("Index","Transaction",null);
         }
     }
 }

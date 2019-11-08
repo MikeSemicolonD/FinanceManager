@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace FinanceManager.Models
 {
@@ -6,18 +7,21 @@ namespace FinanceManager.Models
     {
         public int ID { get; set; }
 
+        [Required]
         public string Description { get; set; }
 
         public bool IsEssential { get; set; }
 
+        [Required]
         public string Category { get; set; }
 
+        [Required]
         public decimal Amount { get; set; }
 
-        //public int AccountID { get; set; }
-
+        [Required]
         public DateTime TransactionDate { get; set; }
 
+        [Required]
         public int AccountType { get; set; }
 
     }

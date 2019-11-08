@@ -13,7 +13,7 @@ public class AccountTypeAdapter
     /// <returns></returns>
     public List<AccountTypeModel> GetAccountTypesByUID(string UID)
     {
-        string query = "SELECT * FROM [dbo].[User_Accounts] UA left join [dbo].[Account] A on UA.Account_ID = A.ID Where UA.UID = '" + UID + "';";
+        string query = "SELECT ID, Type FROM [dbo].[User_Accounts] UA left join [dbo].[Account] A on UA.Account_ID = A.ID Where UA.UID = '" + UID + "';";
 
         List<AccountTypeModel> AccountTypes = new List<AccountTypeModel>();
         SqlDataProvider db = new SqlDataProvider();
@@ -32,7 +32,7 @@ public class AccountTypeAdapter
                     AccountTypeModel AccountType = new AccountTypeModel()
                     {
                         ID = Utilities.ParseInt(reader["ID"].ToString()),
-                        AccountType = reader["AccountType"].ToString()
+                        AccountType = reader["Type"].ToString()
                     };
 
                     AccountTypes.Add(AccountType);
