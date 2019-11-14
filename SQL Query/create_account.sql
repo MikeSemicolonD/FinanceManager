@@ -1,3 +1,6 @@
+--User 1:M User Accounts
+drop table if exists [UserInfo].[dbo].[User_Accounts];
+
 --User Accounts M:1 Account
 drop table if exists [UserInfo].[dbo].[Account];
 
@@ -6,8 +9,6 @@ create table [UserInfo].[dbo].[Account](
     Type varchar(128)
 );
 
---User 1:M User Accounts
-drop table if exists [UserInfo].[dbo].[User_Accounts];
 
 create table [UserInfo].[dbo].[User_Accounts](
     UID nvarchar(128),

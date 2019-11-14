@@ -1,17 +1,17 @@
+--Budget 1:1 Frequency
+drop table if exists [UserInfo].[dbo].[Frequency]
+
 --User 1:1 Budget
 drop table if exists [UserInfo].[dbo].[Budget];
 
 create table [UserInfo].[dbo].[Budget](
-    ID nvarchar(128) not null,
+    UID nvarchar(128) not null,
     Account_ID INT not null,
-    Price decimal,
+    Amount decimal,
     Times int,
     Frequency_ID int,
-    constraint FK_Budget_UID foreign key (ID) references [AspNetUsers](Id)
+    constraint FK_Budget_UID foreign key (UID) references [AspNetUsers](Id)
 );
-
---Budget 1:1 Frequency
-drop table if exists [UserInfo].[dbo].[Frequency]
 
 create table [UserInfo].[dbo].[Frequency](
     ID int identity primary key not null,

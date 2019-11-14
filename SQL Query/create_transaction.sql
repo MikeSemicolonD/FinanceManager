@@ -1,16 +1,27 @@
---User 1:M User Transactions
+--User Transactions M:1 User
 drop table if exists [UserInfo].[dbo].[User_Transactions];
+
+--Transaction 1:1 Category
+drop table if exists [UserInfo].[dbo].[Category];
+
 --User Transactions M:1 Transaction
 drop table if exists [UserInfo].[dbo].[Transaction];
 
+
+create table [UserInfo].[dbo].[Category](
+    ID int,
+    Category varchar
+)
+
 CREATE TABLE [UserInfo].[dbo].[Transaction] (
     ID int identity PRIMARY KEY not null,
-    Description varchar(50),
+    Category_ID int,
+    Description varchar,
+    Amount decimal(20,2),
+    Account_ID INT,
     IsEssential BIT,
-    Category varchar(50),
-    Amount decimal,
-    Account_ID INT not null,
-    AccountType varchar(50)
+    Date date,
+    constraint FK_Category foreign key (Category_ID) references [Category](ID)
 );
 
 create table [UserInfo].[dbo].[User_Transactions](
