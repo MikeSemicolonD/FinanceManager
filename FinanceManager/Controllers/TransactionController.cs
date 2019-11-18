@@ -36,7 +36,7 @@ namespace FinanceManager.Controllers
         {
             transactionsAdapter.AddTransaction(transaction.AddNewTransactionModel, User.Identity.Name);
 
-            return Index();
+            return RedirectToAction("Index", "Transaction", null);
         }
         
         public ActionResult DeleteTransaction(long ID)

@@ -13,7 +13,7 @@ public class TransactionsAdapter
     /// <returns></returns>
     public List<TransactionModel> GetTransactionsByUID(string UID)
     {
-        string query = "SELECT * FROM [dbo].[Transaction] t left join [dbo].[User_Transactions] ut on t.ID = ut.Transaction_ID Where ut.UID = '" + UID + "';";
+        string query = "SELECT * FROM [dbo].[Transaction] t left join [dbo].[User_Transactions] ut on t.ID = ut.Transaction_ID Where ut.UID = '" + UID + "' order by desc;";
 
         List<TransactionModel> transactions = new List<TransactionModel>();
         SqlDataProvider db = new SqlDataProvider();
@@ -189,7 +189,7 @@ public class TransactionsAdapter
         foreach (TransactionModel transaction in transactions)
         {
             //Description, IsEssential, Category, Price, Account_ID, AccountType, ID
-            query += string.Format(queryTemplate, transaction.Description, transaction.IsEssential, transaction.Category, transaction.Amount, transaction.TransactionDate, transaction.AccountType, transaction.ID);
+            query += string.Format(queryTemplate, transaction.Description, (transaction.IsEssential)? 1:0, transaction.Category, transaction.Amount, transaction.TransactionDate, transaction.AccountType, transaction.ID);
         }
 
         SqlDataProvider db = new SqlDataProvider();
