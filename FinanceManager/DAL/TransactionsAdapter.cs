@@ -13,7 +13,7 @@ public class TransactionsAdapter
     /// <returns></returns>
     public List<TransactionModel> GetTransactionsByUID(string UID)
     {
-        string query = "SELECT * FROM [dbo].[Transaction] t left join [dbo].[User_Transactions] ut on t.ID = ut.Transaction_ID Where ut.UID = '" + UID + "' order by desc;";
+        string query = "SELECT * FROM [dbo].[Transaction] t left join [dbo].[User_Transactions] ut on t.ID = ut.Transaction_ID Where ut.UID = '" + UID + "' order by t.ID desc;";
 
         List<TransactionModel> transactions = new List<TransactionModel>();
         SqlDataProvider db = new SqlDataProvider();
