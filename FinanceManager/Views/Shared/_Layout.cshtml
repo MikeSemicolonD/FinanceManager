@@ -41,7 +41,8 @@
                                     <!-- The below should be modified to have a modal pop up when clicked.-->
                                     <!-- There should also be options to select different accounts here -->
                                     <!-- Using the HomeController, it's possible to call the database and pre-populate this drop down-->
-                                    <span class="dropdown-item">ADD ACCOUNT</span>
+                                    <a class="dropdown-item" href="#" data-target="#AccountTypeModal" data-toggle="modal">ADD ACCOUNT</a>
+                                    <!-- <span class="btn btn-primary">Add a Transaction</span> -->
                                 </div>
                             </li>
                         </ul>
@@ -50,6 +51,12 @@
                 </div>
             </nav>
         }
+    }
+
+    @using (Html.BeginForm("AddAccountType", "AccountType", FormMethod.Post, new { @class = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.Partial("AddAccountTypeModal")
     }
 
     <div class="container body-content">

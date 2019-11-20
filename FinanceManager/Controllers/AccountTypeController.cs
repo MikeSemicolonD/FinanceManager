@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FinanceManager.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -19,6 +20,33 @@ namespace FinanceManager.Controllers
             
             //Home page for transactions page
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddAccountType(string typeName)
+        {
+            bool SuccessfullyAdded = false;
+
+            AccountTypeAdapter accountTypeAdapter = new AccountTypeAdapter();
+            List<AccountTypeModel> types = accountTypeAdapter.GetAccountTypesByUID(User.Identity.Name);
+
+            bool duplicate = false;
+
+            foreach (AccountTypeModel accounts in types)
+            {
+                if (accounts.AccountType == typeName)
+                {
+                    duplicate = true;
+                }
+            }
+
+            if (!duplicate)
+            {
+                accountTypeAdapter.AddAccountType(new AccountTypeModel { AccountType = typeName }, User.Identity.Name);
+                SuccessfullyAdded = true;
+            }
+
+            return Json(SuccessfullyAdded,JsonRequestBehavior.AllowGet);
         }
     }
 }
