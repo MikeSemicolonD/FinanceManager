@@ -171,7 +171,7 @@ public class AccountTypeAdapter
     public void AddAccountTypes(List<AccountTypeModel> AccoutTypes, string UserEmail)
     {
 
-        string queryTemplate = "INSERT INTO [dbo].[Account] VALUES ({0});";
+        string queryTemplate = "INSERT INTO [dbo].[Account] VALUES ('{0}');";
         string query = "";
 
         List<int> NewAccountTypeIDs = new List<int>();
