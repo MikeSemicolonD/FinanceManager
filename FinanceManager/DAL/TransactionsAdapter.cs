@@ -226,7 +226,7 @@ public class TransactionsAdapter
 
         foreach (TransactionModel transaction in transactions)
         {
-            query += string.Format(queryTemplate, transaction.Category, transaction.Description, transaction.Amount, transaction.AccountType, transaction.IsEssential, transaction.TransactionDate);
+            query += string.Format(queryTemplate, transaction.Category, transaction.Description, transaction.Amount, transaction.AccountType, (transaction.IsEssential) ? 1 : 0, transaction.TransactionDate);
         }
 
         //Returns the ID of the transactions we just created
