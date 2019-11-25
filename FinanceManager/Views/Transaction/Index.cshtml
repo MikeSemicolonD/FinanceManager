@@ -30,15 +30,16 @@ else //Below will be shown on the main transactions page
         </div>
    </nav>
     <div class="row">
-        <table class="table table-striped table-bordered">
+        <table style="border:ridge black; background-color:white" class="table table-striped table-bordered">
             <thead>
                 <tr>
                     <th scope="col" style="text-align:center">Amount</th>
+                    <th scope="col" style="text-align:center">Account Type</th>
                     <th scope="col">Description</th>
                     <th scope="col">Category</th>
                     <th scope="col" style="text-align:center">Essential</th>
                     <th scope="col" style="text-align:center">Date of Transaction</th>
-                    <th scope="col" style="text-align:center">Action</th>
+                    <th scope="col" style="text-align:center"></th>
                 </tr>
             </thead>
             <tbody id="TransactionsTable">
@@ -52,25 +53,26 @@ else //Below will be shown on the main transactions page
                 {
                     foreach (var transaction in Model.TransactionModels)
                     {
-                        <tr id="@transaction.AccountType">
-                            <th scope="row" align="center">$@transaction.Amount</th>
-                            <td>@transaction.Description</td>
-                            <td>@transaction.Category</td>
-                            <td align="center">
-                                <a>
-                                    @if (transaction.IsEssential)
-                                    {
-                                        <span style="color:lawngreen; font-size:28px">✓</span>
-                                    }
-                                    else
-                                    {
-                                        <span style="color:red; font-size:28px">✕</span>
-                                    }
-                                </a>
-                            </td>
-                            <td align="center">@transaction.TransactionDate</td>
-                            <td align="center"> @Html.ActionLink("Delete", "DeleteTransaction", "Transaction", new { ID = transaction.ID }, new { @class = "btn btn-danger btn-sm" }) </td>
-                        </tr>
+                    <tr id="@transaction.AccountType">
+                        <th scope="row" align="center">$@transaction.Amount</th>
+                        <td>@Model.AvailableAccountTypes.ElementAt(transaction.AccountType-1).Text</td>
+                        <td>@transaction.Description</td>
+                        <td>@transaction.Category</td>
+                        <td align="center">
+                            <a>
+                                @if (transaction.IsEssential)
+                                {
+                                    <span style="color:lawngreen; font-size:28px">✓</span>
+                                }
+                                else
+                                {
+                                    <span style="color:red; font-size:28px">✕</span>
+                                }
+                            </a>
+                        </td>
+                        <td align="center">@transaction.TransactionDate</td>
+                        <td align="center"> @Html.ActionLink("Delete", "DeleteTransaction", "Transaction", new { ID = transaction.ID }, new { @class = "btn btn-danger btn-sm" }) </td>
+                    </tr>
                     }
                 }
             </tbody>
