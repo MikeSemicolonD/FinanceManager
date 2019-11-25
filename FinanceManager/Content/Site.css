@@ -3,6 +3,37 @@
     padding-bottom: 10px;
 }
 
+// redifine the glyphicons font family to font-awesome
+.glyphicon:before {
+    font-family: 'Glyphicons Halflings';
+}
+
+// redifine .glyphicon
+.glyphicon {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+// point glyphicon-remove-circle icon to the neareset font-awesome equivalent
+.glyphicon-remove-circle:before {
+    content: "\f05c";
+}
+
+.glyphicon-chevron-down:before {
+    content: "\f078";
+}
+
+.glyphicon-chevron-up:before {
+    content: "\f077";
+}
+
+.hidden {
+    display: none !important;
+}
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;

@@ -6,7 +6,6 @@
     <title>@ViewBag.Title - MiTiM Financial</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
 </head>
 <body>
     @if (Request.IsAuthenticated)
@@ -14,35 +13,26 @@
         using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
         {
             @Html.AntiForgeryToken()
-            <nav class="navbar navbar-expand navbar-dark bg-dark navbar-fixed-top">
+            <nav class="navbar navbar-expand navbar-light navbar-fixed-top" style="background-color:#9DD5CC; border: 5px outset #D4461E">
                 <div class="container">
-                    @Html.ActionLink("MiTiM", "Index", "Home", new { @class = "navbar-brand" }, new { @style = "color:white;  font-size:22px" })
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-
+                    <a class="navbar-brand" href="@Url.Action("Index","Home")">
+                        <img style="width:120px;height:120px;" src="@Url.Content("~/Content/Images/SPOILER_logo_transparent.png")" />
+                    </a>
                     <div class="collapse navbar-collapse" id="navbarsExample02">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item">
-                                <span class="nav-link">@Html.ActionLink("DASHBOARD", "Index", "Home", routeValues: null, htmlAttributes: new { @style = "color:darkgray;" })</span>
+                                <span class="nav-link" style="color:#D4461E;">@Html.ActionLink("Analytics", "Index", "Analytics", routeValues: null, htmlAttributes: new { @style = "color:black" })</span>
                             </li>
                             <li class="nav-item">
-                                <span class="nav-link">@Html.ActionLink("ANALYTICS", "Index", "Analytics", routeValues: null, htmlAttributes: new { @style = "color:darkgray;" })</span>
+                                <span class="nav-link">@Html.ActionLink("Budget", "Index", "Budget", routeValues: null, htmlAttributes: new { @style = "color:black" })</span>
                             </li>
                             <li class="nav-item">
-                                <span class="nav-link">@Html.ActionLink("BUDGET", "Index", "Budget", routeValues: null, htmlAttributes: new { @style = "color:darkgray;" })</span>
-                            </li>
-                            <li class="nav-item">
-                                <span class="nav-link">@Html.ActionLink("TRANSACTIONS", "Index", "Transaction", routeValues: null, htmlAttributes: new { @style = "color:darkgray;" })</span>
+                                <span class="nav-link">@Html.ActionLink("Transaction", "Index", "Transaction", routeValues: null, htmlAttributes: new { @style = "color:black" })</span>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ACCOUNT</a>
-                                <div class="dropdown-menu" aria-labelledby="accountDropdown">
-                                    <!-- The below should be modified to have a modal pop up when clicked.-->
-                                    <!-- There should also be options to select different accounts here -->
-                                    <!-- Using the HomeController, it's possible to call the database and pre-populate this drop down-->
-                                    <a class="dropdown-item" href="#" data-target="#AccountTypeModal" data-toggle="modal">ADD ACCOUNT</a>
-                                    <!-- <span class="btn btn-primary">Add a Transaction</span> -->
+                                <a style="color:black" class="nav-link dropdown-toggle" href="#" id="accountDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account Types</a>
+                                <div style="background-color:#9DD5CC" class="dropdown-menu" aria-labelledby="accountDropdown">
+                                    <a class="dropdown-item" href="#" data-target="#AccountTypeModal" data-toggle="modal">Add Account Type</a>
                                 </div>
                             </li>
                         </ul>

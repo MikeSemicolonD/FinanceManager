@@ -228,6 +228,10 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\SPOILER_facebook_cover_photo_1.png" />
+    <Content Include="Content\Images\SPOILER_logo_transparent.png" />
+    <Content Include="Content\Images\twitter_header_photo_2.png" />
+    <Content Include="Content\Images\youtube_profile_image.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
