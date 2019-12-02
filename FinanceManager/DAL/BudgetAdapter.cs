@@ -55,7 +55,7 @@ public class BudgetAdapter
     public void DeleteBudget(BudgetModel budget)
     {
         //Parse each id into query
-        string query = "DELETE * FROM [dbo].[Budgets] B WHERE B.ID = '"+ budget.UID+ "';";
+        string query = "DELETE FROM [dbo].[Budgets] AS B WHERE B.ID = '"+ budget.UID+ "';";
 
         SqlDataProvider db = new SqlDataProvider();
 
@@ -67,13 +67,6 @@ public class BudgetAdapter
 
                 SqlCommand command = db.CreateCommand(query, connection);
                 SqlDataReader reader = db.ExecuteReader(command);
-
-                while (reader.Read())
-                {
-                    //TODO: Test this, Does deleting return a number or something?
-                    var obj1 = reader[0];
-                    var obj2 = reader[1];
-                }
 
                 reader.Close();
             }

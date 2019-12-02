@@ -10,43 +10,46 @@ namespace FinanceManager.Controllers
 {
     public class AccountTypeController : Controller
     {
-        [Authorize]
-        public ActionResult Index()
-        {
-            //TransactionsAdapter transactionsAdapter = new TransactionsAdapter();
+        //[Authorize]
+        //public ActionResult Index()
+        //{
+        //    //TransactionsAdapter transactionsAdapter = new TransactionsAdapter();
 
-            //Gets transactions for the given user, put them in a Viewbag to display it on the view
-            //ViewBag.Transactions = transactionsAdapter.GetTransactionsByUID(Utilities.GetUsersUID());
+        //    //Gets transactions for the given user, put them in a Viewbag to display it on the view
+        //    //ViewBag.Transactions = transactionsAdapter.GetTransactionsByUID(Utilities.GetUsersUID());
             
-            //Home page for transactions page
-            return View();
+        //    //Home page for Account Type page
+        //    return View();
+        //}
+
+        [HttpGet]
+        public JsonResult GetUserAccountTypes()
+        {
+            AccountTypeAdapter accountTypeAdapter = new AccountTypeAdapter();
+
+            List<AccountTypeModel> accountTypes = accountTypeAdapter.GetAccountTypesByUID(Utilities.GetUsersUID(User.Identity.Name));
+
+            return Json(accountTypes.ToList(), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult RemoveAccountType(long typeID)
+        {
+            AccountTypeAdapter accountTypeAdapter = new AccountTypeAdapter();
+
+            accountTypeAdapter.DeleteAccountTypeByID(typeID);
+
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public ActionResult AddAccountType(string typeName)
         {
-            bool SuccessfullyAdded = false;
-
             AccountTypeAdapter accountTypeAdapter = new AccountTypeAdapter();
-            List<AccountTypeModel> types = accountTypeAdapter.GetAccountTypesByUID(User.Identity.Name);
 
-            bool duplicate = false;
+            accountTypeAdapter.AddAccountType(new AccountTypeModel { AccountType = typeName }, User.Identity.Name);
 
-            foreach (AccountTypeModel accounts in types)
-            {
-                if (accounts.AccountType == typeName)
-                {
-                    duplicate = true;
-                }
-            }
-
-            if (!duplicate)
-            {
-                accountTypeAdapter.AddAccountType(new AccountTypeModel { AccountType = typeName }, User.Identity.Name);
-                SuccessfullyAdded = true;
-            }
-
-            return Json(SuccessfullyAdded,JsonRequestBehavior.AllowGet);
+            return Json(true,JsonRequestBehavior.AllowGet);
         }
     }
 }

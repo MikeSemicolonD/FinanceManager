@@ -49,10 +49,15 @@ public class AccountTypeAdapter
         return AccountTypes;
     }
 
+    /// <summary>
+    /// Deletes records from [User_Accounts] where the ID matches
+    /// ([User_Accounts] relates [Account] to [ASP_NET_User])
+    /// </summary>
+    /// <param name="accountTypes"></param>
     public void DeleteAccountTypes(List<AccountTypeModel> accountTypes)
     {
         //Parse each id into query
-        string template = "DELETE * FROM [dbo].[Account] a WHERE a.ID IN ({0}); DELETE * FROM [dbo].[User_Accounts] UA WHERE UA.Account_ID IN ({0});";
+        string template = "DELETE FROM [dbo].[User_Accounts] UA WHERE UA.Account_ID IN ({0});";
         string IDs = "";
 
         //Create a string full of all Account Types IDs to delete
@@ -78,14 +83,6 @@ public class AccountTypeAdapter
 
                 SqlCommand command = db.CreateCommand(query, connection);
                 SqlDataReader reader = db.ExecuteReader(command);
-
-                while (reader.Read())
-                {
-                    //TODO: Test this, Does deleting return a number or something?
-                    var obj1 = reader[0];
-                    var obj2 = reader[1];
-                }
-
                 reader.Close();
             }
         }
@@ -96,9 +93,14 @@ public class AccountTypeAdapter
 
     }
 
+    /// <summary>
+    /// Deletes record from [User_Accounts] where the ID matches
+    /// ([User_Accounts] relates [Account] to [ASP_NET_User])
+    /// </summary>
+    /// <param name="ID"></param>
     public void DeleteAccountTypeByID(long ID)
     {
-        string query = "DELETE * FROM [dbo].[Account] a WHERE a.ID = "+ID+ "; DELETE * FROM [dbo].[User_Accounts] UA WHERE UA.Account_ID = " + ID + ";";
+        string query = "DELETE FROM [dbo].[User_Accounts] WHERE Account_ID = " + ID + ";";
         
         SqlDataProvider db = new SqlDataProvider();
 
@@ -110,14 +112,6 @@ public class AccountTypeAdapter
 
                 SqlCommand command = db.CreateCommand(query, connection);
                 SqlDataReader reader = db.ExecuteReader(command);
-
-                while (reader.Read())
-                {
-                    //TODO: Test this, Does deleting return a number or something?
-                    var obj1 = reader[0];
-                    var obj2 = reader[1];
-                }
-
                 reader.Close();
             }
         }
@@ -127,6 +121,12 @@ public class AccountTypeAdapter
         }
     }
 
+    /// <summary>
+    /// Delete record from [Account] where the ID matches. 
+    /// (Deletes from [Account] and not [User_Accounts] which relates [Account] to [ASP_NET_User])
+    /// </summary>
+    /// <param name="ID"></param>
+    /// <returns></returns>
     public AccountTypeModel GetAccountTypeByID(long ID)
     {
         string query = "SELECT * FROM [dbo].[Account] a WHERE a.ID = " + ID + ";";
@@ -163,27 +163,25 @@ public class AccountTypeAdapter
         return accountType;
     }
 
+    /// <summary>
+    /// Adds to [Account] if the types don't already exist.
+    /// Also adds reference to account types into [User_Accounts]. (Links the account types to the user)
+    /// </summary>
+    /// <param name="AccountType"></param>
+    /// <param name="UserEmail"></param>
     public void AddAccountType(AccountTypeModel AccountType, string UserEmail)
     {
         AddAccountTypes(new List<AccountTypeModel>() { AccountType }, UserEmail);
     }
 
+    /// <summary>
+    /// Adds to [Account] if the type doesn't already exists.
+    /// Also adds reference to account type into [User_Accounts]. (Links the account type to the user)
+    /// </summary>
+    /// <param name="AccoutTypes"></param>
+    /// <param name="UserEmail"></param>
     public void AddAccountTypes(List<AccountTypeModel> AccoutTypes, string UserEmail)
     {
-
-        string queryTemplate = "INSERT INTO [dbo].[Account] VALUES ('{0}');";
-        string query = "";
-
-        List<int> NewAccountTypeIDs = new List<int>();
-
-        foreach (AccountTypeModel Account in AccoutTypes)
-        {
-            //AccountType
-            query += string.Format(queryTemplate, Account.AccountType);
-        }
-
-        //Returns the ID of the AccoutTypes we just created
-        query += " SELECT SCOPE_IDENTITY() AS [NewIDs];";
 
         SqlDataProvider db = new SqlDataProvider();
 
@@ -193,16 +191,72 @@ public class AccountTypeAdapter
             {
                 connection.Open();
 
-                SqlCommand command = db.CreateCommand(query, connection);
+                string preCheck = "SELECT ID FROM [dbo].[Account] WHERE Type LIKE {0};";
+                string preCheckConditions = "";
+                string query = "";
 
-                SqlDataReader reader = db.ExecuteReader(command);
-
-                while (reader.Read())
+                for(int i = 0; i < AccoutTypes.Count; i++)
                 {
-                    NewAccountTypeIDs.Add(Utilities.ParseInt(reader["NewIDs"].ToString()));
+                    preCheckConditions += ("'"+AccoutTypes[i].ID+"'");
+
+                    if(AccoutTypes.Count > 1 && i < AccoutTypes.Count-1)
+                    {
+                        preCheckConditions += " OR ";
+                    }
                 }
 
-                reader.Close();
+                query = string.Format(preCheck, preCheckConditions);
+
+                SqlCommand preCheckCommand = db.CreateCommand(query, connection);
+
+                SqlDataReader preCheckReader = db.ExecuteReader(preCheckCommand);
+
+                List<int> PotentialDuplicateAccountTypeIDs = new List<int>();
+
+                while (preCheckReader.Read())
+                {
+                    PotentialDuplicateAccountTypeIDs.Add(Utilities.ParseInt(preCheckReader["ID"].ToString()));
+                }
+
+                preCheckReader.Close();
+
+                List<AccountTypeModel> NonDuplicateAccoutTypes = new List<AccountTypeModel>();
+
+                for (int i = 0; i < AccoutTypes.Count; i++)
+                {
+                    if (!PotentialDuplicateAccountTypeIDs.Contains(AccoutTypes[i].ID))
+                    {
+                        NonDuplicateAccoutTypes.Add(AccoutTypes[i]);
+                    }
+                }
+                
+                List<int> AccountTypeIDs = new List<int>();
+
+                if (NonDuplicateAccoutTypes.Count > 0)
+                {
+                    string queryTemplate = "INSERT INTO [dbo].[Account] VALUES ('{0}');";
+                    query = "";
+
+                    foreach (AccountTypeModel Account in NonDuplicateAccoutTypes)
+                    {
+                        //AccountType
+                        query += string.Format(queryTemplate, Account.AccountType);
+                    }
+
+                    //Returns the ID of the AccoutTypes we just created
+                    query += " SELECT SCOPE_IDENTITY() AS [NewIDs];";
+
+                    SqlCommand command = db.CreateCommand(query, connection);
+
+                    SqlDataReader reader = db.ExecuteReader(command);
+
+                    while (reader.Read())
+                    {
+                        AccountTypeIDs.Add(Utilities.ParseInt(reader["NewIDs"].ToString()));
+                    }
+
+                    reader.Close();
+                }
                 
                 string template = "INSERT INTO [dbo].[User_Accounts] VALUES('{0}',{1}); ";
 
@@ -210,7 +264,7 @@ public class AccountTypeAdapter
 
                 string UserUID = Utilities.GetUsersUID(UserEmail);
 
-                foreach (int id in NewAccountTypeIDs)
+                foreach (int id in AccountTypeIDs)
                 {
                     UAQuery += string.Format(template,UserUID,id);
                 }
@@ -219,7 +273,7 @@ public class AccountTypeAdapter
 
                 UTcommand.ExecuteScalar();
 
-                reader.Close();
+                preCheckReader.Close();
 
             }
         }

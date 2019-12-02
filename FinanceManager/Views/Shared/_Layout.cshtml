@@ -7,8 +7,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body
-    style="background-color:#9DD5CC;">
+<body style="background-color:#9DD5CC;">
     @if (Request.IsAuthenticated)
     {
         using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
@@ -17,38 +16,36 @@
             <nav class="navbar navbar-expand navbar-light navbar-fixed-top" style="background-color:#9DD5CC; border-radius: 10px;border: 10px outset #D4461E">
                 <div class="container">
                     <a class="navbar-brand" href="@Url.Action("Index","Home")">
-                        <img style="width:120px;height:120px;" src="@Url.Content("~/Content/Images/SPOILER_logo_transparent.png")" />
+                        <img style="width:100px;height:100px;" src="@Url.Content("~/Content/Images/SPOILER_logo_transparent.png")" />
                     </a>
-                        <div class="collapse navbar-collapse" id="navbarsExample02">
-                            <ul class="navbar-nav mr-auto">
-                                <li class="nav-item">
-                                    <span class="nav-link" style="color:#D4461E;">@Html.ActionLink("Analytics", "Index", "Analytics", routeValues: null, htmlAttributes: new { @style = "color:black" })</span>
-                                </li>
-                                <li class="nav-item">
-                                    <span class="nav-link">@Html.ActionLink("Budget", "Index", "Budget", routeValues: null, htmlAttributes: new { @style = "color:black" })</span>
-                                </li>
-                                <li class="nav-item">
-                                    <span class="nav-link">@Html.ActionLink("Transaction", "Index", "Transaction", routeValues: null, htmlAttributes: new { @style = "color:black" })</span>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a style="color:black" class="nav-link dropdown-toggle" href="#" id="accountDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account Types</a>
-                                    <div @*style="background-color:#9DD5CC"*@ class="dropdown-menu" aria-labelledby="accountDropdown">
-                                        <a class="dropdown-item" href="#" data-target="#AccountTypeModal" data-toggle="modal">Add Account Type</a>
-                                    </div>
-                                </li>
-                            </ul>
-                            @Html.Partial("_LoginPartial")
-                        </div>
+                    <div class="collapse navbar-collapse" id="navbarsExample02">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <span class="nav-link" style="color:#D4461E;">@Html.ActionLink("Analytics", "Index", "Analytics", routeValues: null, htmlAttributes: new { @style = "color:black" })</span>
+                            </li>
+                            <li class="nav-item">
+                                <span class="nav-link">@Html.ActionLink("Budget", "Index", "Budget", routeValues: null, htmlAttributes: new { @style = "color:black" })</span>
+                            </li>
+                            <li class="nav-item">
+                                <span class="nav-link">@Html.ActionLink("Transaction", "Index", "Transaction", routeValues: null, htmlAttributes: new { @style = "color:black" })</span>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a style="color:black" class="nav-link dropdown-toggle" href="#" id="accountDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account Types</a>
+                                <div @*style="background-color:#9DD5CC"*@ class="dropdown-menu" aria-labelledby="accountDropdown">
+                                    <a class="dropdown-item" href="#" data-target="#AccountTypeModal" data-toggle="modal">Add Account Type</a>
+                                    <a class="dropdown-item" href="#" data-target="#DeleteAccountTypeModal" onclick="LoadAccountTypes()" data-toggle="modal">Delete Account Type</a>
+                                </div>
+                            </li>
+                        </ul>
+                        @Html.Partial("_LoginPartial")
+                    </div>
                 </div>
             </nav>
         }
     }
 
-    @using (Html.BeginForm("AddAccountType", "AccountType", FormMethod.Post, new { @class = "form" }))
-    {
-        @Html.AntiForgeryToken()
-        @Html.Partial("AddAccountTypeModal")
-    }
+    @Html.Partial("AddAccountTypeModal")
+    @Html.Partial("DeleteAccountTypeModal")
 
     <div class="container body-content">
 

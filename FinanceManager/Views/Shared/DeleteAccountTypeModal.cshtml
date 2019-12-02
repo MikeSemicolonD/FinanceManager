@@ -1,0 +1,51 @@
+﻿<div id="DeleteAccountTypeModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete Account Type</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid ml-auto">
+                    <div class="mb-3">
+                        <label>Target Account Type: </label>
+                        <select id="TargetAccountType" style="width:30%"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="DeleteAccountType" type="button" onclick="DeleteAccountType()" class="btn btn-primary btn-danger">REMOVE</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function LoadAccountTypes() {
+        $.getJSON("@Url.Action("GetUserAccountTypes", "AccountType")", function (data) {
+            $.each(data, function (i, data) {
+                $('<option>', { value: data.ID, text: data.AccountType }).html(data.AccountType).appendTo("#TargetAccountType");
+            });
+        })
+    }
+
+    function DeleteAccountType() {
+        if ($("#TargetAccountType option:selected").val().length > 0) {
+            var value = $("#TargetAccountType option:selected").val();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("RemoveAccountType", "AccountType")',
+                data: { typeID: value },
+                success: function (data) {
+                    location.reload();
+                },
+                error: function (data) {
+                    alert("An error occured while deleting account type.");
+                }
+            });
+        }
+    }
+</script>

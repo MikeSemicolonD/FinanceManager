@@ -58,7 +58,7 @@ public class TransactionsAdapter
     public void DeleteTransactions(List<TransactionModel> transactions)
     {
         //Parse each id into query
-        string template = "DELETE * FROM [dbo].[Transaction] t WHERE t.ID IN ({0});";
+        string template = "DELETE FROM [dbo].[Transaction] WHERE ID IN ({0});";
         string IDs = "";
 
         //Create a string full of all transaction IDs to delete
@@ -84,14 +84,6 @@ public class TransactionsAdapter
 
                 SqlCommand command = db.CreateCommand(query, connection);
                 SqlDataReader reader = db.ExecuteReader(command);
-
-                while (reader.Read())
-                {
-                    //TODO: Test this, Does deleting return a number or something?
-                    var obj1 = reader[0];
-                    var obj2 = reader[1];
-                }
-
                 reader.Close();
             }
         }
@@ -117,14 +109,6 @@ public class TransactionsAdapter
 
                 SqlCommand command = db.CreateCommand(query, connection);
                 SqlDataReader reader = db.ExecuteReader(command);
-
-                while (reader.Read())
-                {
-                    //TODO: Test this, Does deleting return a number or something?
-                    var obj1 = reader[0];
-                    var obj2 = reader[1];
-                }
-
                 reader.Close();
             }
         }

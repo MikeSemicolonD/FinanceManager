@@ -54,8 +54,15 @@ else //Below will be shown on the main transactions page
                     foreach (var transaction in Model.TransactionModels)
                     {
                     <tr id="@transaction.AccountType">
-                        <th scope="row" align="center">$@transaction.Amount</th>
-                        <td>@Model.AvailableAccountTypes.ElementAt(transaction.AccountType-1).Text</td>
+                        @if (transaction.Amount >= 0)
+                        {
+                            <th scope="row" align="center" style="color:green;">$@transaction.Amount</th>
+                        }
+                        else
+                        {
+                            <th scope="row" align="center" style="color:red;">$@transaction.Amount</th>
+                        }
+                        <td>@Model.AvailableAccountTypes.ElementAt(transaction.AccountType - 1).Text</td>
                         <td>@transaction.Description</td>
                         <td>@transaction.Category</td>
                         <td align="center">
