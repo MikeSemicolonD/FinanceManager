@@ -195,11 +195,21 @@ public class TransactionsAdapter
         }
     }
 
+    /// <summary>
+    /// Adds a single transaction belonging to a given user
+    /// </summary>
+    /// <param name="transaction"></param>
+    /// <param name="UserEmail"></param>
     public void AddTransaction(TransactionModel transaction, string UserEmail)
     {
         AddTransactions(new List<TransactionModel>() { transaction }, UserEmail);
     }
 
+    /// <summary>
+    /// Adds a list of transactions belonging to a given user
+    /// </summary>
+    /// <param name="transactions"></param>
+    /// <param name="UserEmail"></param>
     public void AddTransactions(List<TransactionModel> transactions, string UserEmail)
     {
 

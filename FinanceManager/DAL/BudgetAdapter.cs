@@ -7,13 +7,13 @@ using FinanceManager.DAL;
 public class BudgetAdapter
 {
     /// <summary>
-    /// Returns a list of budgets for a given user
+    /// Returns a list of budgets belonging to a given user
     /// </summary>
     /// <param name="UID"></param>
     /// <returns></returns>
     public List<BudgetModel> GetBudgetsByUID(string UID)
     {
-        string query = "SELECT * FROM [dbo].[Budget] b Where b.ID = '" + UID + "';";
+        string query = "SELECT * FROM [dbo].[Budget] as b left join [dbo].[User_Budget] as ub on b.ID = ub.Budget_ID Where ub.UID = '" + UID + "';";
 
         List<BudgetModel> budgets = new List<BudgetModel>();
         SqlDataProvider db = new SqlDataProvider();
@@ -31,10 +31,11 @@ public class BudgetAdapter
                 {
                     BudgetModel budget = new BudgetModel()
                     {
-                        UID = reader["ID"].ToString(),
+                        ID = Utilities.ParseInt(reader["ID"].ToString()),
+                        Category_ID = Utilities.ParseInt(reader["Category_ID"].ToString()),
+                        Description = reader["Description"].ToString(),
                         Account_ID = Utilities.ParseInt(reader["Account_ID"].ToString()),
-                        Price = Utilities.ParseDecimal(reader["Price"].ToString()),
-                        Times = Utilities.ParseInt(reader["Times"].ToString()),
+                        Amount = Utilities.ParseDecimal(reader["Amount"].ToString()),
                         Frequency_ID = Utilities.ParseInt(reader["Frequency_ID"].ToString()),
                     };
 
@@ -52,10 +53,14 @@ public class BudgetAdapter
         return budgets;
     }
 
+    /// <summary>
+    /// Deletes a Budget that belongs to specified user
+    /// </summary>
+    /// <param name="budget"></param>
     public void DeleteBudget(BudgetModel budget)
     {
         //Parse each id into query
-        string query = "DELETE FROM [dbo].[Budgets] AS B WHERE B.ID = '"+ budget.UID+ "';";
+        string query = "DELETE FROM [dbo].[User_Budget] AS UB WHERE UB.UID = '"+ budget.UID + "';";
 
         SqlDataProvider db = new SqlDataProvider();
 
@@ -78,9 +83,14 @@ public class BudgetAdapter
 
     }
 
-    public BudgetModel GetBudgetByUID(string UID)
+    /// <summary>
+    /// Returns a single budget model belonging to a given user
+    /// </summary>
+    /// <param name="UID"></param>
+    /// <returns></returns>
+    public BudgetModel GetBudgetByID(string ID)
     {
-        string query = "SELECT * FROM [dbo].[Budgets] B WHERE B.ID = " + UID + ";";
+        string query = "SELECT * FROM [dbo].[Budgets] B WHERE B.ID = " + ID + ";";
 
         BudgetModel budget = new BudgetModel();
         SqlDataProvider db = new SqlDataProvider();
@@ -98,10 +108,11 @@ public class BudgetAdapter
                 {
                     budget = new BudgetModel()
                     {
-                        UID = reader["ID"].ToString(),
+                        ID = Utilities.ParseInt(reader["ID"].ToString()),
+                        Category_ID = Utilities.ParseInt(reader["Category_ID"].ToString()),
+                        Description = reader["Description"].ToString(),
                         Account_ID = Utilities.ParseInt(reader["Account_ID"].ToString()),
-                        Price = Utilities.ParseDecimal(reader["Price"].ToString()),
-                        Times = Utilities.ParseInt(reader["Times"].ToString()),
+                        Amount = Utilities.ParseDecimal(reader["Price"].ToString()),
                         Frequency_ID = Utilities.ParseInt(reader["Frequency_ID"].ToString()),
                     };
                 }
@@ -117,11 +128,21 @@ public class BudgetAdapter
         return budget;
     }
 
+    /// <summary>
+    /// Updates the values of a single budget belonging to a given user
+    /// </summary>
+    /// <param name="budget"></param>
+    /// <param name="UserEmail"></param>
     public void SetBudget(BudgetModel budget, string UserEmail)
     {
         SetBudgets(new List<BudgetModel>() { budget }, UserEmail);
     }
 
+    /// <summary>
+    /// Updates a list of budgets belonging to a given user
+    /// </summary>
+    /// <param name="Budgets"></param>
+    /// <param name="UserEmail"></param>
     public void SetBudgets(List<BudgetModel> Budgets, string UserEmail)
     {
         string queryTemplate = "UPDATE [dbo].[Budget] t SET Account_ID = '{0}', Price = '{1}', Times = {2}, Frequency_ID = {3} WHERE t.ID = {4}; ";
@@ -130,7 +151,7 @@ public class BudgetAdapter
         foreach (BudgetModel budget in Budgets)
         {
             //Account_ID, Price, Times, Frequency_ID, UID
-            query += string.Format(queryTemplate, budget.Account_ID, budget.Price, budget.Times, budget.Frequency_ID, Utilities.GetUsersUID(UserEmail));
+            query += string.Format(queryTemplate, budget.Account_ID, budget.Amount, budget.Amount, budget.Frequency_ID, (budget.UID.Length != 0) ? budget.UID : Utilities.GetUsersUID(UserEmail));
         }
 
         SqlDataProvider db = new SqlDataProvider();
@@ -152,21 +173,36 @@ public class BudgetAdapter
         }
     }
 
+    /// <summary>
+    /// Adds a single budget belonging to a given user
+    /// </summary>
+    /// <param name="budget"></param>
+    /// <param name="UserEmail"></param>
     public void AddBudget(BudgetModel budget, string UserEmail)
     {
         AddBudgets(new List<BudgetModel>() { budget }, UserEmail);
     }
 
+    /// <summary>
+    /// Adds a list of budgets belonging to a given user. Adding to the [Budget] and the [User_Budget] table.
+    /// </summary>
+    /// <param name="budgets"></param>
+    /// <param name="UserEmail"></param>
     public void AddBudgets(List<BudgetModel> budgets, string UserEmail)
     {
-        string queryTemplate = "INSERT INTO [dbo].[Budget] VALUES ('{0}',{1},{2},{3},{4});";
+        string queryTemplate = "INSERT INTO [dbo].[Budget] VALUES ({0},'{1}',{2},{3},{4});";
         string query = "";
+
+        List<int> NewBudgetIDs = new List<int>();
 
         foreach (BudgetModel budget in budgets)
         {
-            //Name, Description, IsEssential, Category, Price, Account_ID, AccountType
-            query += string.Format(queryTemplate, (budget.UID.Length == 0) ? Utilities.GetUsersUID(UserEmail) : budget.UID, budget.Account_ID, budget.Price, budget.Times, budget.Frequency_ID);
+            //Category_ID, Description, Account_ID, Amount, Frequency_ID
+            query += string.Format(queryTemplate, budget.Category_ID, budget.Description, budget.Account_ID, budget.Amount, budget.Frequency_ID);
         }
+
+        //Returns the ID of the budgets we just created
+        query += " SELECT SCOPE_IDENTITY() AS [NewIDs];";
 
         SqlDataProvider db = new SqlDataProvider();
 
@@ -178,7 +214,31 @@ public class BudgetAdapter
 
                 SqlCommand command = db.CreateCommand(query, connection);
 
-                command.ExecuteScalar();
+                SqlDataReader reader = db.ExecuteReader(command);
+
+                while (reader.Read())
+                {
+                    NewBudgetIDs.Add(Utilities.ParseInt(reader["NewIDs"].ToString()));
+                }
+
+                reader.Close();
+
+                string template = "INSERT INTO [dbo].[User_Budget] VALUES('{0}',{1}); ";
+
+                string UTQuery = "";
+
+                string UserUID = Utilities.GetUsersUID(UserEmail);
+
+                foreach (int id in NewBudgetIDs)
+                {
+                    UTQuery += string.Format(template, UserUID, id);
+                }
+
+                SqlCommand UTcommand = db.CreateCommand(UTQuery, connection);
+
+                UTcommand.ExecuteScalar();
+
+                reader.Close();
 
             }
         }
