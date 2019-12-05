@@ -34,7 +34,7 @@ public class TransactionsAdapter
                         ID = Utilities.ParseInt(reader["ID"].ToString()),
                         Description = reader["Description"].ToString(),
                         IsEssential = Utilities.ParseBool(reader["IsEssential"].ToString()),
-                        Category = reader["Category"].ToString(),
+                        Category = Utilities.ParseInt(reader["Category_ID"].ToString()),
                         Amount = Utilities.ParseDecimal(reader["Amount"].ToString()),
                         AccountType = Utilities.ParseInt(reader["Account_ID"].ToString()),
                         TransactionDate = Utilities.ParseDateTime(reader["Date"].ToString())//,
@@ -139,7 +139,7 @@ public class TransactionsAdapter
                     transaction = new TransactionModel()
                     {
                         ID = Utilities.ParseInt(reader["ID"].ToString()),
-                        Category = reader["Category"].ToString(),
+                        Category = Utilities.ParseInt(reader["Category_ID"].ToString()),
                         Description = reader["Description"].ToString(),
                         Amount = Utilities.ParseDecimal(reader["Amount"].ToString()),
                         AccountType = Utilities.ParseInt(reader["Account_ID"].ToString()),

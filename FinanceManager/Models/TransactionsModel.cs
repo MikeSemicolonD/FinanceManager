@@ -13,7 +13,7 @@ namespace FinanceManager.Models
         public bool IsEssential { get; set; }
 
         [Required]
-        public string Category { get; set; }
+        public int Category { get; set; }
 
         [Required]
         public decimal Amount { get; set; }

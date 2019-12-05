@@ -1,0 +1,101 @@
+Transcation_ID,Category_ID,Category,Description,Amount,Account_ID,Account,IsEssential,Date
+1,10,Medical,commodo,-744.88,1,Checking,true,2019-05-31
+2,7,Food,nulla. In tincidunt congue turpis.,-835.82,3,TestType,true,2018-09-04
+3,6,Transportation,viverra.,-141.79,3,TestType,true,2018-07-08
+4,8,Utilities,"ac, feugiat non, lobortis",-856.35,2,Savings,false,2019-11-09
+5,11,Healthcare,vel lectus.,-35.47,1,Checking,false,2018-04-10
+6,8,Utilities,non,-632.46,2,Savings,false,2019-01-17
+7,14,Personal Spending,"nulla. Integer vulputate,",-491.57,1,Checking,true,2020-08-09
+8,9,Insurance,arcu. Curabitur ut odio,-666.18,1,Checking,false,2020-03-03
+9,14,Personal Spending,molestie,-520.4,2,Savings,true,2019-12-10
+10,1,Paycheck,ornare,640.29,3,TestType,true,2019-06-04
+11,1,Paycheck,sed orci lobortis augue,722.72,3,TestType,false,2019-01-26
+12,15,Recreation,Lorem ipsum dolor sit,-360.41,2,Savings,true,2019-06-18
+13,6,Transportation,pede. Cum sociis natoque penatibus,-288.79,2,Savings,false,2020-03-05
+14,8,Utilities,"auctor, nunc nulla vulputate dui,",-53.63,1,Checking,false,2020-09-25
+15,17,Miscellaneous,Phasellus ornare. Fusce mollis. Duis,-107.23,3,TestType,true,2020-02-23
+16,10,Medical,"lorem, luctus ut,",-350.07,2,Savings,false,2018-07-31
+17,7,Food,"hendrerit id,",-566.56,2,Savings,false,2020-08-27
+18,8,Utilities,"feugiat non, lobortis quis,",-536.14,2,Savings,false,2019-02-16
+19,15,Recreation,"vestibulum, neque",-661.54,3,TestType,false,2020-10-16
+20,3,Refund,sollicitudin commodo ipsum. Suspendisse,836.95,2,Savings,true,2020-11-29
+21,14,Personal Spending,"varius ultrices, mauris ipsum",-202.28,1,Checking,true,2020-05-21
+22,4,Bonus,lorem ac risus. Morbi metus.,439.93,3,TestType,false,2019-07-19
+23,14,Personal Spending,pede blandit,-36.94,2,Savings,true,2018-03-08
+24,9,Insurance,diam. Pellentesque,-578.32,3,TestType,true,2019-04-28
+25,2,Investment,ornare. In faucibus. Morbi,645.64,2,Savings,true,2018-11-05
+26,11,Healthcare,velit. Quisque varius. Nam,-525.83,1,Checking,true,2019-12-05
+27,16,Entertainment,ultrices posuere cubilia,-461.04,2,Savings,false,2020-09-24
+28,3,Refund,ornare tortor at risus. Nunc,992.04,1,Checking,false,2019-03-04
+29,11,Healthcare,nec tempus,-754.62,2,Savings,false,2019-10-05
+30,17,Miscellaneous,"accumsan convallis, ante lectus",-106.96,1,Checking,false,2020-07-25
+31,8,Utilities,Phasellus at,-269.72,1,Checking,true,2020-08-31
+32,2,Investment,Donec,332.77,2,Savings,false,2020-11-25
+33,13,Debt Payments,"dolor, nonummy ac,",-596.6,3,TestType,false,2020-05-12
+34,3,Refund,turpis. Nulla aliquet.,696.76,1,Checking,true,2020-06-21
+35,16,Entertainment,Mauris magna. Duis,-180.06,3,TestType,false,2019-08-12
+36,13,Debt Payments,risus. Morbi metus. Vivamus,-871.13,2,Savings,true,2018-07-26
+37,7,Food,eget,-138.96,1,Checking,true,2018-11-15
+38,16,Entertainment,"quam, elementum at,",-730.43,1,Checking,true,2018-04-22
+39,3,Refund,"urna convallis erat,",835.85,1,Checking,true,2018-02-09
+40,12,Saving,erat vel,-361.28,3,TestType,true,2018-09-04
+41,12,Saving,Integer in magna.,-594.47,2,Savings,true,2018-01-10
+42,3,Refund,neque pellentesque massa lobortis,233.97,2,Savings,false,2018-02-02
+43,9,Insurance,semper.,-507.8,3,TestType,true,2018-02-03
+44,1,Paycheck,consectetuer euismod est arcu ac,592.53,2,Savings,true,2018-12-28
+45,6,Transportation,"lobortis quis,",-601.85,1,Checking,false,2019-08-27
+46,14,Personal Spending,lorem.,-602.8,3,TestType,true,2020-08-04
+47,1,Paycheck,sociosqu ad litora torquent,77.32,2,Savings,false,2019-12-31
+48,13,Debt Payments,"ante blandit viverra. Donec tempus,",-970.56,2,Savings,false,2019-11-05
+49,6,Transportation,libero,-239.38,1,Checking,false,2018-01-26
+50,4,Bonus,Vivamus,297.08,3,TestType,false,2018-10-08
+51,12,Saving,sed pede. Cum sociis natoque,-535.44,2,Savings,false,2019-08-31
+52,9,Insurance,turpis. In condimentum. Donec at,-810.65,3,TestType,false,2020-11-02
+53,16,Entertainment,sed consequat,-256.18,1,Checking,false,2020-12-28
+54,17,Miscellaneous,ligula consectetuer rhoncus. Nullam velit,-452.54,2,Savings,false,2019-07-05
+55,5,Housing,vel turpis.,-374.85,2,Savings,true,2019-08-30
+56,9,Insurance,"enim, condimentum eget, volutpat",-251.35,3,TestType,false,2019-11-05
+57,3,Refund,turpis non,492.91,1,Checking,true,2018-04-05
+58,8,Utilities,torquent per,-439.01,3,TestType,true,2019-05-09
+59,11,Healthcare,Morbi sit amet massa.,-294.16,1,Checking,true,2019-12-31
+60,16,Entertainment,"pretium et, rutrum non, hendrerit",-391.23,2,Savings,true,2019-06-14
+61,4,Bonus,Vestibulum ante ipsum primis in,811.92,2,Savings,true,2020-11-18
+62,7,Food,"dapibus id,",-279.88,2,Savings,true,2019-12-28
+63,15,Recreation,imperdiet ornare. In faucibus. Morbi,-484.84,3,TestType,true,2019-06-26
+64,1,Paycheck,Duis sit amet diam eu,179.17,2,Savings,false,2019-05-06
+65,13,Debt Payments,imperdiet,-387.79,3,TestType,true,2019-10-05
+66,8,Utilities,non ante bibendum ullamcorper. Duis,-98.67,2,Savings,true,2020-03-22
+67,14,Personal Spending,nec mauris blandit,-147.88,1,Checking,false,2018-06-23
+68,6,Transportation,metus eu erat semper,-682.34,3,TestType,true,2019-07-20
+69,15,Recreation,Sed eget lacus.,-902.99,1,Checking,true,2020-12-18
+70,16,Entertainment,metus vitae velit egestas lacinia.,-655.88,3,TestType,false,2019-11-09
+71,5,Housing,"at, nisi. Cum sociis",-907.56,2,Savings,true,2019-12-05
+72,9,Insurance,magna. Cras convallis convallis,-56.82,1,Checking,true,2019-12-04
+73,7,Food,sem,-794.33,1,Checking,false,2020-01-26
+74,14,Personal Spending,"ante,",-503.6,3,TestType,false,2020-06-15
+75,13,Debt Payments,dictum,-727.1,3,TestType,true,2018-05-03
+76,5,Housing,Aenean eget,-545.7,3,TestType,false,2019-05-29
+77,10,Medical,"adipiscing, enim mi tempor",-297.87,2,Savings,true,2019-03-05
+78,7,Food,Duis at lacus. Quisque purus,-713.74,2,Savings,true,2018-03-05
+79,5,Housing,"nec,",-553.74,1,Checking,true,2019-01-17
+80,8,Utilities,nascetur,-321.07,2,Savings,false,2018-08-01
+81,16,Entertainment,Sed neque. Sed,-560.3,3,TestType,false,2020-06-22
+82,4,Bonus,"non, egestas",11.24,2,Savings,true,2019-05-20
+83,17,Miscellaneous,Suspendisse ac metus,-971.56,2,Savings,true,2019-01-07
+84,16,Entertainment,pharetra. Quisque,-566.67,2,Savings,false,2019-03-31
+85,17,Miscellaneous,ipsum.,-664.04,1,Checking,false,2020-07-15
+86,1,Paycheck,non lorem vitae,473.27,1,Checking,true,2019-04-26
+87,17,Miscellaneous,lacus. Ut nec,-506.15,2,Savings,true,2018-06-29
+88,9,Insurance,Praesent eu dui. Cum sociis,-789.06,3,TestType,true,2018-11-30
+89,10,Medical,adipiscing elit.,-334.08,2,Savings,true,2020-10-26
+90,5,Housing,tincidunt,-138.52,3,TestType,true,2020-03-27
+91,7,Food,nec tellus. Nunc lectus,-740.91,3,TestType,false,2020-07-28
+92,7,Food,"dolor elit, pellentesque",-81.3,3,TestType,true,2020-09-15
+93,14,Personal Spending,mus. Donec,-279.26,2,Savings,false,2019-04-24
+94,12,Saving,magnis dis parturient,-108.0,1,Checking,true,2018-12-11
+95,3,Refund,Suspendisse,4.86,2,Savings,false,2020-04-24
+96,5,Housing,libero,-133.69,3,TestType,true,2018-06-20
+97,3,Refund,magna,15.79,3,TestType,false,2020-10-13
+98,16,Entertainment,amet,-42.97,2,Savings,false,2020-01-07
+99,13,Debt Payments,Aenean massa. Integer vitae nibh.,-733.91,2,Savings,false,2019-09-29
+100,8,Utilities,fringilla.,-701.32,1,Checking,true,2018-09-27

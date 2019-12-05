@@ -189,6 +189,7 @@
     <Compile Include="Controllers\TransactionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="DAL\CategoryAdapter.cs" />
     <Compile Include="DAL\UserAdapter.cs" />
     <Compile Include="DAL\FrequencyAdapter.cs" />
     <Compile Include="DAL\BudgetAdapter.cs" />
@@ -200,6 +201,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\FrequencyModel.cs" />
     <Compile Include="Models\BudgetModel.cs" />
     <Compile Include="Models\AccountTypeModel.cs" />

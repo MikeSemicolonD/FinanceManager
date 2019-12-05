@@ -11,6 +11,7 @@ namespace FinanceManager.Controllers
     {
         TransactionsAdapter transactionsAdapter = new TransactionsAdapter();
         AccountTypeAdapter accountTypeAdapter = new AccountTypeAdapter();
+        CategoryAdapter categoryAdapter = new CategoryAdapter();
 
         [Authorize]
         public ActionResult Index()
@@ -22,7 +23,8 @@ namespace FinanceManager.Controllers
             TransactionModelList transactions = new TransactionModelList
             {
                 TransactionModels = transactionsAdapter.GetTransactionsByUID(Utilities.GetUsersUID(User.Identity.Name)),
-                AvailableAccountTypes = accountTypeAdapter.GetAccountTypesByUID(Utilities.GetUsersUID(User.Identity.Name)).Select(x => new SelectListItem { Value = x.ID.ToString(), Text = x.AccountType })
+                AvailableAccountTypes = accountTypeAdapter.GetAccountTypesByUID(Utilities.GetUsersUID(User.Identity.Name)).Select(x => new SelectListItem { Value = x.ID.ToString(), Text = x.AccountType }),
+                Categories = categoryAdapter.GetCategories().Select(x => new SelectListItem { Value = x.ID.ToString(), Text = x.Category })
             };
 
             ViewBag.IsNotDashboard = true;

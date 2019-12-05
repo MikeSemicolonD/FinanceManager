@@ -10,5 +10,7 @@ namespace FinanceManager.Models
         public IEnumerable<SelectListItem> AvailableAccountTypes { get; set; }
 
         public TransactionModel AddNewTransactionModel { get; set; }
+
+        public IEnumerable<SelectListItem> Categories { get; set; }
     }
 }
