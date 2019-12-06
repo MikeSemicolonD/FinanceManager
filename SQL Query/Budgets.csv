@@ -1,0 +1,101 @@
+ID,Category_ID,Category,Description,Account_ID,AccountType,Amount,Frequency_ID,FrequencyType,Times
+1,1,Paycheck,Suspendisse ac metus,1,Checking,996.96,1,Per Year,336
+2,12,Saving,"pretium et, rutrum non, hendrerit",1,Checking,-612.37,2,Per Month,14
+3,14,Personal Spending,libero,1,Checking,-71.0,4,Per Day,18
+4,17,Miscellaneous,mus. Donec,3,TestType,-870.75,1,Per Year,51
+5,7,Food,ornare tortor at risus. Nunc,1,Checking,-308.77,3,Per Week,1
+6,12,Saving,Vestibulum ante ipsum primis in,2,Savings,-917.72,2,Per Month,8
+7,5,Housing,Suspendisse ac metus,2,Savings,-637.67,2,Per Month,26
+8,3,Refund,vel turpis.,1,Checking,911.26,4,Per Day,11
+9,11,Healthcare,ornare,2,Savings,-451.47,2,Per Month,18
+10,12,Saving,"feugiat non, lobortis quis,",2,Savings,-60.43,1,Per Year,101
+11,1,Paycheck,"quam, elementum at,",2,Savings,822.49,3,Per Week,1
+12,2,Investment,amet,2,Savings,626.95,4,Per Day,3
+13,5,Housing,ornare,1,Checking,-596.31,4,Per Day,19
+14,2,Investment,"auctor, nunc nulla vulputate dui,",3,TestType,536.67,2,Per Month,27
+15,4,Bonus,imperdiet ornare. In faucibus. Morbi,1,Checking,710.11,1,Per Year,136
+16,10,Medical,ultrices posuere cubilia,3,TestType,-942.95,2,Per Month,24
+17,10,Medical,Praesent eu dui. Cum sociis,3,TestType,-718.88,2,Per Month,3
+18,11,Healthcare,"lobortis quis,",1,Checking,-924.08,4,Per Day,1
+19,10,Medical,"ante,",1,Checking,-990.79,4,Per Day,7
+20,1,Paycheck,magna,1,Checking,701.41,4,Per Day,20
+21,9,Insurance,Vestibulum ante ipsum primis in,3,TestType,-452.11,4,Per Day,7
+22,11,Healthcare,"accumsan convallis, ante lectus",2,Savings,-537.18,3,Per Week,4
+23,15,Recreation,"nulla. Integer vulputate,",1,Checking,-395.09,4,Per Day,14
+24,9,Insurance,sociosqu ad litora torquent,3,TestType,-712.88,3,Per Week,5
+25,1,Paycheck,"non, egestas",2,Savings,417.83,1,Per Year,97
+26,11,Healthcare,"vestibulum, neque",2,Savings,-808.58,3,Per Week,7
+27,5,Housing,turpis non,3,TestType,-182.75,3,Per Week,1
+28,6,Transportation,libero,3,TestType,-741.65,4,Per Day,3
+29,3,Refund,nascetur,1,Checking,329.64,1,Per Year,157
+30,4,Bonus,"quam, elementum at,",2,Savings,965.02,2,Per Month,14
+31,6,Transportation,sociosqu ad litora torquent,2,Savings,-726.21,1,Per Year,115
+32,17,Miscellaneous,"lorem, luctus ut,",3,TestType,-379.34,3,Per Week,4
+33,9,Insurance,Suspendisse ac metus,2,Savings,-138.32,2,Per Month,30
+34,5,Housing,tincidunt,3,TestType,-825.69,2,Per Month,1
+35,12,Saving,sed consequat,1,Checking,-675.48,1,Per Year,353
+36,12,Saving,arcu. Curabitur ut odio,3,TestType,-761.87,3,Per Week,5
+37,1,Paycheck,Aenean massa. Integer vitae nibh.,1,Checking,721.75,3,Per Week,7
+38,5,Housing,Suspendisse,2,Savings,-647.79,2,Per Month,13
+39,9,Insurance,Phasellus ornare. Fusce mollis. Duis,1,Checking,-380.66,3,Per Week,1
+40,9,Insurance,nec tempus,2,Savings,-450.43,1,Per Year,260
+41,6,Transportation,"urna convallis erat,",2,Savings,-632.18,1,Per Year,12
+42,4,Bonus,Aenean eget,1,Checking,609.76,3,Per Week,7
+43,5,Housing,"feugiat non, lobortis quis,",2,Savings,-601.34,2,Per Month,6
+44,2,Investment,lorem ac risus. Morbi metus.,2,Savings,322.86,4,Per Day,18
+45,9,Insurance,ligula consectetuer rhoncus. Nullam velit,2,Savings,-561.7,4,Per Day,13
+46,13,Debt Payments,ornare tortor at risus. Nunc,1,Checking,-211.2,1,Per Year,32
+47,12,Saving,"accumsan convallis, ante lectus",3,TestType,-343.08,4,Per Day,24
+48,2,Investment,Suspendisse,2,Savings,238.97,2,Per Month,23
+49,7,Food,imperdiet,3,TestType,-219.42,2,Per Month,17
+50,2,Investment,magna,2,Savings,337.64,3,Per Week,1
+51,2,Investment,adipiscing elit.,1,Checking,30.94,2,Per Month,28
+52,3,Refund,Duis sit amet diam eu,2,Savings,871.59,3,Per Week,6
+53,14,Personal Spending,fringilla.,3,TestType,-903.62,1,Per Year,159
+54,9,Insurance,ornare. In faucibus. Morbi,2,Savings,-180.52,4,Per Day,16
+55,10,Medical,imperdiet,2,Savings,-225.61,4,Per Day,17
+56,13,Debt Payments,sed consequat,2,Savings,-114.8,4,Per Day,23
+57,2,Investment,mus. Donec,2,Savings,990.3,4,Per Day,7
+58,5,Housing,arcu. Curabitur ut odio,3,TestType,-33.59,1,Per Year,344
+59,10,Medical,Sed neque. Sed,1,Checking,-818.39,2,Per Month,19
+60,14,Personal Spending,metus vitae velit egestas lacinia.,1,Checking,-870.28,4,Per Day,21
+61,12,Saving,Phasellus at,3,TestType,-977.13,2,Per Month,1
+62,17,Miscellaneous,tincidunt,1,Checking,-520.33,1,Per Year,20
+63,7,Food,Morbi sit amet massa.,2,Savings,-103.79,1,Per Year,364
+64,3,Refund,consectetuer euismod est arcu ac,3,TestType,900.61,4,Per Day,8
+65,13,Debt Payments,Integer in magna.,3,TestType,-692.83,1,Per Year,239
+66,7,Food,ornare,2,Savings,-484.75,3,Per Week,5
+67,10,Medical,"auctor, nunc nulla vulputate dui,",3,TestType,-404.91,3,Per Week,2
+68,3,Refund,Mauris magna. Duis,2,Savings,662.07,4,Per Day,9
+69,5,Housing,ornare tortor at risus. Nunc,1,Checking,-228.83,3,Per Week,1
+70,17,Miscellaneous,non lorem vitae,3,TestType,-65.14,2,Per Month,24
+71,5,Housing,nec tellus. Nunc lectus,2,Savings,-288.61,2,Per Month,28
+72,1,Paycheck,"quam, elementum at,",2,Savings,67.36,2,Per Month,23
+73,17,Miscellaneous,ornare tortor at risus. Nunc,2,Savings,-709.32,3,Per Week,4
+74,4,Bonus,"nec,",2,Savings,150.26,1,Per Year,138
+75,9,Insurance,neque pellentesque massa lobortis,3,TestType,-8.22,2,Per Month,7
+76,4,Bonus,Phasellus at,2,Savings,487.39,4,Per Day,6
+77,11,Healthcare,sociosqu ad litora torquent,2,Savings,-707.84,2,Per Month,28
+78,12,Saving,risus. Morbi metus. Vivamus,3,TestType,-498.54,2,Per Month,7
+79,4,Bonus,sollicitudin commodo ipsum. Suspendisse,3,TestType,848.77,1,Per Year,312
+80,10,Medical,turpis. In condimentum. Donec at,1,Checking,-703.8,1,Per Year,326
+81,12,Saving,metus eu erat semper,2,Savings,-128.85,4,Per Day,3
+82,7,Food,Integer in magna.,1,Checking,-172.56,1,Per Year,25
+83,4,Bonus,Suspendisse,2,Savings,144.89,2,Per Month,1
+84,14,Personal Spending,sem,2,Savings,-380.63,4,Per Day,11
+85,7,Food,Duis sit amet diam eu,2,Savings,-835.85,3,Per Week,7
+86,16,Entertainment,Lorem ipsum dolor sit,2,Savings,-563.01,4,Per Day,18
+87,4,Bonus,"feugiat non, lobortis quis,",1,Checking,214.0,1,Per Year,72
+88,7,Food,Phasellus ornare. Fusce mollis. Duis,2,Savings,-300.48,2,Per Month,17
+89,10,Medical,nec tempus,2,Savings,-835.87,2,Per Month,3
+90,16,Entertainment,ornare. In faucibus. Morbi,2,Savings,-416.64,1,Per Year,71
+91,11,Healthcare,"lobortis quis,",2,Savings,-47.55,4,Per Day,3
+92,10,Medical,mus. Donec,3,TestType,-921.97,4,Per Day,12
+93,1,Paycheck,lacus. Ut nec,3,TestType,73.46,1,Per Year,89
+94,1,Paycheck,erat vel,3,TestType,485.5,2,Per Month,1
+95,3,Refund,"ac, feugiat non, lobortis",2,Savings,303.66,3,Per Week,2
+96,12,Saving,torquent per,3,TestType,-920.74,2,Per Month,25
+97,3,Refund,"urna convallis erat,",2,Savings,587.92,2,Per Month,1
+98,1,Paycheck,Suspendisse,1,Checking,62.54,4,Per Day,5
+99,6,Transportation,"urna convallis erat,",3,TestType,-360.33,1,Per Year,194
+100,13,Debt Payments,velit. Quisque varius. Nam,2,Savings,-724.71,1,Per Year,116
