@@ -12,9 +12,9 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="container-fluid ml-auto">
+                <div class="container-fluid ml-auto" style=" margin-left: auto; margin-right: auto; width:50%">
                     <div class="mb-3">
-                        <label>Category</label>
+                        <label style = "position:relative; left:25%;">Category:</label>
                         @Html.DropDownListFor(m => m.AddNewTransactionModel.Category, new SelectList(Model.Categories, "Value", "Text"))
                         <div class="invalid-feedback">
                             Category is required.
@@ -22,7 +22,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label title="Transaction Details">Description</label>
+                        <label style = "position:relative; left:25%;" title="Transaction Details">Description:</label>
                         @Html.TextBoxFor(m => m.AddNewTransactionModel.Description)
                         <div class="invalid-feedback">
                             Description is required.
@@ -30,7 +30,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label title="Money spent on Transaction">Amount</label>
+                        <label style = "position:relative; left:25%;" title="Money spent on Transaction">Amount:</label>
                         @Html.TextBoxFor(m => m.AddNewTransactionModel.Amount, new { @type = "number", step = "0.01" })
                         <div class="invalid-feedback">
                             Please enter an amount.
@@ -38,19 +38,19 @@
                     </div>
 
                     <div class="mb-3">
-                        <label>Account Type</label>
-                        @Html.DropDownListFor(m => m.AddNewTransactionModel.AccountType, new SelectList(Model.AvailableAccountTypes, "Value", "Text"))
+                        <label style = "position:relative; left:25%;">Account Type:</label>
+                        @Html.DropDownListFor(m => m.AddNewTransactionModel.AccountType, new SelectList(Model.AvailableAccountTypes, "Value", "Text"), new { @style="min-width:100%;"})
 
                     </div>
 
                     <div class="mb-3">
-                        <label title="Date of Transaction">Date</label>
+                        <label  style = "position:relative; left:25%;" title="Date of Transaction">Date:</label>
                         <!--TODO: Set to today by default-->
                         @Html.TextBoxFor(m => m.AddNewTransactionModel.TransactionDate, new { @type = "date" })
                     </div>
 
                     <div class="mb-3">
-                        <label title="(Example: Food, Gas, Water, Electricity)">Essential Transaction</label>
+                        <label title="(Example: Food, Gas, Water, Electricity)">Essential Transaction:</label>
                         @Html.TextBoxFor(m => m.AddNewTransactionModel.IsEssential, new { @type = "checkbox" })
                     </div>
                 </div>

@@ -8,13 +8,14 @@ public class FrequencyAdapter
 {
     public FrequencyModel GetFrequencyByBudgetUID(string UID)
     {
-        string query = "SELECT * FROM [dbo].[Frequency] Fr LEFT JOIN [dbo].[Budget] B ON Fr.ID WHERE Fr.ID = B.Frequency_ID WHERE B.ID = " + UID + ";";
-
         FrequencyModel frequency = new FrequencyModel();
-        SqlDataProvider db = new SqlDataProvider();
 
         try
         {
+            SqlDataProvider db = new SqlDataProvider();
+
+            string query = "SELECT * FROM [dbo].[Frequency] Fr LEFT JOIN [dbo].[Budget] B ON Fr.ID WHERE Fr.ID = B.Frequency_ID WHERE B.ID = " + UID + ";";
+
             using (SqlConnection connection = db.GetConnection())
             {
                 connection.Open();
@@ -44,14 +45,14 @@ public class FrequencyAdapter
 
     public List<FrequencyModel> GetAllFrequencies()
     {
-        string query = "SELECT * FROM [dbo].[Frequency];";
-
-        FrequencyModel frequency = new FrequencyModel();
-        SqlDataProvider db = new SqlDataProvider();
         List<FrequencyModel> frequencies = new List<FrequencyModel>();
 
         try
         {
+            SqlDataProvider db = new SqlDataProvider();
+
+            string query = "SELECT * FROM [dbo].[Frequency];";
+        
             using (SqlConnection connection = db.GetConnection())
             {
                 connection.Open();
@@ -61,7 +62,7 @@ public class FrequencyAdapter
 
                 while (reader.Read())
                 {
-                    frequency = new FrequencyModel()
+                    FrequencyModel frequency = new FrequencyModel()
                     {
                         ID = Utilities.ParseInt(reader["ID"].ToString()),
                         Frequency = reader["Frequency"].ToString()

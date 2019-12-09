@@ -13,13 +13,15 @@ public class TransactionsAdapter
     /// <returns></returns>
     public List<TransactionModel> GetTransactionsByUID(string UID)
     {
-        string query = "SELECT * FROM [dbo].[Transaction] t left join [dbo].[User_Transactions] ut on t.ID = ut.Transaction_ID Where ut.UID = '" + UID + "' order by t.ID desc;";
-
         List<TransactionModel> transactions = new List<TransactionModel>();
-        SqlDataProvider db = new SqlDataProvider();
 
         try
         {
+
+            string query = "SELECT * FROM [dbo].[Transaction] t left join [dbo].[User_Transactions] ut on t.ID = ut.Transaction_ID Where ut.UID = '" + UID + "' order by t.ID desc;";
+
+            SqlDataProvider db = new SqlDataProvider();
+
             using (SqlConnection connection = db.GetConnection())
             {
                 connection.Open();
@@ -55,29 +57,34 @@ public class TransactionsAdapter
         return transactions;
     }
 
+    /// <summary>
+    /// Deletes a list of transactions by transaction ID
+    /// </summary>
+    /// <param name="transactions"></param>
     public void DeleteTransactions(List<TransactionModel> transactions)
     {
-        //Parse each id into query
-        string template = "DELETE FROM [dbo].[Transaction] WHERE ID IN ({0});";
-        string IDs = "";
-
-        //Create a string full of all transaction IDs to delete
-        for (int i = 0; i < transactions.Count; i++)
-        {
-            IDs += transactions[i].ID.ToString();
-
-            if (i != transactions.Count - 1)
-            {
-                IDs += ',';
-            }
-        }
-
-        string query = string.Format(template, IDs);
-
-        SqlDataProvider db = new SqlDataProvider();
-
         try
         {
+
+            //Parse each id into query
+            string template = "DELETE FROM [dbo].[Transaction] WHERE ID IN ({0});";
+            string IDs = "";
+
+            //Create a string full of all transaction IDs to delete
+            for (int i = 0; i < transactions.Count; i++)
+            {
+                IDs += transactions[i].ID.ToString();
+
+                if (i != transactions.Count - 1)
+                {
+                    IDs += ',';
+                }
+            }
+
+            string query = string.Format(template, IDs);
+
+            SqlDataProvider db = new SqlDataProvider();
+
             using (SqlConnection connection = db.GetConnection())
             {
                 connection.Open();
@@ -94,15 +101,22 @@ public class TransactionsAdapter
 
     }
 
+    /// <summary>
+    /// Deletes a Transaction by Transaction ID.
+    /// </summary>
+    /// <param name="ID"></param>
+    /// <param name="UserEmail"></param>
     public void DeleteTransactionByID(long ID, string UserEmail)
     {
         string UserUID = Utilities.GetUsersUID(UserEmail);
-        string query = "DELETE FROM [dbo].[User_Transactions] WHERE Transaction_ID = " + ID + " AND UID = '" + UserUID + "'; DELETE FROM [dbo].[Transaction] WHERE ID = " + ID + ";";
-        
-        SqlDataProvider db = new SqlDataProvider();
 
         try
         {
+
+            string query = "DELETE FROM [dbo].[User_Transactions] WHERE Transaction_ID = " + ID + " AND UID = '" + UserUID + "'; DELETE FROM [dbo].[Transaction] WHERE ID = " + ID + ";";
+        
+            SqlDataProvider db = new SqlDataProvider();
+
             using (SqlConnection connection = db.GetConnection())
             {
                 connection.Open();
@@ -118,15 +132,21 @@ public class TransactionsAdapter
         }
     }
 
+    /// <summary>
+    /// Gets a Transaction by Transaction ID.
+    /// </summary>
+    /// <param name="ID"></param>
+    /// <returns></returns>
     public TransactionModel GetTransactionByID(long ID)
     {
         string query = "SELECT * FROM [dbo].[Transaction] t WHERE t.ID = " + ID + ";";
 
         TransactionModel transaction = new TransactionModel();
-        SqlDataProvider db = new SqlDataProvider();
 
         try
         {
+            SqlDataProvider db = new SqlDataProvider();
+
             using (SqlConnection connection = db.GetConnection())
             {
                 connection.Open();
@@ -165,21 +185,25 @@ public class TransactionsAdapter
         SetTransactions(new List<TransactionModel>() { transaction });
     }
 
+    /// <summary>
+    /// Sets transactions in the database to the values given in the list of transactions
+    /// </summary>
+    /// <param name="transactions"></param>
     public void SetTransactions(List<TransactionModel> transactions)
     {
-        string queryTemplate = "UPDATE [dbo].[Transaction] SET Description = '{0}', IsEssential = {1}, Category = '{2}', Amount = {3}, Date = CONVERT(datetime,{4},101), Account_ID = '{5}' WHERE ID = {6}; ";
-        string query = "";
-
-        foreach (TransactionModel transaction in transactions)
-        {
-            //Description, IsEssential, Category, Price, Account_ID, AccountType, ID
-            query += string.Format(queryTemplate, transaction.Description, (transaction.IsEssential)? 1:0, transaction.Category, transaction.Amount, transaction.TransactionDate, transaction.AccountType, transaction.ID);
-        }
-
-        SqlDataProvider db = new SqlDataProvider();
-
         try
         {
+            string queryTemplate = "UPDATE [dbo].[Transaction] SET Description = '{0}', IsEssential = {1}, Category = '{2}', Amount = {3}, Date = CONVERT(datetime,{4},101), Account_ID = '{5}' WHERE ID = {6}; ";
+            string query = "";
+
+            foreach (TransactionModel transaction in transactions)
+            {
+                //Description, IsEssential, Category, Price, Account_ID, AccountType, ID
+                query += string.Format(queryTemplate, transaction.Description, (transaction.IsEssential)? 1:0, transaction.Category, transaction.Amount, transaction.TransactionDate, transaction.AccountType, transaction.ID);
+            }
+
+            SqlDataProvider db = new SqlDataProvider();
+
             using (SqlConnection connection = db.GetConnection())
             {
                 connection.Open();
@@ -212,24 +236,23 @@ public class TransactionsAdapter
     /// <param name="UserEmail"></param>
     public void AddTransactions(List<TransactionModel> transactions, string UserEmail)
     {
-
-        string queryTemplate = "INSERT INTO [dbo].[Transaction] VALUES ('{0}','{1}',{2},{3},{4},'{5}');";
-        string query = "";
-
-        List<int> NewTransactionIDs = new List<int>();
-
-        foreach (TransactionModel transaction in transactions)
-        {
-            query += string.Format(queryTemplate, transaction.Category, transaction.Description, transaction.Amount, transaction.AccountType, (transaction.IsEssential) ? 1 : 0, transaction.TransactionDate);
-        }
-
-        //Returns the ID of the transactions we just created
-        query += " SELECT SCOPE_IDENTITY() AS [NewIDs];";
-
-        SqlDataProvider db = new SqlDataProvider();
-
         try
         {
+            SqlDataProvider db = new SqlDataProvider();
+
+            string queryTemplate = "INSERT INTO [dbo].[Transaction] VALUES ('{0}','{1}',{2},{3},{4},'{5}');";
+            string query = "";
+
+            List<int> NewTransactionIDs = new List<int>();
+
+            foreach (TransactionModel transaction in transactions)
+            {
+                query += string.Format(queryTemplate, transaction.Category, transaction.Description, transaction.Amount, transaction.AccountType, (transaction.IsEssential) ? 1 : 0, transaction.TransactionDate);
+            }
+
+            //Returns the ID of the transactions we just created
+            query += " SELECT SCOPE_IDENTITY() AS [NewIDs];";
+
             using (SqlConnection connection = db.GetConnection())
             {
                 connection.Open();

@@ -19,7 +19,7 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort />
+    <IISExpressSSLPort>44328</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -189,14 +189,15 @@
     <Compile Include="Controllers\TransactionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="DAL\CategoryAdapter.cs" />
-    <Compile Include="DAL\UserAdapter.cs" />
-    <Compile Include="DAL\FrequencyAdapter.cs" />
-    <Compile Include="DAL\BudgetAdapter.cs" />
+    <Compile Include="DAL\Adapters\CategoryAdapter.cs" />
+    <Compile Include="DAL\Adapters\UserAdapter.cs" />
+    <Compile Include="DAL\Adapters\FrequencyAdapter.cs" />
+    <Compile Include="DAL\Adapters\BudgetAdapter.cs" />
     <Compile Include="DAL\ApplicationContext.cs" />
-    <Compile Include="DAL\SqlDataProvider.cs" />
-    <Compile Include="DAL\AccountTypeAdapter.cs" />
-    <Compile Include="DAL\TransactionsAdapter.cs" />
+    <Compile Include="DAL\DataProvider.cs" />
+    <Compile Include="DAL\DataProviders\SqlDataProvider.cs" />
+    <Compile Include="DAL\Adapters\AccountTypeAdapter.cs" />
+    <Compile Include="DAL\Adapters\TransactionsAdapter.cs" />
     <Compile Include="DAL\TestQuery.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -445,6 +446,9 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />

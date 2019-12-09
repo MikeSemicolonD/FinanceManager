@@ -13,13 +13,13 @@ public class AccountTypeAdapter
     /// <returns></returns>
     public List<AccountTypeModel> GetAccountTypesByUID(string UID)
     {
-        string query = "SELECT ID, Type FROM [dbo].[User_Accounts] UA left join [dbo].[Account] A on UA.Account_ID = A.ID Where UA.UID = '" + UID + "';";
-
         List<AccountTypeModel> AccountTypes = new List<AccountTypeModel>();
-        SqlDataProvider db = new SqlDataProvider();
 
         try
         {
+            SqlDataProvider db = new SqlDataProvider();
+            string query = "SELECT ID, Type FROM [dbo].[User_Accounts] UA left join [dbo].[Account] A on UA.Account_ID = A.ID Where UA.UID = '" + UID + "';";
+
             using (SqlConnection connection = db.GetConnection())
             {
                 connection.Open();
@@ -56,27 +56,27 @@ public class AccountTypeAdapter
     /// <param name="accountTypes"></param>
     public void DeleteAccountTypes(List<AccountTypeModel> accountTypes)
     {
-        //Parse each id into query
-        string template = "DELETE FROM [dbo].[User_Accounts] UA WHERE UA.Account_ID IN ({0});";
-        string IDs = "";
-
-        //Create a string full of all Account Types IDs to delete
-        for (int i = 0; i < accountTypes.Count; i++)
-        {
-            IDs += accountTypes[i].ID.ToString();
-
-            if (i != accountTypes.Count - 1)
-            {
-                IDs += ',';
-            }
-        }
-
-        string query = string.Format(template, IDs);
-
-        SqlDataProvider db = new SqlDataProvider();
-
         try
         {
+            SqlDataProvider db = new SqlDataProvider();
+
+            //Parse each id into query
+            string template = "DELETE FROM [dbo].[User_Accounts] UA WHERE UA.Account_ID IN ({0});";
+            string IDs = "";
+
+            //Create a string full of all Account Types IDs to delete
+            for (int i = 0; i < accountTypes.Count; i++)
+            {
+                IDs += accountTypes[i].ID.ToString();
+
+                if (i != accountTypes.Count - 1)
+                {
+                    IDs += ',';
+                }
+            }
+
+            string query = string.Format(template, IDs);
+
             using (SqlConnection connection = db.GetConnection())
             {
                 connection.Open();
@@ -100,12 +100,12 @@ public class AccountTypeAdapter
     /// <param name="ID"></param>
     public void DeleteAccountTypeByID(long ID)
     {
-        string query = "DELETE FROM [dbo].[User_Accounts] WHERE Account_ID = " + ID + ";";
-        
-        SqlDataProvider db = new SqlDataProvider();
-
         try
         {
+            SqlDataProvider db = new SqlDataProvider();
+
+            string query = "DELETE FROM [dbo].[User_Accounts] WHERE Account_ID = " + ID + ";";
+
             using (SqlConnection connection = db.GetConnection())
             {
                 connection.Open();
@@ -129,13 +129,14 @@ public class AccountTypeAdapter
     /// <returns></returns>
     public AccountTypeModel GetAccountTypeByID(long ID)
     {
-        string query = "SELECT * FROM [dbo].[Account] a WHERE a.ID = " + ID + ";";
-
         AccountTypeModel accountType = new AccountTypeModel();
-        SqlDataProvider db = new SqlDataProvider();
 
         try
         {
+            SqlDataProvider db = new SqlDataProvider();
+
+            string query = "SELECT * FROM [dbo].[Account] a WHERE a.ID = " + ID + ";";
+
             using (SqlConnection connection = db.GetConnection())
             {
                 connection.Open();

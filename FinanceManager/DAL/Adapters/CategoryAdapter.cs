@@ -13,13 +13,14 @@ public class CategoryAdapter
     /// <returns></returns>
     public List<CategoryModel> GetCategories()
     {
-        string query = "SELECT * from Category";
-
         List<CategoryModel> Categories = new List<CategoryModel>();
-        SqlDataProvider db = new SqlDataProvider();
 
         try
         {
+            SqlDataProvider db = new SqlDataProvider();
+
+            string query = "SELECT * from Category";
+
             using (SqlConnection connection = db.GetConnection())
             {
                 connection.Open();

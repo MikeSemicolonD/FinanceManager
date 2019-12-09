@@ -12,7 +12,6 @@
     {
         using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
         {
-            @Html.AntiForgeryToken()
             <nav class="navbar navbar-expand navbar-light navbar-fixed-top" style="background-color:#9DD5CC; border-radius: 10px;border: 10px outset #D4461E">
                 <div class="container">
                     <a class="navbar-brand" href="@Url.Action("Index","Home")">
@@ -24,10 +23,10 @@
                                 <span class="nav-link" style="color:#D4461E;">@Html.ActionLink("Analytics", "Index", "Analytics", routeValues: null, htmlAttributes: new { @style = "color:black" })</span>
                             </li>
                             <li class="nav-item">
-                                <span class="nav-link">@Html.ActionLink("Budget", "Index", "Budget", routeValues: null, htmlAttributes: new { @style = "color:black" })</span>
+                                <span class="nav-link">@Html.ActionLink("Budgets", "Index", "Budget", routeValues: null, htmlAttributes: new { @style = "color:black" })</span>
                             </li>
                             <li class="nav-item">
-                                <span class="nav-link">@Html.ActionLink("Transaction", "Index", "Transaction", routeValues: null, htmlAttributes: new { @style = "color:black" })</span>
+                                <span class="nav-link">@Html.ActionLink("Transactions", "Index", "Transaction", routeValues: null, htmlAttributes: new { @style = "color:black" })</span>
                             </li>
                             <li class="nav-item dropdown">
                                 <a style="color:black" class="nav-link dropdown-toggle" href="#" id="accountDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account Types</a>
