@@ -12,13 +12,18 @@ namespace FinanceManager.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            ViewBag.Message = "Your Budget page.";
-            //TransactionsAdapter transactionsAdapter = new TransactionsAdapter();
+            ViewBag.IsNotDashboard = true;
 
-            //Gets transactions for the given user, put them in a Viewbag to display it on the view
-            //ViewBag.Transactions = transactionsAdapter.GetTransactionsByUID(Utilities.GetUsersUID());
-            
-            //Home page for transactions page
+            //Can Add a Budget via Modal
+            //Select what Budget to View via dropdown
+            //Click 'Edit'
+                //Assign budget to Account Types
+                //Can exclude Transactions by
+                //  : Category
+                //  : Include Essentials
+                //  : Exclude Essentials
+                //Click 'Save' to save settings
+
             return View();
         }
 
