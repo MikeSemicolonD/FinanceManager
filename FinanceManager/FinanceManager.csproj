@@ -194,7 +194,7 @@
     <Compile Include="DAL\Adapters\FrequencyAdapter.cs" />
     <Compile Include="DAL\Adapters\BudgetAdapter.cs" />
     <Compile Include="DAL\ApplicationContext.cs" />
-    <Compile Include="DAL\DataProvider.cs" />
+    <Compile Include="DAL\DataProviders\IDatabaseHandler.cs" />
     <Compile Include="DAL\DataProviders\SqlDataProvider.cs" />
     <Compile Include="DAL\Adapters\AccountTypeAdapter.cs" />
     <Compile Include="DAL\Adapters\TransactionsAdapter.cs" />

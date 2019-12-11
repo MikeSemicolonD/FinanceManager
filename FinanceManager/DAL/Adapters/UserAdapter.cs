@@ -1,39 +1,41 @@
 ﻿using System;
-using FinanceManager.DAL;
 using System.Data.SqlClient;
 
-public class UserAdapter
-{ 
-    public string GetUIDByEmail(string email)
+namespace FinanceManager.DAL
+{
+    public class UserAdapter
     {
-        string UID = "";
-
-        try
+        public string GetUIDByEmail(string email)
         {
-            string query = "SELECT A.Id FROM [dbo].[AspNetUsers] A WHERE A.Email = '" + email + "';";
+            string UID = "";
 
-            SqlDataProvider db = new SqlDataProvider();
-
-            using (SqlConnection connection = db.GetConnection())
+            try
             {
-                connection.Open();
+                string query = "SELECT A.Id FROM [dbo].[AspNetUsers] A WHERE A.Email = '" + email + "';";
 
-                SqlCommand command = db.CreateCommand(query, connection);
-                SqlDataReader reader = db.ExecuteReader(command);
+                SqlDataProvider db = new SqlDataProvider();
 
-                while (reader.Read())
+                using (SqlConnection connection = (SqlConnection) db.GetConnection())
                 {
-                    UID = reader["Id"].ToString();
+                    connection.Open();
+
+                    SqlCommand command = db.CreateCommand(query, connection);
+                    SqlDataReader reader = db.ExecuteReader(command);
+
+                    while (reader.Read())
+                    {
+                        UID = reader["Id"].ToString();
+                    }
+
+                    reader.Close();
                 }
-
-                reader.Close();
             }
-        }
-        catch (Exception ex)
-        {
-            throw ex;
-        }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
 
-        return UID;
+            return UID;
+        }
     }
 }

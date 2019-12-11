@@ -2,83 +2,85 @@
 using System.Data.SqlClient;
 using System.Collections.Generic;
 using FinanceManager.Models;
-using FinanceManager.DAL;
 
-public class FrequencyAdapter
+namespace FinanceManager.DAL
 {
-    public FrequencyModel GetFrequencyByBudgetUID(string UID)
+    public class FrequencyAdapter
     {
-        FrequencyModel frequency = new FrequencyModel();
-
-        try
+        public FrequencyModel GetFrequencyByBudgetUID(string UID)
         {
-            SqlDataProvider db = new SqlDataProvider();
+            FrequencyModel frequency = new FrequencyModel();
 
-            string query = "SELECT * FROM [dbo].[Frequency] Fr LEFT JOIN [dbo].[Budget] B ON Fr.ID WHERE Fr.ID = B.Frequency_ID WHERE B.ID = " + UID + ";";
-
-            using (SqlConnection connection = db.GetConnection())
+            try
             {
-                connection.Open();
+                SqlDataProvider db = new SqlDataProvider();
 
-                SqlCommand command = db.CreateCommand(query, connection);
-                SqlDataReader reader = db.ExecuteReader(command);
+                string query = "SELECT * FROM [dbo].[Frequency] Fr LEFT JOIN [dbo].[Budget] B ON Fr.ID WHERE Fr.ID = B.Frequency_ID WHERE B.ID = " + UID + ";";
 
-                while (reader.Read())
+                using (SqlConnection connection = (SqlConnection) db.GetConnection())
                 {
-                    frequency = new FrequencyModel()
+                    connection.Open();
+
+                    SqlCommand command = db.CreateCommand(query, connection);
+                    SqlDataReader reader = db.ExecuteReader(command);
+
+                    while (reader.Read())
                     {
-                        ID = Utilities.ParseInt(reader["ID"].ToString()),
-                        Frequency = reader["Frequency"].ToString()
-                    };
+                        frequency = new FrequencyModel()
+                        {
+                            ID = Utilities.ParseInt(reader["ID"].ToString()),
+                            Frequency = reader["Frequency"].ToString()
+                        };
+                    }
+
+                    reader.Close();
                 }
-
-                reader.Close();
             }
-        }
-        catch (Exception ex)
-        {
-            throw ex;
-        }
-
-        return frequency;
-    }
-
-    public List<FrequencyModel> GetAllFrequencies()
-    {
-        List<FrequencyModel> frequencies = new List<FrequencyModel>();
-
-        try
-        {
-            SqlDataProvider db = new SqlDataProvider();
-
-            string query = "SELECT * FROM [dbo].[Frequency];";
-        
-            using (SqlConnection connection = db.GetConnection())
+            catch (Exception ex)
             {
-                connection.Open();
-
-                SqlCommand command = db.CreateCommand(query, connection);
-                SqlDataReader reader = db.ExecuteReader(command);
-
-                while (reader.Read())
-                {
-                    FrequencyModel frequency = new FrequencyModel()
-                    {
-                        ID = Utilities.ParseInt(reader["ID"].ToString()),
-                        Frequency = reader["Frequency"].ToString()
-                    };
-
-                    frequencies.Add(frequency);
-                }
-
-                reader.Close();
+                throw ex;
             }
-        }
-        catch (Exception ex)
-        {
-            throw ex;
+
+            return frequency;
         }
 
-        return frequencies;
+        public List<FrequencyModel> GetAllFrequencies()
+        {
+            List<FrequencyModel> frequencies = new List<FrequencyModel>();
+
+            try
+            {
+                SqlDataProvider db = new SqlDataProvider();
+
+                string query = "SELECT * FROM [dbo].[Frequency];";
+
+                using (SqlConnection connection = (SqlConnection) db.GetConnection())
+                {
+                    connection.Open();
+
+                    SqlCommand command = db.CreateCommand(query, connection);
+                    SqlDataReader reader = db.ExecuteReader(command);
+
+                    while (reader.Read())
+                    {
+                        FrequencyModel frequency = new FrequencyModel()
+                        {
+                            ID = Utilities.ParseInt(reader["ID"].ToString()),
+                            Frequency = reader["Frequency"].ToString()
+                        };
+
+                        frequencies.Add(frequency);
+                    }
+
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return frequencies;
+        }
     }
 }

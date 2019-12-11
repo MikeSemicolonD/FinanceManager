@@ -2,52 +2,54 @@
 using System.Data.SqlClient;
 using System.Collections.Generic;
 using FinanceManager.Models;
-using FinanceManager.DAL;
 
-public class CategoryAdapter
+namespace FinanceManager.DAL
 {
-    /// <summary>
-    /// Returns a list of AccountTypes for a given user
-    /// </summary>
-    /// <param name="UID"></param>
-    /// <returns></returns>
-    public List<CategoryModel> GetCategories()
+    public class CategoryAdapter
     {
-        List<CategoryModel> Categories = new List<CategoryModel>();
-
-        try
+        /// <summary>
+        /// Returns a list of AccountTypes for a given user
+        /// </summary>
+        /// <param name="UID"></param>
+        /// <returns></returns>
+        public List<CategoryModel> GetCategories()
         {
-            SqlDataProvider db = new SqlDataProvider();
+            List<CategoryModel> Categories = new List<CategoryModel>();
 
-            string query = "SELECT * from Category";
-
-            using (SqlConnection connection = db.GetConnection())
+            try
             {
-                connection.Open();
+                SqlDataProvider db = new SqlDataProvider();
 
-                SqlCommand command = db.CreateCommand(query, connection);
-                SqlDataReader reader = db.ExecuteReader(command);
+                string query = "SELECT * from Category";
 
-                while (reader.Read())
+                using (SqlConnection connection = (SqlConnection) db.GetConnection())
                 {
-                    CategoryModel Category = new CategoryModel()
+                    connection.Open();
+
+                    SqlCommand command = db.CreateCommand(query, connection);
+                    SqlDataReader reader = db.ExecuteReader(command);
+
+                    while (reader.Read())
                     {
-                        ID = Utilities.ParseInt(reader["ID"].ToString()),
-                        Category = reader["Category"].ToString()
-                    };
+                        CategoryModel Category = new CategoryModel()
+                        {
+                            ID = Utilities.ParseInt(reader["ID"].ToString()),
+                            Category = reader["Category"].ToString()
+                        };
 
-                    Categories.Add(Category);
+                        Categories.Add(Category);
+                    }
+
+                    reader.Close();
                 }
-
-                reader.Close();
             }
-        }
-        catch (Exception ex)
-        {
-            throw ex;
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return Categories;
         }
 
-        return Categories;
     }
-    
 }

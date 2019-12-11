@@ -1,4 +1,5 @@
-﻿using FinanceManager.Models;
+﻿using FinanceManager.DAL;
+using FinanceManager.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FinanceManager.DAL;
+using System;
 using System.Web.Mvc;
 using System.Web.Security;
 

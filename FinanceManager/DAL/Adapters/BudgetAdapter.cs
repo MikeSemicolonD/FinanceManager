@@ -2,252 +2,254 @@
 using System.Data.SqlClient;
 using System.Collections.Generic;
 using FinanceManager.Models;
-using FinanceManager.DAL;
 
-public class BudgetAdapter
+namespace FinanceManager.DAL
 {
-    /// <summary>
-    /// Returns a list of budgets belonging to a given user
-    /// </summary>
-    /// <param name="UID"></param>
-    /// <returns></returns>
-    public List<BudgetModel> GetBudgetsByUID(string UID)
+    public class BudgetAdapter
     {
-        List<BudgetModel> budgets = new List<BudgetModel>();
-
-        try
+        /// <summary>
+        /// Returns a list of budgets belonging to a given user
+        /// </summary>
+        /// <param name="UID"></param>
+        /// <returns></returns>
+        public List<BudgetModel> GetBudgetsByUID(string UID)
         {
-            SqlDataProvider db = new SqlDataProvider();
+            List<BudgetModel> budgets = new List<BudgetModel>();
 
-            string query = "SELECT * FROM [dbo].[Budget] as b left join [dbo].[User_Budget] as ub on b.ID = ub.Budget_ID Where ub.UID = '" + UID + "';";
-
-            using (SqlConnection connection = db.GetConnection())
+            try
             {
-                connection.Open();
+                SqlDataProvider db = new SqlDataProvider();
 
-                SqlCommand command = db.CreateCommand(query, connection);
-                SqlDataReader reader = db.ExecuteReader(command);
+                string query = "SELECT * FROM [dbo].[Budget] as b left join [dbo].[User_Budget] as ub on b.ID = ub.Budget_ID Where ub.UID = '" + UID + "';";
 
-                while (reader.Read())
+                using (SqlConnection connection = (SqlConnection) db.GetConnection())
                 {
-                    BudgetModel budget = new BudgetModel()
+                    connection.Open();
+
+                    SqlCommand command = db.CreateCommand(query, connection);
+                    SqlDataReader reader = db.ExecuteReader(command);
+
+                    while (reader.Read())
                     {
-                        ID = Utilities.ParseInt(reader["ID"].ToString()),
-                        Category_ID = Utilities.ParseInt(reader["Category_ID"].ToString()),
-                        Description = reader["Description"].ToString(),
-                        Account_ID = Utilities.ParseInt(reader["Account_ID"].ToString()),
-                        Amount = Utilities.ParseDecimal(reader["Amount"].ToString()),
-                        Frequency_ID = Utilities.ParseInt(reader["Frequency_ID"].ToString()),
-                    };
+                        BudgetModel budget = new BudgetModel()
+                        {
+                            ID = Utilities.ParseInt(reader["ID"].ToString()),
+                            Category_ID = Utilities.ParseInt(reader["Category_ID"].ToString()),
+                            Description = reader["Description"].ToString(),
+                            Account_ID = Utilities.ParseInt(reader["Account_ID"].ToString()),
+                            Amount = Utilities.ParseDecimal(reader["Amount"].ToString()),
+                            Frequency_ID = Utilities.ParseInt(reader["Frequency_ID"].ToString()),
+                        };
 
-                    budgets.Add(budget);
+                        budgets.Add(budget);
+                    }
+
+                    reader.Close();
                 }
-
-                reader.Close();
             }
-        }
-        catch (Exception ex)
-        {
-            throw ex;
-        }
-
-        return budgets;
-    }
-
-    /// <summary>
-    /// Deletes a Budget that belongs to specified user
-    /// </summary>
-    /// <param name="budget"></param>
-    public void DeleteBudget(BudgetModel budget)
-    {
-        try
-        {
-            SqlDataProvider db = new SqlDataProvider();
-
-            //Parse each id into query
-            string query = "DELETE FROM [dbo].[User_Budget] AS UB WHERE UB.UID = '"+ budget.UID + "';";
-
-            using (SqlConnection connection = db.GetConnection())
+            catch (Exception ex)
             {
-                connection.Open();
-
-                SqlCommand command = db.CreateCommand(query, connection);
-                SqlDataReader reader = db.ExecuteReader(command);
-
-                reader.Close();
+                throw ex;
             }
-        }
-        catch (Exception ex)
-        {
-            throw ex;
+
+            return budgets;
         }
 
-    }
-
-    /// <summary>
-    /// Returns a single budget model belonging to a given user
-    /// </summary>
-    /// <param name="UID"></param>
-    /// <returns></returns>
-    public BudgetModel GetBudgetByID(string ID)
-    {
-
-        BudgetModel budget = new BudgetModel();
-
-        try
+        /// <summary>
+        /// Deletes a Budget that belongs to specified user
+        /// </summary>
+        /// <param name="budget"></param>
+        public void DeleteBudget(BudgetModel budget)
         {
-            SqlDataProvider db = new SqlDataProvider();
-
-            string query = "SELECT * FROM [dbo].[Budgets] B WHERE B.ID = " + ID + ";";
-
-            using (SqlConnection connection = db.GetConnection())
+            try
             {
-                connection.Open();
+                SqlDataProvider db = new SqlDataProvider();
 
-                SqlCommand command = db.CreateCommand(query, connection);
-                SqlDataReader reader = db.ExecuteReader(command);
+                //Parse each id into query
+                string query = "DELETE FROM [dbo].[User_Budget] AS UB WHERE UB.UID = '" + budget.UID + "';";
 
-                while (reader.Read())
+                using (SqlConnection connection = (SqlConnection)db.GetConnection())
                 {
-                    budget = new BudgetModel()
+                    connection.Open();
+
+                    SqlCommand command = db.CreateCommand(query, connection);
+                    SqlDataReader reader = db.ExecuteReader(command);
+
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        /// <summary>
+        /// Returns a single budget model belonging to a given user
+        /// </summary>
+        /// <param name="UID"></param>
+        /// <returns></returns>
+        public BudgetModel GetBudgetByID(string ID)
+        {
+
+            BudgetModel budget = new BudgetModel();
+
+            try
+            {
+                SqlDataProvider db = new SqlDataProvider();
+
+                string query = "SELECT * FROM [dbo].[Budgets] B WHERE B.ID = " + ID + ";";
+
+                using (SqlConnection connection = (SqlConnection) db.GetConnection())
+                {
+                    connection.Open();
+
+                    SqlCommand command = db.CreateCommand(query, connection);
+                    SqlDataReader reader = db.ExecuteReader(command);
+
+                    while (reader.Read())
                     {
-                        ID = Utilities.ParseInt(reader["ID"].ToString()),
-                        Category_ID = Utilities.ParseInt(reader["Category_ID"].ToString()),
-                        Description = reader["Description"].ToString(),
-                        Account_ID = Utilities.ParseInt(reader["Account_ID"].ToString()),
-                        Amount = Utilities.ParseDecimal(reader["Price"].ToString()),
-                        Frequency_ID = Utilities.ParseInt(reader["Frequency_ID"].ToString()),
-                    };
+                        budget = new BudgetModel()
+                        {
+                            ID = Utilities.ParseInt(reader["ID"].ToString()),
+                            Category_ID = Utilities.ParseInt(reader["Category_ID"].ToString()),
+                            Description = reader["Description"].ToString(),
+                            Account_ID = Utilities.ParseInt(reader["Account_ID"].ToString()),
+                            Amount = Utilities.ParseDecimal(reader["Price"].ToString()),
+                            Frequency_ID = Utilities.ParseInt(reader["Frequency_ID"].ToString()),
+                        };
+                    }
+
+                    reader.Close();
                 }
-
-                reader.Close();
             }
-        }
-        catch (Exception ex)
-        {
-            throw ex;
-        }
-
-        return budget;
-    }
-
-    /// <summary>
-    /// Updates the values of a single budget belonging to a given user
-    /// </summary>
-    /// <param name="budget"></param>
-    /// <param name="UserEmail"></param>
-    public void SetBudget(BudgetModel budget, string UserEmail)
-    {
-        SetBudgets(new List<BudgetModel>() { budget }, UserEmail);
-    }
-
-    /// <summary>
-    /// Updates a list of budgets belonging to a given user
-    /// </summary>
-    /// <param name="Budgets"></param>
-    /// <param name="UserEmail"></param>
-    public void SetBudgets(List<BudgetModel> Budgets, string UserEmail)
-    {
-        try
-        {
-            SqlDataProvider db = new SqlDataProvider();
-
-            string queryTemplate = "UPDATE [dbo].[Budget] t SET Account_ID = '{0}', Price = '{1}', Times = {2}, Frequency_ID = {3} WHERE t.ID = {4}; ";
-            string query = "";
-
-            foreach (BudgetModel budget in Budgets)
+            catch (Exception ex)
             {
-                //Account_ID, Price, Times, Frequency_ID, UID
-                query += string.Format(queryTemplate, budget.Account_ID, budget.Amount, budget.Amount, budget.Frequency_ID, (budget.UID.Length != 0) ? budget.UID : Utilities.GetUsersUID(UserEmail));
+                throw ex;
             }
 
-            using (SqlConnection connection = db.GetConnection())
-            {
-                connection.Open();
-
-                SqlCommand command = db.CreateCommand(query, connection);
-
-                command.ExecuteScalar();
-            }
+            return budget;
         }
-        catch (Exception ex)
+
+        /// <summary>
+        /// Updates the values of a single budget belonging to a given user
+        /// </summary>
+        /// <param name="budget"></param>
+        /// <param name="UserEmail"></param>
+        public void SetBudget(BudgetModel budget, string UserEmail)
         {
-            throw ex;
+            SetBudgets(new List<BudgetModel>() { budget }, UserEmail);
         }
-    }
 
-    /// <summary>
-    /// Adds a single budget belonging to a given user
-    /// </summary>
-    /// <param name="budget"></param>
-    /// <param name="UserEmail"></param>
-    public void AddBudget(BudgetModel budget, string UserEmail)
-    {
-        AddBudgets(new List<BudgetModel>() { budget }, UserEmail);
-    }
-
-    /// <summary>
-    /// Adds a list of budgets belonging to a given user. Adding to the [Budget] and the [User_Budget] table.
-    /// </summary>
-    /// <param name="budgets"></param>
-    /// <param name="UserEmail"></param>
-    public void AddBudgets(List<BudgetModel> budgets, string UserEmail)
-    {
-        try
+        /// <summary>
+        /// Updates a list of budgets belonging to a given user
+        /// </summary>
+        /// <param name="Budgets"></param>
+        /// <param name="UserEmail"></param>
+        public void SetBudgets(List<BudgetModel> Budgets, string UserEmail)
         {
-            string queryTemplate = "INSERT INTO [dbo].[Budget] VALUES ({0},'{1}',{2},{3},{4});";
-            string query = "";
-
-            List<int> NewBudgetIDs = new List<int>();
-
-            foreach (BudgetModel budget in budgets)
+            try
             {
-                //Category_ID, Description, Account_ID, Amount, Frequency_ID
-                query += string.Format(queryTemplate, budget.Category_ID, budget.Description, budget.Account_ID, budget.Amount, budget.Frequency_ID);
-            }
+                SqlDataProvider db = new SqlDataProvider();
 
-            //Returns the ID of the budgets we just created
-            query += " SELECT SCOPE_IDENTITY() AS [NewIDs];";
+                string queryTemplate = "UPDATE [dbo].[Budget] t SET Account_ID = '{0}', Price = '{1}', Times = {2}, Frequency_ID = {3} WHERE t.ID = {4}; ";
+                string query = "";
 
-            SqlDataProvider db = new SqlDataProvider();
-
-            using (SqlConnection connection = db.GetConnection())
-            {
-                connection.Open();
-
-                SqlCommand command = db.CreateCommand(query, connection);
-
-                SqlDataReader reader = db.ExecuteReader(command);
-
-                while (reader.Read())
+                foreach (BudgetModel budget in Budgets)
                 {
-                    NewBudgetIDs.Add(Utilities.ParseInt(reader["NewIDs"].ToString()));
+                    //Account_ID, Price, Times, Frequency_ID, UID
+                    query += string.Format(queryTemplate, budget.Account_ID, budget.Amount, budget.Amount, budget.Frequency_ID, (budget.UID.Length != 0) ? budget.UID : Utilities.GetUsersUID(UserEmail));
                 }
 
-                reader.Close();
-
-                string template = "INSERT INTO [dbo].[User_Budget] VALUES('{0}',{1}); ";
-
-                string UTQuery = "";
-
-                string UserUID = Utilities.GetUsersUID(UserEmail);
-
-                foreach (int id in NewBudgetIDs)
+                using (SqlConnection connection = (SqlConnection) db.GetConnection())
                 {
-                    UTQuery += string.Format(template, UserUID, id);
+                    connection.Open();
+
+                    SqlCommand command = db.CreateCommand(query, connection);
+
+                    command.ExecuteScalar();
                 }
-
-                SqlCommand UTcommand = db.CreateCommand(UTQuery, connection);
-
-                UTcommand.ExecuteScalar();
-
-                reader.Close();
-
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
-        catch (Exception ex)
+
+        /// <summary>
+        /// Adds a single budget belonging to a given user
+        /// </summary>
+        /// <param name="budget"></param>
+        /// <param name="UserEmail"></param>
+        public void AddBudget(BudgetModel budget, string UserEmail)
         {
-            throw ex;
+            AddBudgets(new List<BudgetModel>() { budget }, UserEmail);
+        }
+
+        /// <summary>
+        /// Adds a list of budgets belonging to a given user. Adding to the [Budget] and the [User_Budget] table.
+        /// </summary>
+        /// <param name="budgets"></param>
+        /// <param name="UserEmail"></param>
+        public void AddBudgets(List<BudgetModel> budgets, string UserEmail)
+        {
+            try
+            {
+                string queryTemplate = "INSERT INTO [dbo].[Budget] VALUES ({0},'{1}',{2},{3},{4});";
+                string query = "";
+
+                List<int> NewBudgetIDs = new List<int>();
+
+                foreach (BudgetModel budget in budgets)
+                {
+                    //Category_ID, Description, Account_ID, Amount, Frequency_ID
+                    query += string.Format(queryTemplate, budget.Category_ID, budget.Description, budget.Account_ID, budget.Amount, budget.Frequency_ID);
+                }
+
+                //Returns the ID of the budgets we just created
+                query += " SELECT SCOPE_IDENTITY() AS [NewIDs];";
+
+                SqlDataProvider db = new SqlDataProvider();
+
+                using (SqlConnection connection = (SqlConnection) db.GetConnection())
+                {
+                    connection.Open();
+
+                    SqlCommand command = db.CreateCommand(query, connection);
+
+                    SqlDataReader reader = db.ExecuteReader(command);
+
+                    while (reader.Read())
+                    {
+                        NewBudgetIDs.Add(Utilities.ParseInt(reader["NewIDs"].ToString()));
+                    }
+
+                    reader.Close();
+
+                    string template = "INSERT INTO [dbo].[User_Budget] VALUES('{0}',{1}); ";
+
+                    string UTQuery = "";
+
+                    string UserUID = Utilities.GetUsersUID(UserEmail);
+
+                    foreach (int id in NewBudgetIDs)
+                    {
+                        UTQuery += string.Format(template, UserUID, id);
+                    }
+
+                    SqlCommand UTcommand = db.CreateCommand(UTQuery, connection);
+
+                    UTcommand.ExecuteScalar();
+
+                    reader.Close();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }
