@@ -16,6 +16,7 @@
                 <div class="container">
                     <a class="navbar-brand" href="@Url.Action("Index","Home")">
                         <img style="width:100px;height:100px;" src="@Url.Content("~/Content/Images/SPOILER_logo_transparent.png")" />
+                        <strong>MiTiM Financial</strong>
                     </a>
                     <div class="collapse navbar-collapse" id="navbarsExample02">
                         <ul class="navbar-nav mr-auto">
@@ -51,8 +52,11 @@
         @RenderBody()
 
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - MiTiM Financial</p>
+        <footer style="text-align:center">
+            <img style="width:50px;height:50px;" src="@Url.Content("~/Content/Images/SPOILER_logo_transparent.png")" />
+            <strong>MiTiM Financial</strong>
+            <div>&copy; Copyright 2019 - @DateTime.Now.Year</div>
+            <div style="position: fixed; left: 0; bottom: 0; width: 100%; background-color: #D4461E; color: white; text-align: center;"></div>
         </footer>
     </div>
 

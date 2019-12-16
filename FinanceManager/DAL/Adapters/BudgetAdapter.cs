@@ -55,8 +55,40 @@ namespace FinanceManager.DAL
             return budgets;
         }
 
+
+
         /// <summary>
         /// Deletes a Budget that belongs to specified user
+        /// </summary>
+        /// <param name="budget"></param>
+        public void DeleteBudgetByID(long id)
+        {
+            try
+            {
+                SqlDataProvider db = new SqlDataProvider();
+
+                //Parse each id into query
+                string query = "";//"DELETE FROM [dbo].[User_Budget] AS UB WHERE UB.UID = '" + budget.UID + "';";
+
+                using (SqlConnection connection = (SqlConnection)db.GetConnection())
+                {
+                    connection.Open();
+
+                    SqlCommand command = db.CreateCommand(query, connection);
+                    SqlDataReader reader = db.ExecuteReader(command);
+
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        /// <summary>
+        /// Deletes a Budget that belongs to specified user, taking in a model rather than an ID
         /// </summary>
         /// <param name="budget"></param>
         public void DeleteBudget(BudgetModel budget)

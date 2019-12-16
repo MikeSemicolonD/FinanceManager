@@ -4,11 +4,11 @@
 @if (ViewBag.IsNotDashboard == null) //Below will be shown on the dashboard page
 {
     <div class="jumbotron">
-        <h1>Transactions</h1>
-        <p class="lead">You can manage/add transactions here.</p>
+        <h1>Budgets</h1>
+        <p class="lead">You can manage/add budgets here.</p>
     </div>
 }
-else //Below will be shown on the main transactions page
+else //Below will be shown on the main budget page
 {
     <nav class="navbar navbar-light navbar-expand-lg" style="background-color:#9DD5CC;">
         <div class="container">
@@ -40,9 +40,15 @@ else //Below will be shown on the main transactions page
                 </tr>
             </thead>
             <tbody id="TransactionsTable">
-                    <tr>
-                        <th scope="colgroup">No transactions were found.</th>
-                    </tr>
+                <tr>
+                    <th scope="col" style="text-align:center">No</th>
+                    <th scope="col" style="text-align:center">Transactions</th>
+                    <th scope="col">were</th>
+                    <th scope="col">Found.</th>
+                    <th scope="col" style="text-align:center">Essential</th>
+                    <th scope="col" style="text-align:center">Date of Transaction</th>
+                    <th scope="col" style="text-align:center"></th>
+                </tr>
             </tbody>
         </table>
     </div>
