@@ -44,9 +44,9 @@ else //Below will be shown on the main transactions page
             </thead>
             <tbody id="TransactionsTable">
                 @if (Model.TransactionModels == null)
-                {
+                { 
                     <tr>
-                        <th scope="colgroup">No transactions were found.</th>
+                        <th colspan="7" scope="col" style="text-align:center">No Transactions were Found.</th>
                     </tr>
                 }
                 else
