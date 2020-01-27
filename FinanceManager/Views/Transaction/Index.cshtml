@@ -62,7 +62,7 @@ else //Below will be shown on the main transactions page
                         {
                             <th scope="row" align="center" style="color:red;">$@transaction.Amount</th>
                         }
-                        <td>@Model.AvailableAccountTypes.ElementAt(transaction.AccountType - 1).Text</td>
+                        <td>@Model.AvailableAccountTypes.Where(t => t.Value == transaction.AccountType.ToString()).FirstOrDefault().Text</td>
                         <td>@transaction.Description</td>
                         <td>@Model.Categories.ElementAt(transaction.Category - 1).Text</td>
                         <td align="center">

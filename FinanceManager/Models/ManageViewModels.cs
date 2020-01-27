@@ -20,10 +20,10 @@ namespace FinanceManager.Models
         public IList<AuthenticationDescription> OtherLogins { get; set; }
     }
 
-    public class FactorViewModel
-    {
-        public string Purpose { get; set; }
-    }
+    //public class FactorViewModel
+    //{
+    //    public string Purpose { get; set; }
+    //}
 
     public class SetPasswordViewModel
     {
@@ -78,9 +78,9 @@ namespace FinanceManager.Models
         public string PhoneNumber { get; set; }
     }
 
-    public class ConfigureTwoFactorViewModel
-    {
-        public string SelectedProvider { get; set; }
-        public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
-    }
+    //public class ConfigureTwoFactorViewModel
+    //{
+    //    public string SelectedProvider { get; set; }
+    //    public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
+    //}
 }

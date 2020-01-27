@@ -40,8 +40,7 @@ namespace FinanceManager.DAL
                             Category = Utilities.ParseInt(reader["Category_ID"].ToString()),
                             Amount = Utilities.ParseDecimal(reader["Amount"].ToString()),
                             AccountType = Utilities.ParseInt(reader["Account_ID"].ToString()),
-                            TransactionDate = Utilities.ParseDateTime(reader["Date"].ToString())//,
-                                                                                                //AccountType = reader["AccountType"].ToString()
+                            TransactionDate = Utilities.ParseDateTime(reader["Date"].ToString())
                         };
 
                         transactions.Add(transaction);

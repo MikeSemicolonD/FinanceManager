@@ -10,10 +10,10 @@ namespace FinanceManager.Models
         public string Email { get; set; }
     }
 
-    public class ExternalLoginListViewModel
-    {
-        public string ReturnUrl { get; set; }
-    }
+    //public class ExternalLoginListViewModel
+    //{
+    //    public string ReturnUrl { get; set; }
+    //}
 
     public class SendCodeViewModel
     {
@@ -39,12 +39,12 @@ namespace FinanceManager.Models
         public bool RememberMe { get; set; }
     }
 
-    public class ForgotViewModel
-    {
-        [Required]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
-    }
+    //public class ForgotViewModel
+    //{
+    //    [Required]
+    //    [Display(Name = "Email")]
+    //    public string Email { get; set; }
+    //}
 
     public class LoginViewModel
     {
