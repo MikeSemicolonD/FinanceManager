@@ -61,14 +61,14 @@ namespace FinanceManager.DAL
         /// Deletes a Budget that belongs to specified user
         /// </summary>
         /// <param name="budget"></param>
-        public void DeleteBudgetByID(long id)
+        public void DeleteBudgetByIDAndUID(long id, string UID)
         {
             try
             {
                 SqlDataProvider db = new SqlDataProvider();
 
                 //Parse each id into query
-                string query = "";//"DELETE FROM [dbo].[User_Budget] AS UB WHERE UB.UID = '" + budget.UID + "';";
+                string query = "DELETE FROM [dbo].[User_Budget] AS UB WHERE UB.UID = '" + UID + "' AND UB.Budget_ID = " + id + "; DELETE FROM [dbo].[Budget] AS b WHERE b.ID = " + id;
 
                 using (SqlConnection connection = (SqlConnection)db.GetConnection())
                 {
@@ -98,7 +98,7 @@ namespace FinanceManager.DAL
                 SqlDataProvider db = new SqlDataProvider();
 
                 //Parse each id into query
-                string query = "DELETE FROM [dbo].[User_Budget] AS UB WHERE UB.UID = '" + budget.UID + "';";
+                string query = "DELETE FROM [dbo].[User_Budget] AS UB WHERE UB.UID = '" + budget.UID + "' AND UB.Budget_ID = " + budget.ID + "; DELETE FROM [dbo].[Budget] AS b WHERE b.ID = "+budget.ID;
 
                 using (SqlConnection connection = (SqlConnection)db.GetConnection())
                 {
@@ -122,7 +122,7 @@ namespace FinanceManager.DAL
         /// </summary>
         /// <param name="UID"></param>
         /// <returns></returns>
-        public BudgetModel GetBudgetByID(string ID)
+        public BudgetModel GetBudgetByID(long ID)
         {
 
             BudgetModel budget = new BudgetModel();
@@ -185,7 +185,7 @@ namespace FinanceManager.DAL
             {
                 SqlDataProvider db = new SqlDataProvider();
 
-                string queryTemplate = "UPDATE [dbo].[Budget] t SET Account_ID = '{0}', Price = '{1}', Times = {2}, Frequency_ID = {3} WHERE t.ID = {4}; ";
+                string queryTemplate = "UPDATE [dbo].[Budget] b SET Account_ID = '{0}', Price = '{1}', Times = {2}, Frequency_ID = {3} WHERE b.ID = {4}; ";
                 string query = "";
 
                 foreach (BudgetModel budget in Budgets)

@@ -19,9 +19,14 @@ namespace FinanceManager.Controllers
             BudgetAdapter budgetAdapter = new BudgetAdapter();
             List<BudgetModel> AllUserBudgets = budgetAdapter.GetBudgetsByUID(Utilities.GetUsersUID(User.Identity.Name));
 
+            //Can delete budgets
+            //Can duplicate budgets
+
             //Can Add a Budget via Modal
-            //Select what Budget to View via dropdown
-            //Click 'Edit'
+            //Select what Budget to View via list
+
+            //Selecting one bring up data for that budget
+
             //Assign budget to Account Types
             //Can exclude Transactions by
             //  : Category
@@ -32,21 +37,45 @@ namespace FinanceManager.Controllers
             return View();
         }
 
+
+        [HttpGet]
+        public JsonResult GetBudgetByID(long id)
+        {
+            BudgetAdapter budgetAdapter = new BudgetAdapter();
+            BudgetModel selectedBudget = budgetAdapter.GetBudgetByID(id);
+
+            return Json(selectedBudget);
+        }
+
+        [HttpPost]
+        public ActionResult UpdateBudget(BudgetModel budgetToUpdate)
+        {
+            BudgetAdapter budgetAdapter = new BudgetAdapter();
+            budgetAdapter.SetBudget(budgetToUpdate, User.Identity.Name);
+
+            //Refresh page
+            //Re-get info
+            ViewBag.PreviouslySelectedBudget = budgetToUpdate.ID;
+
+            return RedirectToAction("Index", "Budget", null);
+        }
+
+
         [HttpPost]
         public ActionResult AddBudget(BudgetModel budgetToAdd)
         {
             BudgetAdapter budgetAdapter = new BudgetAdapter();
             budgetAdapter.AddBudget(budgetToAdd, User.Identity.Name);
 
-            return RedirectToAction("Index", "Transaction", null);
+            return RedirectToAction("Index", "Budget", null);
         }
 
         public ActionResult DeleteBudget(long ID)
         {
             BudgetAdapter budgetAdapter = new BudgetAdapter();
-            //budgetAdapter.DeleteBudget(ID, User.Identity.Name);
+            budgetAdapter.DeleteBudgetByIDAndUID(ID, User.Identity.Name);
 
-            return RedirectToAction("Index", "Transaction", null);
+            return RedirectToAction("Index", "Budget", null);
         }
 
     }

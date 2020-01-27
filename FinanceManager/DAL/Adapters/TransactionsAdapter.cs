@@ -163,7 +163,6 @@ namespace FinanceManager.DAL
                             Description = reader["Description"].ToString(),
                             Amount = Utilities.ParseDecimal(reader["Amount"].ToString()),
                             AccountType = Utilities.ParseInt(reader["Account_ID"].ToString()),
-                            //AccountType = reader["AccountType"].ToString(),
                             TransactionDate = Utilities.ParseDateTime(reader["Date"].ToString()),
                             IsEssential = Utilities.ParseBool(reader["IsEssential"].ToString())
                         };

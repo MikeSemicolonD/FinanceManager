@@ -11,6 +11,8 @@ namespace FinanceManager.Controllers
         [Authorize]
         public ActionResult Index()
         {
+            //Get Budgets
+            //Get Transactions
             return View();
         }
 
