@@ -2,26 +2,33 @@
     ViewBag.Title = "Dashboard";
 }
 
-<div class="jumbotron">
-    <h1>MiTiM Financial Manager</h1>
-    <p class="lead">MiTiM Financial Manager is a manager that manage your finance</p>
-</div>
-
 <div class="col-lg-auto">
-    <h2>Transactions</h2>
-    <p>
-        @Html.Partial("~/Views/Transaction/Index.cshtml")
-    </p>
-</div>
-<div class="col-lg-auto">
-    <h2>Analytics</h2>
-    <p>
-        @Html.Partial("~/Views/Analytics/Index.cshtml")
-    </p>
+    <div style="background-color:#8dc4bc; padding:2rem 1rem;" class="jumbotron">
+        <div class="col-lg-auto">
+            <h2>Transactions</h2>
+            <p>
+                @Html.Partial("~/Views/Transaction/Index.cshtml")
+            </p>
+        </div>
+    </div>
 </div>
 <div class="col-lg-auto">
-    <h2>Budget</h2>
-    <p>
-        @Html.Partial("~/Views/Budget/Index.cshtml")
-    </p>
+    <div style="background-color:#8dc4bc; padding:2rem 1rem;" class="jumbotron">
+        <div class="col-lg-auto">
+            <h2>Budgets</h2>
+            <p>
+                @Html.Partial("~/Views/Budget/Index.cshtml")
+            </p>
+        </div>
+    </div>
+</div>
+<div class="col-lg-auto">
+    <div style="background-color:#8dc4bc; padding:2rem 1rem;" class="jumbotron">
+        <div class="col-lg-auto">
+            <h2>Analytics</h2>
+            <p>
+                @Html.Partial("~/Views/Analytics/Index.cshtml")
+            </p>
+        </div>
+    </div>
 </div>

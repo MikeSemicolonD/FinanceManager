@@ -1,13 +1,83 @@
 ﻿@{
     ViewBag.Title = "Transactions";
+    IEnumerable<SelectListItem> DashboardViewCategories = (ViewBag.Categories != null) ? (IEnumerable<SelectListItem>)ViewBag.Categories : null;
+    IEnumerable<SelectListItem> DashboardViewAccountTypes = (ViewBag.AccountTypes != null) ? (IEnumerable<SelectListItem>)ViewBag.AccountTypes : null;
 }
 @model FinanceManager.Models.TransactionModelList
-
 @if (ViewBag.IsNotDashboard == null) //Below will be shown on the dashboard page
 {
-    <div class="jumbotron">
-        <h1>Transactions</h1>
-        <p class="lead">You can manage/add transactions here.</p>
+    <nav class="navbar navbar-light navbar-expand-lg" style="background-color:#8dc4bc;">
+        <div class="container">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <span class="navbar-text">
+                        <label style="color:black"> Sort by Account Type : </label>
+                        @Html.DropDownList("AccountTypes", new SelectList(DashboardViewAccountTypes, "Value", "Text"), "All Types", new { id = "AccountTypesDropDown", style = "width:75%" })
+                    </span>
+                </li>
+            </ul>
+            <ul class="navbar-nav navbar-right">
+                <li class="nav-item">
+                    <span>@Html.ActionLink("Add a Transaction", "Index", "Transaction", null, new { @class = "btn btn-primary" })</span>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="row">
+        <table style="border:ridge black; background-color:white" class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col" style="text-align:center">Amount</th>
+                    <th scope="col" style="text-align:center">Account Type</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Category</th>
+                    <th scope="col" style="text-align:center">Essential</th>
+                    <th scope="col" style="text-align:center">Date of Transaction</th>
+                    <th scope="col" style="text-align:center">Action</th>
+                </tr>
+            </thead>
+            <tbody id="TransactionsTable">
+                @if (ViewBag.AccountTypes == null)
+                {
+                    <tr>
+                        <th colspan="7" scope="col" style="text-align:center">No Transactions were Found.</th>
+                    </tr>
+                }
+                else
+                {
+                    foreach (FinanceManager.Models.TransactionModel transaction in ViewBag.Transactions)
+                    {
+                        <tr id="@transaction.AccountType">
+                            @if (transaction.Amount >= 0)
+                            {
+                                <th scope="row" align="center" style="color:green;">$@transaction.Amount</th>
+                            }
+                            else
+                            {
+                                <th scope="row" align="center" style="color:red;">$@transaction.Amount</th>
+                            }
+                            <td>@DashboardViewAccountTypes.Where(t => t.Value == transaction.AccountType.ToString()).FirstOrDefault().Text</td>
+                            <td>@transaction.Description</td>
+                            <td>@DashboardViewCategories.ElementAt(transaction.Category - 1).Text</td>
+                            <td align="center">
+                                <a>
+                                    @if (transaction.IsEssential)
+                                    {
+                                        <span style="color:lawngreen; font-size:28px">✓</span>
+                                    }
+                                    else
+                                    {
+                                        <span style="color:red; font-size:28px">✕</span>
+                                    }
+                                </a>
+                            </td>
+                            <td align="center">@transaction.TransactionDate.Date.ToString("d")</td>
+                            <td align="center"> @Html.ActionLink("Delete", "Index", "Transaction",null, new { @class = "btn btn-danger btn-sm" }) </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
     </div>
 }
 else //Below will be shown on the main transactions page
@@ -28,7 +98,7 @@ else //Below will be shown on the main transactions page
                 </li>
             </ul>
         </div>
-   </nav>
+    </nav>
     <div class="row">
         <table style="border:ridge black; background-color:white" class="table table-striped table-bordered">
             <thead>
@@ -44,7 +114,7 @@ else //Below will be shown on the main transactions page
             </thead>
             <tbody id="TransactionsTable">
                 @if (Model.TransactionModels == null)
-                { 
+                {
                     <tr>
                         <th colspan="7" scope="col" style="text-align:center">No Transactions were Found.</th>
                     </tr>
@@ -53,60 +123,58 @@ else //Below will be shown on the main transactions page
                 {
                     foreach (var transaction in Model.TransactionModels)
                     {
-                    <tr id="@transaction.AccountType">
-                        @if (transaction.Amount >= 0)
-                        {
-                            <th scope="row" align="center" style="color:green;">$@transaction.Amount</th>
-                        }
-                        else
-                        {
-                            <th scope="row" align="center" style="color:red;">$@transaction.Amount</th>
-                        }
-                        <td>@Model.AvailableAccountTypes.Where(t => t.Value == transaction.AccountType.ToString()).FirstOrDefault().Text</td>
-                        <td>@transaction.Description</td>
-                        <td>@Model.Categories.ElementAt(transaction.Category - 1).Text</td>
-                        <td align="center">
-                            <a>
-                                @if (transaction.IsEssential)
-                                {
-                                    <span style="color:lawngreen; font-size:28px">✓</span>
-                                }
-                                else
-                                {
-                                    <span style="color:red; font-size:28px">✕</span>
-                                }
-                            </a>
-                        </td>
-                        <td align="center">@transaction.TransactionDate.Date.ToString("d")</td>
-                        <td align="center"> @Html.ActionLink("Delete", "DeleteTransaction", "Transaction", new { ID = transaction.ID }, new { @class = "btn btn-danger btn-sm" }) </td>
-                    </tr>
+                        <tr id="@transaction.AccountType">
+                            @if (transaction.Amount >= 0)
+                            {
+                                <th scope="row" align="center" style="color:green;">$@transaction.Amount</th>
+                            }
+                            else
+                            {
+                                <th scope="row" align="center" style="color:red;">$@transaction.Amount</th>
+                            }
+                            <td>@Model.AvailableAccountTypes.Where(t => t.Value == transaction.AccountType.ToString()).FirstOrDefault().Text</td>
+                            <td>@transaction.Description</td>
+                            <td>@Model.Categories.ElementAt(transaction.Category - 1).Text</td>
+                            <td align="center">
+                                <a>
+                                    @if (transaction.IsEssential)
+                                    {
+                                        <span style="color:lawngreen; font-size:28px">✓</span>
+                                    }
+                                    else
+                                    {
+                                        <span style="color:red; font-size:28px">✕</span>
+                                    }
+                                </a>
+                            </td>
+                            <td align="center">@transaction.TransactionDate.Date.ToString("d")</td>
+                            <td align="center"> @Html.ActionLink("Delete", "DeleteTransaction", "Transaction", new { ID = transaction.ID }, new { @class = "btn btn-danger btn-sm" }) </td>
+                        </tr>
                     }
                 }
             </tbody>
         </table>
     </div>
-
     using (Html.BeginForm("AddTransaction", "Transaction", FormMethod.Post, new { @class = "form" }))
     {
         @Html.AntiForgeryToken()
         @Html.Partial("AddTransactionModal")
     }
-
-    @section scripts{
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $('#AccountTypesDropDown').change(function () {
-                    var selection = this.value;
-                    $('#TransactionsTable tr').each(function () {
-                        if (selection != "" && $(this).attr("id") != selection) {
-                            $(this).hide();
-                        }
-                        else {
-                            $(this).show();
-                        }
-                    });
+}
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#AccountTypesDropDown').change(function () {
+                var selection = this.value;
+                $('#TransactionsTable tr').each(function () {
+                    if (selection != "" && $(this).attr("id") != selection) {
+                        $(this).hide();
+                    }
+                    else {
+                        $(this).show();
+                    }
                 });
             });
-        </script>
-    }
+        });
+    </script>
 }

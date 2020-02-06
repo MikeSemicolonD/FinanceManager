@@ -33,7 +33,10 @@ namespace FinanceManager.Controllers
         {
             AccountTypeAdapter accountTypeAdapter = new AccountTypeAdapter();
 
-            accountTypeAdapter.AddAccountType(new AccountTypeModel { AccountType = typeName }, User.Identity.Name);
+            if(!accountTypeAdapter.GetAccountTypesByUID(User.Identity.Name).Exists(a=> a.AccountType == typeName))
+            {
+                accountTypeAdapter.AddAccountType(new AccountTypeModel { AccountType = typeName }, User.Identity.Name);
+            }
 
             return Json(true,JsonRequestBehavior.AllowGet);
         }

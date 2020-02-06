@@ -1,10 +1,7 @@
-﻿using FinanceManager.DAL;
-using FinanceManager.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
+using FinanceManager.DAL;
+using FinanceManager.Models;
 
 namespace FinanceManager.Controllers
 {
@@ -17,8 +14,6 @@ namespace FinanceManager.Controllers
         [Authorize]
         public ActionResult Index()
         {
-
-            List<AccountTypeModel> types = accountTypeAdapter.GetAccountTypesByUID(Utilities.GetUsersUID(User.Identity.Name));
 
             //Gets transactions / available account types for the given user, put them in a model to display it on the view
             TransactionModelList transactions = new TransactionModelList
