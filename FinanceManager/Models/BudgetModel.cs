@@ -14,6 +14,8 @@
 
         public int Category_ID { get; set; }
 
+        public string Category { get; set; }
+
         public int Frequency_ID { get; set; }
     }
 }

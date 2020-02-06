@@ -1,5 +1,5 @@
 ﻿body {
-    background-color:aliceblue;
+    background-color: aliceblue;
     padding-top: 10px;
     padding-bottom: 10px;
 }
@@ -53,4 +53,36 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+.vertical-menu {
+    width: 200px;
+    height: 500px;
+    overflow-y: auto;
+}
+
+.vertical-menu a {
+    background-color: #eee; /* Grey background color */
+    color: black; /* Black text color */
+    display: block; /* Make the links appear below each other */
+    padding: 12px; /* Add some padding */
+    text-decoration: none; /* Remove underline from links */
+}
+
+.vertical-menu a:hover {
+    background-color: #ccc; /* Dark grey background on mouse-over */
+}
+
+.vertical-menu a.active {
+    background-color: #4CAF50; /* Add a green color to the "active/current" link */
+    color: white;
+}
+
+.divLeft {
+    flex: 1;
+    float: left;
+}
+
+.divRight {
+    margin-left: 25px;
 }

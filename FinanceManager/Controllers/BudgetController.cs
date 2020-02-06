@@ -11,6 +11,7 @@ namespace FinanceManager.Controllers
 {
     public class BudgetController : Controller
     {
+
         [Authorize]
         public ActionResult Index()
         {
@@ -18,6 +19,7 @@ namespace FinanceManager.Controllers
 
             BudgetAdapter budgetAdapter = new BudgetAdapter();
             List<BudgetModel> AllUserBudgets = budgetAdapter.GetBudgetsByUID(Utilities.GetUsersUID(User.Identity.Name));
+            List<BudgetModel> UniqueCategories = budgetAdapter.GetUniqueCategoryByUID(Utilities.GetUsersUID(User.Identity.Name));
 
             //Can Add a Budget via Modal
             //Select what Budget to View via dropdown
@@ -28,7 +30,7 @@ namespace FinanceManager.Controllers
             //  : Include Essentials
             //  : Exclude Essentials
             //Click 'Save' to save settings
-
+            ViewBag.Budget = UniqueCategories;
             return View();
         }
 
