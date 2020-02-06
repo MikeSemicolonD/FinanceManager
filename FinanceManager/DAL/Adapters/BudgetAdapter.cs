@@ -55,7 +55,49 @@ namespace FinanceManager.DAL
             return budgets;
         }
 
+        /// <summary>
+        /// Returns a list of unique categories in budgets belonging to a given user
+        /// </summary>
+        /// <param name="UID"></param>
+        /// <returns></returns>
+        public List<BudgetModel> GetUniqueCategoryByUID(string UID)
+        {
+            List<BudgetModel> budgets = new List<BudgetModel>();
 
+            try
+            {
+                SqlDataProvider db = new SqlDataProvider();
+
+                string query = "SELECT distinct Category_ID, c.Category FROM [dbo].[Budget] as b left join [dbo].[User_Budget] as ub on b.ID = ub.Budget_ID left join [dbo].[Category] as c on b.Category_ID = c.ID Where ub.UID = '" + UID + "';";
+
+                using (SqlConnection connection = (SqlConnection)db.GetConnection())
+                {
+                    connection.Open();
+
+                    SqlCommand command = db.CreateCommand(query, connection);
+                    SqlDataReader reader = db.ExecuteReader(command);
+
+                    while (reader.Read())
+                    {
+                        BudgetModel budget = new BudgetModel()
+                        {
+                            Category_ID = Utilities.ParseInt(reader["Category_ID"].ToString()),
+                            Category = reader["Category"].ToString()
+                        };
+
+                        budgets.Add(budget);
+                    }
+
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return budgets;
+        }
 
         /// <summary>
         /// Deletes a Budget that belongs to specified user
