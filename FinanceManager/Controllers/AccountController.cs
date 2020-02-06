@@ -1,22 +1,19 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Web;
 using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
+using FinanceManager.Models;
+using System.Threading.Tasks;
+using Microsoft.Owin.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using FinanceManager.Models;
 
 namespace FinanceManager.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
-        private ApplicationSignInManager _signInManager;
-        private ApplicationUserManager _userManager;
+        private ApplicationSignInManager UserSignInManager;
+        private ApplicationUserManager UserAccountManager;
 
         public AccountController()
         {
@@ -28,32 +25,41 @@ namespace FinanceManager.Controllers
             SignInManager = signInManager;
         }
 
+        /// <summary>
+        /// Getter/Setter
+        /// </summary>
         public ApplicationSignInManager SignInManager
         {
             get
             {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+                return UserSignInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
             private set 
             { 
-                _signInManager = value; 
+                UserSignInManager = value; 
             }
         }
 
+        /// <summary>
+        /// Getter/Setter
+        /// </summary>
         public ApplicationUserManager UserManager
         {
             get
             {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                return UserAccountManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
             private set
             {
-                _userManager = value;
+                UserAccountManager = value;
             }
         }
 
-        //
-        // GET: /Account/Login
+        /// <summary>
+        /// Returns the login screen view
+        /// </summary>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
@@ -61,8 +67,12 @@ namespace FinanceManager.Controllers
             return View();
         }
 
-        //
-        // POST: /Account/Login
+        /// <summary>
+        /// Attempts to log the user in
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
@@ -90,8 +100,13 @@ namespace FinanceManager.Controllers
             }
         }
 
-        //
-        // GET: /Account/VerifyCode
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="provider"></param>
+        /// <param name="returnUrl"></param>
+        /// <param name="rememberMe"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
         {
@@ -103,8 +118,11 @@ namespace FinanceManager.Controllers
             return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
 
-        //
-        // POST: /Account/VerifyCode
+        /// <summary>
+        /// Verifies two factor auth code
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -133,16 +151,21 @@ namespace FinanceManager.Controllers
             }
         }
 
-        //
-        // GET: /Account/Register
+        /// <summary>
+        /// Returns the Register User View
+        /// </summary>
+        /// <returns></returns>
         [AllowAnonymous]
         public ActionResult Register()
         {
             return View();
         }
 
-        //
-        // POST: /Account/Register
+        /// <summary>
+        /// Registers a user if the info given is valid
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -171,8 +194,13 @@ namespace FinanceManager.Controllers
             return View(model);
         }
 
-        //
-        // GET: /Account/ConfirmEmail
+        
+        /// <summary>
+        /// Confirms a user via email using a userId and a code
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="code"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
         {
@@ -184,16 +212,22 @@ namespace FinanceManager.Controllers
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
-        //
-        // GET: /Account/ForgotPassword
+        /// <summary>
+        /// Returns the Forgot Password View
+        /// </summary>
+        /// <returns></returns>
         [AllowAnonymous]
         public ActionResult ForgotPassword()
         {
             return View();
         }
 
-        //
-        // POST: /Account/ForgotPassword
+        /// <summary>
+        /// Forgot password functionality.
+        /// (Partially commented out, will probably use later)
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -220,24 +254,32 @@ namespace FinanceManager.Controllers
             return View(model);
         }
 
-        //
-        // GET: /Account/ForgotPasswordConfirmation
+        /// <summary>
+        /// Returns Forgot Password Confirmation page
+        /// </summary>
+        /// <returns></returns>
         [AllowAnonymous]
         public ActionResult ForgotPasswordConfirmation()
         {
             return View();
         }
 
-        //
-        // GET: /Account/ResetPassword
+        /// <summary>
+        /// Returns Reset Password view if the code is not null
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         public ActionResult ResetPassword(string code)
         {
             return code == null ? View("Error") : View();
         }
 
-        //
-        // POST: /Account/ResetPassword
+        /// <summary>
+        /// Reset a user's password if the user exists
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -262,27 +304,36 @@ namespace FinanceManager.Controllers
             return View();
         }
 
-        //
-        // GET: /Account/ResetPasswordConfirmation
+        /// <summary>
+        /// Returns a login view after sending password reset email
+        /// </summary>
+        /// <returns></returns>
         [AllowAnonymous]
         public ActionResult ResetPasswordConfirmation()
         {
             return View();
         }
 
-        //
-        // POST: /Account/ExternalLogin
+        /// <summary>
+        /// Request a redirect to the external login provider
+        /// </summary>
+        /// <param name="provider"></param>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult ExternalLogin(string provider, string returnUrl)
         {
-            // Request a redirect to the external login provider
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }
 
-        //
-        // GET: /Account/SendCode
+        /// <summary>
+        /// Sends out a two factor auth code to the user if this user is new
+        /// </summary>
+        /// <param name="returnUrl"></param>
+        /// <param name="rememberMe"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
         {
@@ -296,8 +347,11 @@ namespace FinanceManager.Controllers
             return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
 
-        //
-        // POST: /Account/SendCode
+        /// <summary>
+        /// Send a 2 Factor Auth code
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -316,12 +370,15 @@ namespace FinanceManager.Controllers
             return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, model.ReturnUrl, model.RememberMe });
         }
 
-        //
-        // GET: /Account/ExternalLoginCallback
+        /// <summary>
+        /// Attempts to sign the user in
+        /// </summary>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
-            var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
+            var loginInfo = await HttpContext.GetOwinContext().Authentication.GetExternalLoginInfoAsync();
             if (loginInfo == null)
             {
                 return RedirectToAction("Login");
@@ -346,8 +403,12 @@ namespace FinanceManager.Controllers
             }
         }
 
-        //
-        // POST: /Account/ExternalLoginConfirmation
+        /// <summary>
+        /// Signs the user in using some external login manager
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -361,7 +422,7 @@ namespace FinanceManager.Controllers
             if (ModelState.IsValid)
             {
                 // Get the information about the user from the external login provider
-                var info = await AuthenticationManager.GetExternalLoginInfoAsync();
+                var info = await HttpContext.GetOwinContext().Authentication.GetExternalLoginInfoAsync();
                 if (info == null)
                 {
                     return View("ExternalLoginFailure");
@@ -383,39 +444,48 @@ namespace FinanceManager.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View(model);
         }
-
-        //
-        // POST: /Account/LogOff
+        
+        /// <summary>
+        /// Logs a user out before redirecting them to the login screen
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         //[ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            HttpContext.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Login", "Account");
         }
 
-        //
-        // GET: /Account/ExternalLoginFailure
+        /// <summary>
+        /// Returns the login page if no External Login features were found
+        /// </summary>
+        /// <returns></returns>
         [AllowAnonymous]
         public ActionResult ExternalLoginFailure()
         {
             return View();
         }
 
+        /// <summary>
+        /// Disposes of Database Manager objects
+        /// Could be done better. (Database managers need to be able to handle itself and it's connections)
+        /// </summary>
+        /// <param name="disposing"></param>
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                if (_userManager != null)
+                if (UserAccountManager != null)
                 {
-                    _userManager.Dispose();
-                    _userManager = null;
+                    UserAccountManager.Dispose();
+                    UserAccountManager = null;
                 }
 
-                if (_signInManager != null)
+                if (UserSignInManager != null)
                 {
-                    _signInManager.Dispose();
-                    _signInManager = null;
+                    UserSignInManager.Dispose();
+                    UserSignInManager = null;
                 }
             }
 
@@ -423,17 +493,15 @@ namespace FinanceManager.Controllers
         }
 
         #region Helpers
+
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
-        }
-
+        /// <summary>
+        /// Manually Adds error keys to an IdentityResult
+        /// Used for error handling when ModelState.isValid is not enough
+        /// </summary>
+        /// <param name="result"></param>
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
@@ -442,6 +510,12 @@ namespace FinanceManager.Controllers
             }
         }
 
+        /// <summary>
+        /// Redirect to action function.
+        /// Redirects to the Index View in the Home Controller if the URL does not exist
+        /// </summary>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
         private ActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))
@@ -451,10 +525,13 @@ namespace FinanceManager.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        /// <summary>
+        /// Provides a way to call function within a controller
+        /// Admitedly could be done better. (Move this into a BaseController class and inherit from it)
+        /// </summary>
         internal class ChallengeResult : HttpUnauthorizedResult
         {
-            public ChallengeResult(string provider, string redirectUri)
-                : this(provider, redirectUri, null)
+            public ChallengeResult(string provider, string redirectUri) : this(provider, redirectUri, null)
             {
             }
 

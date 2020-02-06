@@ -1,20 +1,19 @@
-﻿using System;
+﻿using System.Web;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
+using FinanceManager.Models;
+using System.Threading.Tasks;
+using Microsoft.Owin.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using FinanceManager.Models;
 
 namespace FinanceManager.Controllers
 {
     [Authorize]
     public class ManageController : Controller
     {
-        private ApplicationSignInManager _signInManager;
-        private ApplicationUserManager _userManager;
+        private ApplicationSignInManager UserSignInManager;
+        private ApplicationUserManager UserAccountManager;
 
         public ManageController()
         {
@@ -26,32 +25,43 @@ namespace FinanceManager.Controllers
             SignInManager = signInManager;
         }
 
+        /// <summary>
+        /// Getter/Setter
+        /// </summary>
         public ApplicationSignInManager SignInManager
         {
             get
             {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+                return UserSignInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
             private set 
             { 
-                _signInManager = value; 
+                UserSignInManager = value; 
             }
         }
 
+        /// <summary>
+        /// Getter/Setter
+        /// </summary>
         public ApplicationUserManager UserManager
         {
             get
             {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                return UserAccountManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
             private set
             {
-                _userManager = value;
+                UserAccountManager = value;
             }
         }
 
-        //
-        // GET: /Manage/Index
+        
+        /// <summary>
+        /// Returns the Index View in the Manage Account page
+        /// Can also pass in an error message.
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
@@ -70,13 +80,17 @@ namespace FinanceManager.Controllers
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await HttpContext.GetOwinContext().Authentication.TwoFactorBrowserRememberedAsync(userId)
             };
             return View(model);
         }
 
-        //
-        // POST: /Manage/RemoveLogin
+        /// <summary>
+        /// Removes a login provider (Most likely not used)
+        /// </summary>
+        /// <param name="loginProvider"></param>
+        /// <param name="providerKey"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RemoveLogin(string loginProvider, string providerKey)
@@ -99,15 +113,22 @@ namespace FinanceManager.Controllers
             return RedirectToAction("ManageLogins", new { Message = message });
         }
 
-        //
-        // GET: /Manage/AddPhoneNumber
+        
+        /// <summary>
+        /// Returns the Add Phone Number View
+        /// </summary>
+        /// <returns></returns>
         public ActionResult AddPhoneNumber()
         {
             return View();
         }
 
-        //
-        // POST: /Manage/AddPhoneNumber
+        
+        /// <summary>
+        /// Adds a phone number to a user's account and sends them a code for confirmation
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> AddPhoneNumber(AddPhoneNumberViewModel model)
@@ -130,8 +151,10 @@ namespace FinanceManager.Controllers
             return RedirectToAction("VerifyPhoneNumber", new { PhoneNumber = model.Number });
         }
 
-        //
-        // POST: /Manage/EnableTwoFactorAuthentication
+        /// <summary>
+        /// Enabled Two Factor Authentication for the user
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> EnableTwoFactorAuthentication()
@@ -145,8 +168,11 @@ namespace FinanceManager.Controllers
             return RedirectToAction("Index", "Manage");
         }
 
-        //
-        // POST: /Manage/DisableTwoFactorAuthentication
+
+        /// <summary>
+        /// Disables Two Factor Authentication for the user
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DisableTwoFactorAuthentication()
@@ -160,8 +186,11 @@ namespace FinanceManager.Controllers
             return RedirectToAction("Index", "Manage");
         }
 
-        //
-        // GET: /Manage/VerifyPhoneNumber
+        /// <summary>
+        /// Generate a Phone Number Token for Phone Number verification
+        /// </summary>
+        /// <param name="phoneNumber"></param>
+        /// <returns></returns>
         public async Task<ActionResult> VerifyPhoneNumber(string phoneNumber)
         {
             var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), phoneNumber);
@@ -169,8 +198,11 @@ namespace FinanceManager.Controllers
             return phoneNumber == null ? View("Error") : View(new VerifyPhoneNumberViewModel { PhoneNumber = phoneNumber });
         }
 
-        //
-        // POST: /Manage/VerifyPhoneNumber
+        /// <summary>
+        /// Attempts to verify the user's phone number using the code inputted by the user
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> VerifyPhoneNumber(VerifyPhoneNumberViewModel model)
@@ -194,8 +226,11 @@ namespace FinanceManager.Controllers
             return View(model);
         }
 
-        //
-        // POST: /Manage/RemovePhoneNumber
+        /// <summary>
+        /// Removes a Phone Number from a User Account and
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public async Task<ActionResult> RemovePhoneNumber(AddPhoneNumberViewModel model)
         {
             var result = await UserManager.SetPhoneNumberAsync(User.Identity.GetUserId(), null);
@@ -211,15 +246,21 @@ namespace FinanceManager.Controllers
             return RedirectToAction("Index", new { Message = ManageMessageId.RemovePhoneSuccess });
         }
 
-        //
-        // GET: /Manage/ChangePassword
+        /// <summary>
+        /// Returns the Change Password View
+        /// Gets called when the user navigates to Manage Account and trys to change the password
+        /// </summary>
+        /// <returns></returns>
         public ActionResult ChangePassword()
         {
             return View();
         }
 
-        //
-        // POST: /Manage/ChangePassword
+        /// <summary>
+        /// Overwrittes the users password by if the user Old Password is correct
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
@@ -242,15 +283,21 @@ namespace FinanceManager.Controllers
             return View(model);
         }
 
-        //
-        // GET: /Manage/SetPassword
+        /// <summary>
+        /// Returns the Set Password View
+        /// Gets called in the event of a password reset
+        /// </summary>
+        /// <returns></returns>
         public ActionResult SetPassword()
         {
             return View();
         }
 
-        //
-        // POST: /Manage/SetPassword
+        /// <summary>
+        /// Attempts the set the password for the given user
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SetPassword(SetPasswordViewModel model)
@@ -274,8 +321,12 @@ namespace FinanceManager.Controllers
             return View(model);
         }
 
-        //
-        // GET: /Manage/ManageLogins
+        /// <summary>
+        /// Returns a view containing the available external login options.
+        /// (We won't be using this)
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
         public async Task<ActionResult> ManageLogins(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
@@ -288,7 +339,7 @@ namespace FinanceManager.Controllers
                 return View("Error");
             }
             var userLogins = await UserManager.GetLoginsAsync(User.Identity.GetUserId());
-            var otherLogins = AuthenticationManager.GetExternalAuthenticationTypes().Where(auth => userLogins.All(ul => auth.AuthenticationType != ul.LoginProvider)).ToList();
+            var otherLogins = HttpContext.GetOwinContext().Authentication.GetExternalAuthenticationTypes().Where(auth => userLogins.All(ul => auth.AuthenticationType != ul.LoginProvider)).ToList();
             ViewBag.ShowRemoveButton = user.PasswordHash != null || userLogins.Count > 1;
             return View(new ManageLoginsViewModel
             {
@@ -297,8 +348,11 @@ namespace FinanceManager.Controllers
             });
         }
 
-        //
-        // POST: /Manage/LinkLogin
+        /// <summary>
+        /// Attempts to create a user login link using a provider link
+        /// </summary>
+        /// <param name="provider"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LinkLogin(string provider)
@@ -306,12 +360,14 @@ namespace FinanceManager.Controllers
             // Request a redirect to the external login provider to link a login for the current user
             return new AccountController.ChallengeResult(provider, Url.Action("LinkLoginCallback", "Manage"), User.Identity.GetUserId());
         }
-
-        //
-        // GET: /Manage/LinkLoginCallback
+        
+        /// <summary>
+        /// Returns the Manage Logins page indicating if it added the Link Provider or not
+        /// </summary>
+        /// <returns></returns>
         public async Task<ActionResult> LinkLoginCallback()
         {
-            var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, User.Identity.GetUserId());
+            var loginInfo = await HttpContext.GetOwinContext().Authentication.GetExternalLoginInfoAsync(XsrfKey, User.Identity.GetUserId());
             if (loginInfo == null)
             {
                 return RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
@@ -320,29 +376,32 @@ namespace FinanceManager.Controllers
             return result.Succeeded ? RedirectToAction("ManageLogins") : RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
         }
 
+        /// <summary>
+        /// Disposes of Database Manager objects
+        /// Could be done better. (Database managers need to be able to handle itself and it's connections)
+        /// </summary>
+        /// <param name="disposing"></param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && _userManager != null)
+            if (disposing && UserAccountManager != null)
             {
-                _userManager.Dispose();
-                _userManager = null;
+                UserAccountManager.Dispose();
+                UserAccountManager = null;
             }
 
             base.Dispose(disposing);
         }
 
-#region Helpers
+        #region Helpers
+
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
-        }
-
+        /// <summary>
+        /// Manually Adds error keys to an IdentityResult
+        /// Used for error handling when ModelState.isValid is not enough
+        /// </summary>
+        /// <param name="result"></param>
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
@@ -351,6 +410,10 @@ namespace FinanceManager.Controllers
             }
         }
 
+        /// <summary>
+        /// Returns true if the logged in user has a Password
+        /// </summary>
+        /// <returns></returns>
         private bool HasPassword()
         {
             var user = UserManager.FindById(User.Identity.GetUserId());
@@ -361,6 +424,10 @@ namespace FinanceManager.Controllers
             return false;
         }
 
+        /// <summary>
+        /// Returns true if the logged in user has a Phone number
+        /// </summary>
+        /// <returns></returns>
         private bool HasPhoneNumber()
         {
             var user = UserManager.FindById(User.Identity.GetUserId());
@@ -371,6 +438,9 @@ namespace FinanceManager.Controllers
             return false;
         }
 
+        /// <summary>
+        /// Success/error message flags
+        /// </summary>
         public enum ManageMessageId
         {
             AddPhoneSuccess,
@@ -382,6 +452,6 @@ namespace FinanceManager.Controllers
             Error
         }
 
-#endregion
+        #endregion
     }
 }
