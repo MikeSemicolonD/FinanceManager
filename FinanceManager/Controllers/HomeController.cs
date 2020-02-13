@@ -16,7 +16,7 @@ namespace FinanceManager.Controllers
             //Get Budgets
             //Get Transactions
             ViewBag.AccountTypes = accountTypeAdapter.GetAccountTypesByUID(Utilities.GetUsersUID(User.Identity.Name)).Select(x => new SelectListItem { Value = x.ID.ToString(), Text = x.AccountType });
-            ViewBag.Transactions = transactionsAdapter.GetTransactionsByUID(Utilities.GetUsersUID(User.Identity.Name));
+            ViewBag.Transactions = transactionsAdapter.GetTransactionsByUID(Utilities.GetUsersUID(User.Identity.Name)).GetRange(0,5);
             ViewBag.Categories = categoryAdapter.GetCategories().Select(x => new SelectListItem { Value = x.ID.ToString(), Text = x.Category });
             return View();
         }
