@@ -71,7 +71,7 @@
                                     }
                                 </a>
                             </td>
-                            <td align="center">@transaction.TransactionDate.Date.ToString("d")</td>
+                            <td align="center">@transaction.TransactionDate.Date.ToString("d", System.Globalization.DateTimeFormatInfo.CurrentInfo)</td>
                             <td align="center"> @Html.ActionLink("Delete", "Index", "Transaction",null, new { @class = "btn btn-danger btn-sm" }) </td>
                         </tr>
                     }
@@ -147,7 +147,7 @@ else //Below will be shown on the main transactions page
                                     }
                                 </a>
                             </td>
-                            <td align="center">@transaction.TransactionDate.Date.ToString("d")</td>
+                            <td align="center">@transaction.TransactionDate.Date.ToString("d", System.Globalization.DateTimeFormatInfo.CurrentInfo)</td>
                             <td align="center"> @Html.ActionLink("Delete", "DeleteTransaction", "Transaction", new { ID = transaction.ID }, new { @class = "btn btn-danger btn-sm" }) </td>
                         </tr>
                     }
