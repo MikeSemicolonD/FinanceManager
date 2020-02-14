@@ -50,11 +50,11 @@
                         <tr id="@transaction.AccountType">
                             @if (transaction.Amount >= 0)
                             {
-                                <th scope="row" align="center" style="color:green;">$@transaction.Amount</th>
+                                <th scope="row" align="center" style="color:green;">@transaction.Amount.ToString("c", System.Globalization.NumberFormatInfo.CurrentInfo)</th>
                             }
                             else
                             {
-                                <th scope="row" align="center" style="color:red;">$@transaction.Amount</th>
+                                <th scope="row" align="center" style="color:red;">@transaction.Amount.ToString("c", System.Globalization.NumberFormatInfo.CurrentInfo)</th>
                             }
                             <td>@DashboardViewAccountTypes.Where(t => t.Value == transaction.AccountType.ToString()).FirstOrDefault().Text</td>
                             <td>@transaction.Description</td>
@@ -126,11 +126,11 @@ else //Below will be shown on the main transactions page
                         <tr id="@transaction.AccountType">
                             @if (transaction.Amount >= 0)
                             {
-                                <th scope="row" align="center" style="color:green;">$@transaction.Amount</th>
+                                <th scope="row" align="center" style="color:green;">@transaction.Amount.ToString("c", System.Globalization.NumberFormatInfo.CurrentInfo)</th>
                             }
                             else
                             {
-                                <th scope="row" align="center" style="color:red;">$@transaction.Amount</th>
+                                <th scope="row" align="center" style="color:red;">@transaction.Amount.ToString("c", System.Globalization.NumberFormatInfo.CurrentInfo)</th>
                             }
                             <td>@Model.AvailableAccountTypes.Where(t => t.Value == transaction.AccountType.ToString()).FirstOrDefault().Text</td>
                             <td>@transaction.Description</td>

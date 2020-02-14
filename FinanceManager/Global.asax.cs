@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Web;
@@ -10,7 +8,7 @@ using System.Web.Routing;
 
 namespace FinanceManager
 {
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
         {
@@ -22,8 +20,17 @@ namespace FinanceManager
 
         protected void Application_BeginRequest()
         {
-            Thread.CurrentThread.CurrentCulture = new CultureInfo(Request.UserLanguages.FirstOrDefault());
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(Request.UserLanguages.FirstOrDefault());
+            CultureInfo culture = new CultureInfo(Request.UserLanguages.FirstOrDefault());
+
+            //en-US for some reasons shows negative dolloar sums as "($100)" instead of "-$100". 
+            //(Guess we're too special to be using negative numbers)
+            if (culture.Name == "en-US")
+            {
+                culture.NumberFormat.CurrencyNegativePattern = 1;
+            }
+
+            Thread.CurrentThread.CurrentCulture = culture;
+            Thread.CurrentThread.CurrentUICulture = culture;
         }
     }
 }
