@@ -1,11 +1,11 @@
 ﻿@{
-    ViewBag.Title = "Dashboard";
+    ViewBag.Title = Resources.Global.Dashboard;
 }
 
 <div class="col-lg-auto">
     <div style="background-color:#8dc4bc; padding:2rem 1rem;" class="jumbotron">
         <div class="col-lg-auto">
-            <h2>Transactions</h2>
+            <h2>@Resources.Global.Transactions</h2>
             <p>
                 @Html.Partial("~/Views/Transaction/Index.cshtml")
             </p>
@@ -15,7 +15,7 @@
 <div class="col-lg-auto">
     <div style="background-color:#8dc4bc; padding:2rem 1rem;" class="jumbotron">
         <div class="col-lg-auto">
-            <h2>Budgets</h2>
+            <h2>@Resources.Global.Budgets</h2>
             <p>
                 @Html.Partial("~/Views/Budget/Index.cshtml")
             </p>
@@ -25,7 +25,7 @@
 <div class="col-lg-auto">
     <div style="background-color:#8dc4bc; padding:2rem 1rem;" class="jumbotron">
         <div class="col-lg-auto">
-            <h2>Analytics</h2>
+            <h2>@Resources.Global.Analytics</h2>
             <p>
                 @Html.Partial("~/Views/Analytics/Index.cshtml")
             </p>

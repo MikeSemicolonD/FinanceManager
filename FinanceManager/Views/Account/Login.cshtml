@@ -1,7 +1,7 @@
 ﻿@using FinanceManager.Models
 @model LoginViewModel
 @{
-    ViewBag.Title = "Log in";
+    ViewBag.Title = Resources.Global.Login;
 }
 <br />
 <br />
@@ -18,11 +18,11 @@
                 using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
                 @Html.AntiForgeryToken()
-                <h4>Log in to MiTiM Financial Manager</h4>
+                <h4>@Resources.Global.LoginTitle</h4>
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
-                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                    <span class="col-md-2 control-label">@Resources.Global.Email</span><br />
                     <div style="margin-left:415px;">
                         @*mitchell@snhu.edu*@
                         @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Enter your Email", @Value = "mitchell@snhu.edu" })
@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                    <span class="col-md-2 control-label">@Resources.Global.Password</span>
                     <div style="margin-left:415px;">
                         @*!Aa123456789*@
                         @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Enter your Password", @Value = "!Aa123456789" })
@@ -41,7 +41,7 @@
                     <div>
                         <div class="checkbox">
                             @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
+                            <span>@Resources.Global.RememberMe</span>
                         </div>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
                     </div>
                 </div>
                 <p>
-                    @Html.ActionLink("Register as a new user", "Register")
+                    @Html.ActionLink(Resources.Global.RegisterAsANewUser, "Register")
                 </p>
                 @* Enable this once you have account confirmation enabled for password reset functionality
             <p>

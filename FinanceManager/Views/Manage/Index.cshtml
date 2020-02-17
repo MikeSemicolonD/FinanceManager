@@ -1,6 +1,6 @@
 ﻿@model FinanceManager.Models.IndexViewModel
 @{
-    ViewBag.Title = "Manage Account";
+    ViewBag.Title = Resources.Global.ManageAccount;
 }
 
 <br />
@@ -8,19 +8,19 @@
     <h2>@ViewBag.Title.</h2>
     <p class="text-success">@ViewBag.StatusMessage</p>
     <div>
-        <h4>Change your account settings</h4>
+        <h4>@Resources.Global.ChangeYourAccountSetting</h4>
         <hr />
         <dl class="dl-horizontal">
-            <dt>Password:</dt>
+            <dt>@Resources.Global.Password:</dt>
             <dd>
                 [
                 @if (Model.HasPassword)
                 {
-                    @Html.ActionLink("Change your password", "ChangePassword")
+                    @Html.ActionLink(Resources.Global.ChangePassword, "ChangePassword")
                 }
                 else
                 {
-                    @Html.ActionLink("Create", "SetPassword")
+                    @Html.ActionLink(Resources.Global.Create, "SetPassword")
                 }
                 ]
             </dd>
@@ -37,22 +37,22 @@
 
                  Uncomment the following block after you have set up two-factor authentication
             *@
-            <dt>Phone Number:</dt>
+            <dt>@Resources.Global.PhoneNumber:</dt>
             <dd>
                 @(Model.PhoneNumber ?? "None") [
                 @if (Model.PhoneNumber != null)
                 {
-                    @Html.ActionLink("Change", "AddPhoneNumber")
+                    @Html.ActionLink(Resources.Global.Change, "AddPhoneNumber")
                     @:  |
-                    @Html.ActionLink("Remove", "RemovePhoneNumber")
+                    @Html.ActionLink(Resources.Global.Remove, "RemovePhoneNumber")
                 }
                 else
                 {
-                    @Html.ActionLink("Add", "AddPhoneNumber")
+                    @Html.ActionLink(Resources.Global.Add, "AddPhoneNumber")
                 }
                 ]
             </dd>
-            <dt>Two-Factor Authentication:</dt>
+            <dt>@Resources.Global.TwoFactorAuthentication:</dt>
             <dd>
                 @if (Model.TwoFactor)
                 {
@@ -60,8 +60,8 @@
                     FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                     {
                         @Html.AntiForgeryToken()
-                        <text>Enabled
-                            [<input type="submit" value="Disable" class="btn btn-link" />]
+                        <text>@Resources.Global.Enabled
+                            [<input type="submit" value=">@Resources.Global.Disabled" class="btn btn-link" />]
                         </text>
                     }
                 }
@@ -71,8 +71,8 @@
                     FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                     {
                         @Html.AntiForgeryToken()
-                        <text>Disabled
-                            [<input type="submit" value="Enable" class="btn btn-link" />]
+                        <text>@Resources.Global.Disabled
+                            [<input type="submit" value=">@Resources.Global.Enabled" class="btn btn-link" />]
                         </text>
                     }
                 }

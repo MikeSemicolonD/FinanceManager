@@ -2,7 +2,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Create Account Type</h5>
+                <h5 class="modal-title">@Resources.Global.Create @Resources.Global.AccountType</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -10,17 +10,17 @@
             <div class="modal-body">
                 <div class="container-fluid ml-auto">
                     <div class="mb-3">
-                        <label>Account Type Name: </label>
-                        <input id="AddAccountTypeInput" name="AccountType" type="text" value="">
+                        <label>@Resources.Global.AccountType @Resources.Global.Name: </label>
+                        <input id="AddAccountTypeInput" name="@Resources.Global.AccountType" type="text" value="">
                         <div class="invalid-feedback">
-                            Account Type is required.
+                            @Resources.Global.AccountTypeIsRequired.
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="AddNewAccountType" type="button" onclick="AddAccountType()" class="btn btn-primary">ADD</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="AddNewAccountType" type="button" onclick="AddAccountType()" class="btn btn-primary">@Resources.Global.Add</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">@Resources.Global.Close</button>
             </div>
         </div>
     </div>
