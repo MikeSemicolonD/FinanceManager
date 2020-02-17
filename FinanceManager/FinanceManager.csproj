@@ -225,6 +225,7 @@
     <Compile Include="Models\Account\AddPhoneNumberViewModel.cs" />
     <Compile Include="Models\Account\VerifyPhoneNumberViewModel.cs" />
     <Compile Include="Models\Account\IndexViewModel.cs" />
+    <Compile Include="Models\BudgetModelList.cs" />
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\FrequencyModel.cs" />
     <Compile Include="Models\BudgetModel.cs" />
@@ -451,6 +452,7 @@
     <Content Include="Views\Transaction\Index.cshtml" />
     <Content Include="Views\Shared\AddAccountTypeModal.cshtml" />
     <Content Include="Views\Shared\DeleteAccountTypeModal.cshtml" />
+    <Content Include="Views\Shared\AddBudgetModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -60,9 +60,9 @@ namespace FinanceManager.DAL
         /// </summary>
         /// <param name="UID"></param>
         /// <returns></returns>
-        public List<BudgetModel> GetUniqueCategoryByUID(string UID)
+        public List<CategoryModel> GetUniqueCategoryByUID(string UID)
         {
-            List<BudgetModel> budgets = new List<BudgetModel>();
+            List<CategoryModel> Categories = new List<CategoryModel>();
 
             try
             {
@@ -79,13 +79,13 @@ namespace FinanceManager.DAL
 
                     while (reader.Read())
                     {
-                        BudgetModel budget = new BudgetModel()
+                        CategoryModel category = new CategoryModel()
                         {
-                            Category_ID = Utilities.ParseInt(reader["Category_ID"].ToString()),
+                            ID = Utilities.ParseInt(reader["Category_ID"].ToString()),
                             Category = reader["Category"].ToString()
                         };
 
-                        budgets.Add(budget);
+                        Categories.Add(category);
                     }
 
                     reader.Close();
@@ -96,7 +96,7 @@ namespace FinanceManager.DAL
                 throw ex;
             }
 
-            return budgets;
+            return Categories;
         }
 
         /// <summary>

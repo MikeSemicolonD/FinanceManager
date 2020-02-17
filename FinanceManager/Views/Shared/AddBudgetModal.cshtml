@@ -1,0 +1,53 @@
+﻿@model FinanceManager.Models.BudgetModel
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div id="MyModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add a Transaction</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div style="text-align:center">
+                    <div class="container-fluid ml-auto">
+                        <div class="divRight" style="margin-left:50px; width:300px">
+                            <h2>Budget stats:</h2>
+                            <div class="card bg-light">
+                                <div class="card-header">Description</div>
+                                <div class="card-body">
+                                    <label for="Budget">Amount:</label>
+                                    <input type="text" class="form-control" id="BudgetAmount" />
+                                    <label for="Frequency">Frequency:</label>
+                                    <select class="form-control">
+                                        <option>1</option>
+                                    </select>
+                                    <label for="AccountType">Account Type:</label>
+                                    <select class="form-control">
+                                        <option>1</option>
+                                    </select>
+                                    <span>Total:</span>
+                                    <span>*Amount left*</span>
+                                    <br />
+                                    <div style="margin-left:25px">
+                                        <label class="form-check-label">
+                                            <input title="" type="checkbox" class="form-check-input" name="Include Essentials" />Include Essentials
+                                            <br />
+                                            <input type="checkbox" class="form-check-input" name="Exclude Essentials" />Exclude Essentials
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">ADD</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

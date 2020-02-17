@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = Resources.Global.Budget;
 }
-@model FinanceManager.Models.BudgetModel
+@model FinanceManager.Models.BudgetModelList
 
 <link rel="stylesheet1" type="text/css" href="~/Content/site.css">
 
@@ -17,9 +17,9 @@ else //Below will be shown on the main budget page
     <span class="btn btn-primary" data-target="#MyModal" data-toggle="modal" style="width:150px">Add a Budget</span>
     <div style="display:flex">
         <div class="vertical-menu th">
-            @foreach (FinanceManager.Models.BudgetModel budget in ViewBag.Budget)
+            @foreach (var category in Model.Categories)
             {
-                <a href="#">@budget.Category</a>
+                <a href="#">@category.Category</a>
             }
         </div>
         <div class="divRight" style="margin-left:50px; width:300px">
@@ -44,11 +44,16 @@ else //Below will be shown on the main budget page
                         <label class="form-check-label">
                             <input title="" type="checkbox" class="form-check-input" name="Include Essentials" />@Resources.Global.Include @Resources.Global.Essentials
                             <br />
-                            <input type="checkbox" class="form-check-input" name="Exclude Essentials" />@Resources.Global.Exclude @Resources.GlobalEssentials
+                            <input type="checkbox" class="form-check-input" name="Exclude Essentials" />@Resources.Global.Exclude @Resources.Global.Essentials
                         </label>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    using (Html.BeginForm("AddBudget", "Budget", FormMethod.Post, new { @class = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.Partial("AddBudgetModal", new FinanceManager.Models.BudgetModel() { })
+    }
 }

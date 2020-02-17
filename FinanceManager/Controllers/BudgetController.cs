@@ -1,7 +1,6 @@
 ﻿using System.Web.Mvc;
 using FinanceManager.DAL;
 using FinanceManager.Models;
-using System.Collections.Generic;
 
 namespace FinanceManager.Controllers
 {
@@ -14,25 +13,27 @@ namespace FinanceManager.Controllers
             ViewBag.IsNotDashboard = true;
 
             BudgetAdapter budgetAdapter = new BudgetAdapter();
-            List<BudgetModel> AllUserBudgets = budgetAdapter.GetBudgetsByUID(Utilities.GetUsersUID(User.Identity.Name));
-            List<BudgetModel> UniqueCategories = budgetAdapter.GetUniqueCategoryByUID(Utilities.GetUsersUID(User.Identity.Name));
+
+            BudgetModelList pageData = new BudgetModelList
+            {
+                Budgets = budgetAdapter.GetBudgetsByUID(Utilities.GetUsersUID(User.Identity.Name)),
+                Categories = budgetAdapter.GetUniqueCategoryByUID(Utilities.GetUsersUID(User.Identity.Name))
+            };
+
 
             //Can delete budgets
             //Can duplicate budgets
-
             //Can Add a Budget via Modal
+
             //Select what Budget to View via list
-
             //Selecting one bring up data for that budget
-
             //Assign budget to Account Types
             //Can exclude Transactions by
             //  : Category
             //  : Include Essentials
             //  : Exclude Essentials
             //Click 'Save' to save settings
-            ViewBag.Budget = UniqueCategories;
-            return View();
+            return View(pageData);
         }
 
 
