@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Security;
-using FinanceManager.Models;
+﻿using System.Web.Mvc;
 using FinanceManager.DAL;
-using System.Web.Mvc;
+using FinanceManager.Models;
+using System.Collections.Generic;
 
 namespace FinanceManager.Controllers
 {
