@@ -2,7 +2,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Delete Account Type</h5>
+                <h5 class="modal-title">@Resources.Global.Delete @Resources.Global.AccountType</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -10,14 +10,14 @@
             <div class="modal-body">
                 <div class="container-fluid ml-auto">
                     <div class="mb-3">
-                        <label>Target Account Type: </label>
+                        <label>@Resources.Global.Target @Resources.Global.AccountType: </label>
                         <select id="TargetAccountType" style="width:30%"></select>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="DeleteAccountType" type="button" onclick="DeleteAccountType()" class="btn btn-primary btn-danger">REMOVE</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="DeleteAccountType" type="button" onclick="DeleteAccountType()" class="btn btn-primary btn-danger">@Resources.Global.Remove</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">@Resources.Global.Close</button>
             </div>
         </div>
     </div>

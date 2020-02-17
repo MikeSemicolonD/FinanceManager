@@ -1,6 +1,6 @@
 ﻿@model FinanceManager.Models.AddPhoneNumberViewModel
 @{
-    ViewBag.Title = "Phone Number";
+    ViewBag.Title = Resources.Global.PhoneNumber;
 }
 
 <h2>@ViewBag.Title.</h2>
@@ -8,18 +8,18 @@
 @using (Html.BeginForm("AddPhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
-    <h4>Add a phone number</h4>
+    <h4>@Resources.Global.AddAPhoneNumber</h4>
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
-        @Html.LabelFor(m => m.Number, new { @class = "col-md-2 control-label" })
+        <span class = "col-md-2 control-label">@Resources.Global.Number</span>
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.Number, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-primary" value="Submit" />
+            <input type="submit" class="btn btn-primary" value="@Resources.Global.Submit" />
         </div>
     </div>
 }

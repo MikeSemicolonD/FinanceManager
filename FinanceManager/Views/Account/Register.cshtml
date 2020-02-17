@@ -1,6 +1,6 @@
 ﻿@model FinanceManager.Models.RegisterViewModel
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = Resources.Global.Register;
 }
 
 <h2>@ViewBag.Title.</h2>
@@ -12,30 +12,30 @@
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+        <span class = "col-md-2 control-label">@Resources.Global.Email</span>
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+        <span class = "col-md-2 control-label">@Resources.Global.Password</span>
         <div class="col-md-10">
             @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+        <span class = "col-md-2 control-label">@Resources.Global.ConfirmPasswod</span>
         <div class="col-md-10">
             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-primary" value="Register" />
+            <input type="submit" class="btn btn-primary" value="@Resources.Global.Register" />
         </div>
     </div>
     <p>
-        @Html.ActionLink("Already have an account? Login", "Login")
+        @Html.ActionLink(Resources.Global.AlreadyHaveAnAccount + " " + Resources.Global.Login, Resources.Global.Login)
     </p>
 }
 

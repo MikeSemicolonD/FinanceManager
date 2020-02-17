@@ -24,16 +24,16 @@
                                 <span class="nav-link">@Html.ActionLink(Resources.Global.Transactions, "Index", "Transaction", routeValues: null, htmlAttributes: new { @style = "color:black" })</span>
                             </li>
                             <li class="nav-item">
-                                <span class="nav-link">@Html.ActionLink("Budgets", "Index", "Budget", routeValues: null, htmlAttributes: new { @style = "color:black" })</span>
+                                <span class="nav-link">@Html.ActionLink(Resources.Global.Budgets, "Index", "Budget", routeValues: null, htmlAttributes: new { @style = "color:black" })</span>
                             </li>
                             <li class="nav-item">
-                                <span class="nav-link" style="color:#D4461E;">@Html.ActionLink("Analytics", "Index", "Analytics", routeValues: null, htmlAttributes: new { @style = "color:black" })</span>
+                                <span class="nav-link" style="color:#D4461E;">@Html.ActionLink(Resources.Global.Analytics, "Index", "Analytics", routeValues: null, htmlAttributes: new { @style = "color:black" })</span>
                             </li>
                             <li class="nav-item dropdown">
-                                <a style="color:black" class="nav-link dropdown-toggle" href="#" id="accountDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account Types</a>
+                                <a style="color:black" class="nav-link dropdown-toggle" href="#" id="accountDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@Resources.Global.AccountType</a>
                                 <div @*style="background-color:#9DD5CC"*@ class="dropdown-menu" aria-labelledby="accountDropdown">
-                                    <a class="dropdown-item" href="#" data-target="#AccountTypeModal" data-toggle="modal">Add Account Type</a>
-                                    <a class="dropdown-item" href="#" data-target="#DeleteAccountTypeModal" onclick="LoadAccountTypes()" data-toggle="modal">Delete Account Type</a>
+                                    <a class="dropdown-item" href="#" data-target="#AccountTypeModal" data-toggle="modal">@Resources.Global.Add @Resources.Global.AccountType</a>
+                                    <a class="dropdown-item" href="#" data-target="#DeleteAccountTypeModal" onclick="LoadAccountTypes()" data-toggle="modal">@Resources.Global.Delete @Resources.Global.AccountType</a>
                                 </div>
                             </li>
                         </ul>

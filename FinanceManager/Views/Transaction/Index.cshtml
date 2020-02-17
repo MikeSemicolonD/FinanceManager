@@ -12,13 +12,13 @@
                 <li class="nav-item">
                     <span class="navbar-text">
                         <label style="color:black"> Sort by Account Type : </label>
-                        @Html.DropDownList("AccountTypes", new SelectList(DashboardViewAccountTypes, "Value", "Text"), "All Types", new { id = "AccountTypesDropDown", style = "width:75%" })
+                        @Html.DropDownList(Resources.Global.AccountType, new SelectList(DashboardViewAccountTypes, "Value", "Text"), "All Types", new { id = "AccountTypesDropDown", style = "width:75%" })
                     </span>
                 </li>
             </ul>
             <ul class="navbar-nav navbar-right">
                 <li class="nav-item">
-                    <span>@Html.ActionLink("Add a Transaction", "Index", "Transaction", null, new { @class = "btn btn-primary" })</span>
+                    <span>@Html.ActionLink(Resources.Global.AddATransaction, "Index", "Transaction", null, new { @class = "btn btn-primary" })</span>
                 </li>
             </ul>
         </div>
@@ -27,20 +27,20 @@
         <table style="border:ridge black; background-color:white" class="table table-striped table-bordered">
             <thead>
                 <tr>
-                    <th scope="col" style="text-align:center">Amount</th>
-                    <th scope="col" style="text-align:center">Account Type</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Category</th>
-                    <th scope="col" style="text-align:center">Essential</th>
-                    <th scope="col" style="text-align:center">Date of Transaction</th>
-                    <th scope="col" style="text-align:center">Action</th>
+                    <th scope="col" style="text-align:center">@Resources.Global.Amount</th>
+                    <th scope="col" style="text-align:center">@Resources.Global.AccountType</th>
+                    <th scope="col">@Resources.Global.Description</th>
+                    <th scope="col">@Resources.Global.Category</th>
+                    <th scope="col" style="text-align:center">@Resources.Global.Essentials</th>
+                    <th scope="col" style="text-align:center">@Resources.Global.Date</th>
+                    <th scope="col" style="text-align:center">@Resources.Global.Action</th>
                 </tr>
             </thead>
             <tbody id="TransactionsTable">
                 @if (ViewBag.AccountTypes == null)
                 {
                     <tr>
-                        <th colspan="7" scope="col" style="text-align:center">No Transactions were Found.</th>
+                        <th colspan="7" scope="col" style="text-align:center">@Resources.Global.NoTransactionsWereFound</th>
                     </tr>
                 }
                 else
@@ -72,7 +72,7 @@
                                 </a>
                             </td>
                             <td align="center">@transaction.TransactionDate.Date.ToString("d", System.Globalization.DateTimeFormatInfo.CurrentInfo)</td>
-                            <td align="center"> @Html.ActionLink("Delete", "Index", "Transaction",null, new { @class = "btn btn-danger btn-sm" }) </td>
+                            <td align="center"> @Html.ActionLink(Resources.Global.Delete, "Index", "Transaction",null, new { @class = "btn btn-danger btn-sm" }) </td>
                         </tr>
                     }
                 }
@@ -87,14 +87,14 @@ else //Below will be shown on the main transactions page
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <span class="navbar-text">
-                        <label style="color:black"> Sort by Account Type : </label>
+                        <label style="color:black"> @Resources.Global.SortBy @Resources.Global.AccountType : </label>
                         @Html.DropDownListFor(m => m.AvailableAccountTypes, new SelectList(Model.AvailableAccountTypes, "Value", "Text"), "All Types", new { id = "AccountTypesDropDown", style = "width:75%" })
                     </span>
                 </li>
             </ul>
             <ul class="navbar-nav navbar-right">
                 <li class="nav-item">
-                    <span class="btn btn-primary" data-target="#MyModal" data-toggle="modal">Add a Transaction</span>
+                    <span class="btn btn-primary" data-target="#MyModal" data-toggle="modal">@Resources.Global.AddATransaction</span>
                 </li>
             </ul>
         </div>
@@ -103,20 +103,20 @@ else //Below will be shown on the main transactions page
         <table style="border:ridge black; background-color:white" class="table table-striped table-bordered">
             <thead>
                 <tr>
-                    <th scope="col" style="text-align:center">Amount</th>
-                    <th scope="col" style="text-align:center">Account Type</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Category</th>
-                    <th scope="col" style="text-align:center">Essential</th>
-                    <th scope="col" style="text-align:center">Date of Transaction</th>
-                    <th scope="col" style="text-align:center">Action</th>
+                    <th scope="col" style="text-align:center">@Resources.Global.Amount</th>
+                    <th scope="col" style="text-align:center">@Resources.Global.AccountType</th>
+                    <th scope="col">@Resources.Global.Description</th>
+                    <th scope="col">@Resources.Global.Category</th>
+                    <th scope="col" style="text-align:center">@Resources.Global.Essentials</th>
+                    <th scope="col" style="text-align:center">@Resources.Global.Date</th>
+                    <th scope="col" style="text-align:center">@Resources.Global.Action</th>
                 </tr>
             </thead>
             <tbody id="TransactionsTable">
                 @if (Model.TransactionModels == null)
                 {
                     <tr>
-                        <th colspan="7" scope="col" style="text-align:center">No Transactions were Found.</th>
+                        <th colspan="7" scope="col" style="text-align:center">@Resources.Global.NoTransactionsWereFound.</th>
                     </tr>
                 }
                 else
@@ -148,7 +148,7 @@ else //Below will be shown on the main transactions page
                                 </a>
                             </td>
                             <td align="center">@transaction.TransactionDate.Date.ToString("d", System.Globalization.DateTimeFormatInfo.CurrentInfo)</td>
-                            <td align="center"> @Html.ActionLink("Delete", "DeleteTransaction", "Transaction", new { ID = transaction.ID }, new { @class = "btn btn-danger btn-sm" }) </td>
+                            <td align="center"> @Html.ActionLink(Resources.Global.Delete, "DeleteTransaction", "Transaction", new { ID = transaction.ID }, new { @class = "btn btn-danger btn-sm" }) </td>
                         </tr>
                     }
                 }

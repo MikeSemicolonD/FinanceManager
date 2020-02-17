@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Budget";
+    ViewBag.Title = Resources.Global.Budget;
 }
 @model FinanceManager.Models.BudgetModel
 
@@ -8,8 +8,8 @@
 @if (ViewBag.IsNotDashboard == null) //Below will be shown on the dashboard page
 {
     <div class="jumbotron">
-        <h1>Budgets</h1>
-        <p class="lead">You can manage/add budgets here.</p>
+        <h1>@Resources.Global.Budgets</h1>
+        <p class="lead">@Resources.Global.YouCanManageAddBudgetsHere</p>
     </div>
 }
 else //Below will be shown on the main budget page
@@ -23,17 +23,17 @@ else //Below will be shown on the main budget page
             }
         </div>
         <div class="divRight" style="margin-left:50px; width:300px">
-            <h2>Budget stats:</h2>
+            <h2>@Resources.Global.BudgetStats:</h2>
             <div class="card bg-light">
                 <div class="card-header">Description</div>
                 <div class="card-body">
-                    <label for="Budget">Amount:</label>
+                    <label for="Budget">@Resources.Global.Amount:</label>
                     <input type="text" class="form-control" id="BudgetAmount" />
-                    <label for="Frequency">Frequency:</label>
+                    <label for="Frequency">@Resources.Global.Frequency:</label>
                     <select class="form-control">
                         <option>1</option>
                     </select>
-                    <label for="AccountType">Account Type:</label>
+                    <label for="AccountType">@Resources.Global.AccountType:</label>
                     <select class="form-control">
                         <option>1</option>
                     </select>
@@ -42,9 +42,9 @@ else //Below will be shown on the main budget page
                     <br />
                     <div style="margin-left:25px">
                         <label class="form-check-label">
-                            <input title="" type="checkbox" class="form-check-input" name="Include Essentials" />Include Essentials
+                            <input title="" type="checkbox" class="form-check-input" name="Include Essentials" />@Resources.Global.Include @Resources.Global.Essentials
                             <br />
-                            <input type="checkbox" class="form-check-input" name="Exclude Essentials" />Exclude Essentials
+                            <input type="checkbox" class="form-check-input" name="Exclude Essentials" />@Resources.Global.Exclude @Resources.GlobalEssentials
                         </label>
                     </div>
                 </div>

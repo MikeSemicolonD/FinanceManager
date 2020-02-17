@@ -1,6 +1,6 @@
 ﻿@model FinanceManager.Models.VerifyPhoneNumberViewModel
 @{
-    ViewBag.Title = "Verify Phone Number";
+    ViewBag.Title = Resources.Global.VerifyPhoneNumber;
 }
 
 <h2>@ViewBag.Title.</h2>
@@ -9,19 +9,19 @@
 {
     @Html.AntiForgeryToken()
     @Html.Hidden("phoneNumber", @Model.PhoneNumber)
-    <h4>Enter verification code</h4>
+    <h4>@Resources.Global.EnterVerificationCode</h4>
     <h5>@ViewBag.Status</h5>
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
-        @Html.LabelFor(m => m.Code, new { @class = "col-md-2 control-label" })
+        <span class = "col-md-2 control-label">@Resources.Global.Code</span>
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.Code, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-primary" value="Submit" />
+            <input type="submit" class="btn btn-primary" value="@Resources.Global.Submit" />
         </div>
     </div>
 }
