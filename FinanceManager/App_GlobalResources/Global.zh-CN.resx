@@ -117,7 +117,241 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About" xml:space="preserve">
+    <value>关于</value>
+  </data>
+  <data name="Account" xml:space="preserve">
+    <value>帐户</value>
+  </data>
+  <data name="AccountType" xml:space="preserve">
+    <value>帐户类型</value>
+  </data>
+  <data name="AccountTypeIsRequired" xml:space="preserve">
+    <value>帐户类型为必填项</value>
+  </data>
+  <data name="Action" xml:space="preserve">
+    <value>行动</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>加</value>
+  </data>
+  <data name="AddAPhoneNumber" xml:space="preserve">
+    <value>添加电话号码</value>
+  </data>
+  <data name="AddATransaction" xml:space="preserve">
+    <value>添加交易</value>
+  </data>
+  <data name="AlreadyHaveAnAccount" xml:space="preserve">
+    <value>已经有帐号了？</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>量</value>
+  </data>
+  <data name="Analytics" xml:space="preserve">
+    <value>分析工具</value>
+  </data>
+  <data name="Budget" xml:space="preserve">
+    <value>预算</value>
+  </data>
+  <data name="Budgets" xml:space="preserve">
+    <value>预算案</value>
+  </data>
+  <data name="BudgetStats" xml:space="preserve">
+    <value>预算统计</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>类别</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>更改</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>更改密码</value>
+  </data>
+  <data name="ChangeYourAccountSetting" xml:space="preserve">
+    <value>更改您的帐户设置</value>
+  </data>
+  <data name="ClickHereToLogin" xml:space="preserve">
+    <value>点击此处登录</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>关</value>
+  </data>
+  <data name="Code" xml:space="preserve">
+    <value>码</value>
+  </data>
+  <data name="ConfirmEmail" xml:space="preserve">
+    <value>确认邮件</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>确认密码</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>联系</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>创建</value>
+  </data>
+  <data name="CreateLocalLogin" xml:space="preserve">
+    <value>创建本地登录</value>
+  </data>
+  <data name="CreatePassword" xml:space="preserve">
+    <value>创建密码</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>仪表板</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>日期</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>描述</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>残障人士</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>电子邮件</value>
+  </data>
+  <data name="EmailLink" xml:space="preserve">
+    <value>电邮连结</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>已启用</value>
+  </data>
+  <data name="EnterVerificationCode" xml:space="preserve">
+    <value>输入验证码</value>
+  </data>
+  <data name="EnterYourEmail" xml:space="preserve">
+    <value>输入你的电子邮箱。</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="Essentials" xml:space="preserve">
+    <value>必需品</value>
+  </data>
+  <data name="Exclude" xml:space="preserve">
+    <value>排除</value>
+  </data>
+  <data name="ForgotPasswordConfirmation" xml:space="preserve">
+    <value>忘记密码确认</value>
+  </data>
+  <data name="ForgotYourPassword" xml:space="preserve">
+    <value>忘记密码了吗？</value>
+  </data>
+  <data name="Frequency" xml:space="preserve">
+    <value>频率</value>
+  </data>
+  <data name="Include" xml:space="preserve">
+    <value>包括</value>
+  </data>
+  <data name="IsRequired" xml:space="preserve">
+    <value>是必须的</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>登录</value>
+  </data>
+  <data name="LoginTitle" xml:space="preserve">
+    <value>登录到MiTiM财务经理</value>
+  </data>
+  <data name="LogOff" xml:space="preserve">
+    <value>注销</value>
+  </data>
+  <data name="ManageAccount" xml:space="preserve">
+    <value>管理帐户</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>新密码</value>
+  </data>
+  <data name="NoTransactionsWereFound" xml:space="preserve">
+    <value>找不到交易</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>数</value>
+  </data>
+  <data name="OldPassword" xml:space="preserve">
+    <value>旧密码</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>密码</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>电话号码</value>
+  </data>
+  <data name="PleaseCheckYourEmailToResetYourPassword" xml:space="preserve">
+    <value>请检查您的电子邮件以重置密码。</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>寄存器</value>
+  </data>
+  <data name="RegisterAsANewUser" xml:space="preserve">
+    <value>注册为新用户</value>
+  </data>
+  <data name="RememberBrowser" xml:space="preserve">
+    <value>记住浏览器</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>记住账号</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>去掉</value>
+  </data>
+  <data name="ResetPassword" xml:space="preserve">
+    <value>重设密码</value>
+  </data>
+  <data name="ResetPasswordConfirmation" xml:space="preserve">
+    <value>重置密码确认</value>
+  </data>
+  <data name="ResetPasswordConfirmationLabel" xml:space="preserve">
+    <value>您的密码已重置。请</value>
+  </data>
+  <data name="ResetYourPassword" xml:space="preserve">
+    <value>重置你的密码</value>
+  </data>
+  <data name="SelectTwoFactorAuthenticationProvider" xml:space="preserve">
+    <value>选择两层身份验证提供程序</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>发送</value>
+  </data>
+  <data name="SendVerificationCode" xml:space="preserve">
+    <value>发送验证码</value>
+  </data>
+  <data name="SetPassword" xml:space="preserve">
+    <value>设置密码</value>
+  </data>
+  <data name="SortBy" xml:space="preserve">
+    <value>排序方式</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>提交</value>
+  </data>
+  <data name="Target" xml:space="preserve">
+    <value>目标</value>
+  </data>
+  <data name="ThanksYouForConfirmingYourEmail" xml:space="preserve">
+    <value>感谢您确认电子邮件。请</value>
+  </data>
   <data name="Transactions" xml:space="preserve">
     <value>交易次数</value>
+  </data>
+  <data name="TwoFactorAuthentication" xml:space="preserve">
+    <value>两要素认证</value>
+  </data>
+  <data name="Verifty" xml:space="preserve">
+    <value>校验</value>
+  </data>
+  <data name="VerifyPhoneNumber" xml:space="preserve">
+    <value>验证电话号码</value>
+  </data>
+  <data name="YouCanManageAddBudgetsHere" xml:space="preserve">
+    <value>您可以在此处管理/添加预算。</value>
   </data>
 </root>
