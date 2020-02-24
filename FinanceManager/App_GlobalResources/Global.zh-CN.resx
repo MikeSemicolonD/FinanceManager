@@ -354,4 +354,7 @@
   <data name="YouCanManageAddBudgetsHere" xml:space="preserve">
     <value>您可以在此处管理/添加预算。</value>
   </data>
+  <data name="Copyright" xml:space="preserve">
+    <value>版权</value>
+  </data>
 </root>

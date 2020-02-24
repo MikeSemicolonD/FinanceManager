@@ -117,7 +117,244 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About" xml:space="preserve">
+    <value>Sur</value>
+  </data>
+  <data name="Account" xml:space="preserve">
+    <value>Compte</value>
+  </data>
+  <data name="AccountType" xml:space="preserve">
+    <value>Type de compte</value>
+  </data>
+  <data name="AccountTypeIsRequired" xml:space="preserve">
+    <value>Le type de compte est requis</value>
+  </data>
+  <data name="Action" xml:space="preserve">
+    <value>action</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Ajouter</value>
+  </data>
+  <data name="AddAPhoneNumber" xml:space="preserve">
+    <value>Ajouter un numéro de téléphone</value>
+  </data>
+  <data name="AddATransaction" xml:space="preserve">
+    <value>Ajouter une transaction</value>
+  </data>
+  <data name="AlreadyHaveAnAccount" xml:space="preserve">
+    <value>Vous avez déjà un compte?</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Montant</value>
+  </data>
+  <data name="Analytics" xml:space="preserve">
+    <value>Analytique</value>
+  </data>
+  <data name="Budget" xml:space="preserve">
+    <value>Budget</value>
+  </data>
+  <data name="Budgets" xml:space="preserve">
+    <value>Budgets</value>
+  </data>
+  <data name="BudgetStats" xml:space="preserve">
+    <value>Statistiques budgétaires</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Catégorie</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Changement</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Changer le mot de passe</value>
+  </data>
+  <data name="ChangeYourAccountSetting" xml:space="preserve">
+    <value>Modifier les paramètres de votre compte</value>
+  </data>
+  <data name="ClickHereToLogin" xml:space="preserve">
+    <value>Cliquez ici pour vous identifier</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Fermer</value>
+  </data>
+  <data name="Code" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="ConfirmEmail" xml:space="preserve">
+    <value>Confirmez votre e-mail</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirmez le mot de passe</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Créer</value>
+  </data>
+  <data name="CreateLocalLogin" xml:space="preserve">
+    <value>Créer une connexion locale</value>
+  </data>
+  <data name="CreatePassword" xml:space="preserve">
+    <value>Créer un mot de passe</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Tableau de bord</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>La description</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>désactivé</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EmailLink" xml:space="preserve">
+    <value>Lien e-mail</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Activée</value>
+  </data>
+  <data name="EnterVerificationCode" xml:space="preserve">
+    <value>Entrez le code de vérification</value>
+  </data>
+  <data name="EnterYourEmail" xml:space="preserve">
+    <value>Entrer votre Email.</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Erreur</value>
+  </data>
+  <data name="Essentials" xml:space="preserve">
+    <value>Essentiel</value>
+  </data>
+  <data name="Exclude" xml:space="preserve">
+    <value>Exclure</value>
+  </data>
+  <data name="ForgotPasswordConfirmation" xml:space="preserve">
+    <value>Confirmation de mot de passe oublié</value>
+  </data>
+  <data name="ForgotYourPassword" xml:space="preserve">
+    <value>Mot de passe oublié?</value>
+  </data>
+  <data name="Frequency" xml:space="preserve">
+    <value>La fréquence</value>
+  </data>
+  <data name="Include" xml:space="preserve">
+    <value>Comprendre</value>
+  </data>
+  <data name="IsRequired" xml:space="preserve">
+    <value>est requis</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>S'identifier</value>
+  </data>
+  <data name="LoginTitle" xml:space="preserve">
+    <value>Connectez-vous à MiTiM Financial Manager</value>
+  </data>
+  <data name="LogOff" xml:space="preserve">
+    <value>Se déconnecter</value>
+  </data>
+  <data name="ManageAccount" xml:space="preserve">
+    <value>Gérer son compte</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>nouveau mot de passe</value>
+  </data>
+  <data name="NoTransactionsWereFound" xml:space="preserve">
+    <value>Aucune transaction n'a été trouvée</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="OldPassword" xml:space="preserve">
+    <value>ancien mot de passe</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Mot de passe</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>Numéro de téléphone</value>
+  </data>
+  <data name="PleaseCheckYourEmailToResetYourPassword" xml:space="preserve">
+    <value>Veuillez vérifier votre e-mail pour réinitialiser votre mot de passe.</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>S'inscrire</value>
+  </data>
+  <data name="RegisterAsANewUser" xml:space="preserve">
+    <value>S'inscrire en tant que nouvel utilisateur</value>
+  </data>
+  <data name="RememberBrowser" xml:space="preserve">
+    <value>N'oubliez pas le navigateur</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Souviens-toi de moi</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Retirer</value>
+  </data>
+  <data name="ResetPassword" xml:space="preserve">
+    <value>réinitialiser le mot de passe</value>
+  </data>
+  <data name="ResetPasswordConfirmation" xml:space="preserve">
+    <value>Réinitialiser la confirmation du mot de passe</value>
+  </data>
+  <data name="ResetPasswordConfirmationLabel" xml:space="preserve">
+    <value>Votre mot de passe a été réinitialisé. S'il vous plaît</value>
+  </data>
+  <data name="ResetYourPassword" xml:space="preserve">
+    <value>réinitialisez votre mot de passe</value>
+  </data>
+  <data name="SelectTwoFactorAuthenticationProvider" xml:space="preserve">
+    <value>Sélectionnez le fournisseur d'authentification à deux facteurs</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Envoyer</value>
+  </data>
+  <data name="SendVerificationCode" xml:space="preserve">
+    <value>Envoyer le code de vérification</value>
+  </data>
+  <data name="SetPassword" xml:space="preserve">
+    <value>Définir le mot de passe</value>
+  </data>
+  <data name="SortBy" xml:space="preserve">
+    <value>Trier par</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Soumettre</value>
+  </data>
+  <data name="Target" xml:space="preserve">
+    <value>Cible</value>
+  </data>
+  <data name="ThanksYouForConfirmingYourEmail" xml:space="preserve">
+    <value>Merci d'avoir confirmé votre email. S'il vous plaît</value>
+  </data>
   <data name="Transactions" xml:space="preserve">
     <value>Transactions</value>
+  </data>
+  <data name="TwoFactorAuthentication" xml:space="preserve">
+    <value>Authentification à deux facteurs</value>
+  </data>
+  <data name="Verifty" xml:space="preserve">
+    <value>Vérifier</value>
+  </data>
+  <data name="VerifyPhoneNumber" xml:space="preserve">
+    <value>Vérifier le numéro de téléphone</value>
+  </data>
+  <data name="YouCanManageAddBudgetsHere" xml:space="preserve">
+    <value>Vous pouvez gérer / ajouter des budgets ici.</value>
+  </data>
+  <data name="Copyright" xml:space="preserve">
+    <value>droits d'auteur</value>
   </data>
 </root>

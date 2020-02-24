@@ -11,8 +11,8 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <span class="navbar-text">
-                        <label style="color:black"> Sort by Account Type : </label>
-                        @Html.DropDownList(Resources.Global.AccountType, new SelectList(DashboardViewAccountTypes, "Value", "Text"), "All Types", new { id = "AccountTypesDropDown", style = "width:75%" })
+                        <label style="color:black"> @Resources.Global.SortBy @Resources.Global.AccountType : </label>
+                        @Html.DropDownList(Resources.Global.AccountType, new SelectList(DashboardViewAccountTypes, "Value", "Text"), Resources.Global.AllTypes, new { id = "AccountTypesDropDown", style = "width:75%" })
                     </span>
                 </li>
             </ul>

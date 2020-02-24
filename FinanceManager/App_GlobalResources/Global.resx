@@ -354,4 +354,7 @@
   <data name="YouCanManageAddBudgetsHere" xml:space="preserve">
     <value>You can manage/add budgets here.</value>
   </data>
+  <data name="Copyright" xml:space="preserve">
+    <value>Copyright</value>
+  </data>
 </root>
