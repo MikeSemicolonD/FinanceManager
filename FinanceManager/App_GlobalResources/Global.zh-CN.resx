@@ -357,4 +357,7 @@
   <data name="Copyright" xml:space="preserve">
     <value>版权</value>
   </data>
+  <data name="AllTypes" xml:space="preserve">
+    <value>所有类型</value>
+  </data>
 </root>
