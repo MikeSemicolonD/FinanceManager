@@ -123,8 +123,8 @@ namespace FinanceManager.DAL
         }
 
         /// <summary>
-        /// Delete record from [Account] where the ID matches. 
-        /// (Deletes from [Account] and not [User_Accounts] which relates [Account] to [ASP_NET_User])
+        /// Gets record from [Account] where the Account Type ID matches. 
+        /// (Gets from [Account] and not [User_Accounts] which relates [Account] to [ASP_NET_User])
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>

@@ -12,5 +12,7 @@ namespace FinanceManager.Models
 
         public List<FrequencyModel> Frequencies { get; set; }
 
+        public BudgetModel NewBudget { get; set; } = new BudgetModel();
+
     }
 }

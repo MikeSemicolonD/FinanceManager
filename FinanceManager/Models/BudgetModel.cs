@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace FinanceManager.Models
+﻿namespace FinanceManager.Models
 {
     public class BudgetModel
     {

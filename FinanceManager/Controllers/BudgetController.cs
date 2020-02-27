@@ -13,11 +13,16 @@ namespace FinanceManager.Controllers
             ViewBag.IsNotDashboard = true;
 
             BudgetAdapter budgetAdapter = new BudgetAdapter();
+            FrequencyAdapter frequencyAdapter = new FrequencyAdapter();
+            AccountTypeAdapter accountTypeAdapter = new AccountTypeAdapter();
 
             BudgetModelList pageData = new BudgetModelList
             {
                 Budgets = budgetAdapter.GetBudgetsByUID(Utilities.GetUsersUID(User.Identity.Name)),
-                Categories = budgetAdapter.GetUniqueCategoryByUID(Utilities.GetUsersUID(User.Identity.Name))
+                Categories = budgetAdapter.GetUniqueCategoryByUID(Utilities.GetUsersUID(User.Identity.Name)),
+                Frequencies = frequencyAdapter.GetAllFrequencies(),
+                AccountTypes = accountTypeAdapter.GetAccountTypesByUID(Utilities.GetUsersUID(User.Identity.Name)),
+                NewBudget = new BudgetModel()
             };
 
 
@@ -43,7 +48,7 @@ namespace FinanceManager.Controllers
             BudgetAdapter budgetAdapter = new BudgetAdapter();
             BudgetModel selectedBudget = budgetAdapter.GetBudgetByID(id);
 
-            return Json(selectedBudget);
+            return Json(selectedBudget, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

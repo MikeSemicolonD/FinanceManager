@@ -173,7 +173,7 @@ namespace FinanceManager.DAL
             {
                 SqlDataProvider db = new SqlDataProvider();
 
-                string query = "SELECT * FROM [dbo].[Budgets] B WHERE B.ID = " + ID + ";";
+                string query = "SELECT * FROM [dbo].[Budget] B WHERE B.ID = " + ID + ";";
 
                 using (SqlConnection connection = (SqlConnection) db.GetConnection())
                 {
@@ -190,7 +190,7 @@ namespace FinanceManager.DAL
                             Category_ID = Utilities.ParseInt(reader["Category_ID"].ToString()),
                             Description = reader["Description"].ToString(),
                             Account_ID = Utilities.ParseInt(reader["Account_ID"].ToString()),
-                            Amount = Utilities.ParseDecimal(reader["Price"].ToString()),
+                            Amount = Utilities.ParseDecimal(reader["Amount"].ToString()),
                             Frequency_ID = Utilities.ParseInt(reader["Frequency_ID"].ToString()),
                         };
                     }
@@ -227,12 +227,12 @@ namespace FinanceManager.DAL
             {
                 SqlDataProvider db = new SqlDataProvider();
 
-                string queryTemplate = "UPDATE [dbo].[Budget] b SET Account_ID = '{0}', Price = '{1}', Times = {2}, Frequency_ID = {3} WHERE b.ID = {4}; ";
+                string queryTemplate = "UPDATE [dbo].[Budget] b SET Account_ID = '{0}', Amount = '{1}', Times = {2}, Frequency_ID = {3} WHERE b.ID = {4}; ";
                 string query = "";
 
                 foreach (BudgetModel budget in Budgets)
                 {
-                    //Account_ID, Price, Times, Frequency_ID, UID
+                    //Account_ID, Amount, Times, Frequency_ID, UID
                     query += string.Format(queryTemplate, budget.Account_ID, budget.Amount, budget.Amount, budget.Frequency_ID, (budget.UID.Length != 0) ? budget.UID : Utilities.GetUsersUID(UserEmail));
                 }
 
