@@ -61,6 +61,7 @@ namespace FinanceManager.Controllers
         /// <param name="returnUrl"></param>
         /// <returns></returns>
         [AllowAnonymous]
+        [HandleError]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
