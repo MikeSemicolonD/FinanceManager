@@ -12,7 +12,7 @@
 else //Below will be shown on the main budget page
 {
     <h2 class="text-center">@Resources.Global.BudgetStats:</h2>
-    <span class="btn btn-primary" data-target="#MyModal" data-toggle="modal" style="width:150px">Add a Budget</span>
+    <span class="btn btn-primary" data-target="#MyModal" data-toggle="modal">@Resources.Global.AddaBudget</span>
     <br />
     <br />
     <div style="display:flex">
@@ -47,7 +47,7 @@ else //Below will be shown on the main budget page
                             <br />
                             <input id="ExcludeEssentials" type="checkbox" class="form-check-input" name="Exclude Essentials" />@Resources.Global.Exclude @Resources.Global.Essentials
                             <br />*@
-                            <span class="btn btn-primary" onclick="SaveBudget()" style="width:150px">Update Budget</span>
+                            <span class="btn btn-primary" onclick="SaveBudget()">@Resources.Global.UpdateBudget</span>
                         </label>
                     </div>
                 </div>
