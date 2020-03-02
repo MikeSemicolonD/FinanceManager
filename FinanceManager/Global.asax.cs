@@ -20,7 +20,7 @@ namespace FinanceManager
 
         protected void Application_BeginRequest()
         {
-            CultureInfo culture = new CultureInfo(Request.UserLanguages.FirstOrDefault());
+            CultureInfo culture = new CultureInfo(Request.UserLanguages.FirstOrDefault() ?? "en-US");
 
             //en-US for some reasons shows negative dolloar sums as "($100)" instead of "-$100". 
             //(Guess we're too special to be using negative numbers)

@@ -1,5 +1,7 @@
 ﻿@{
     ViewBag.Title = Resources.Global.Budget;
+    ViewBag.Frequencies = new SelectList(Model.Frequencies, "ID", "Frequency");
+    ViewBag.AccountTypes = new SelectList(Model.AccountTypes, "ID", "AccountType");
 }
 @model FinanceManager.Models.BudgetModelList
 @if (ViewBag.IsNotDashboard == null) //Below will be shown on the dashboard page
@@ -25,6 +27,8 @@ else //Below will be shown on the main budget page
         <div id="BudgetStats" class="divRight float-right" style="margin-left:20%; display:none; width:300px">
             <div class="card bg-light">
                 <div class="card-body">
+                    @using (Html.BeginForm("UpdateBudget", "Budget", FormMethod.Post, Model.NewBudget))
+                    {
                     <label for="Description">@Resources.Global.Description:</label>
                     <input type="text" class="form-control" id="BudgetDescription" />
                     <br />
@@ -47,9 +51,10 @@ else //Below will be shown on the main budget page
                             <br />
                             <input id="ExcludeEssentials" type="checkbox" class="form-check-input" name="Exclude Essentials" />@Resources.Global.Exclude @Resources.Global.Essentials
                             <br />*@
-                            <span class="btn btn-primary" onclick="SaveBudget()" style="width:150px">Update Budget</span>
+                            <button type="submit" class="btn btn-primary" @*onclick="SaveBudget()"*@ style="width:150px">Update Budget</button>
                         </label>
                     </div>
+                    }
                 </div>
             </div>
         </div>
@@ -84,9 +89,9 @@ else //Below will be shown on the main budget page
         }
 
     </script>
-    using (Html.BeginForm("AddBudget", "Budget", FormMethod.Post, new { @class = "form" }))
+    using (Html.BeginForm("AddBudget", "Budget", Model.NewBudget, FormMethod.Post, new { @class = "form" }))
     {
         @Html.AntiForgeryToken()
-        @Html.Partial("AddBudgetModal")
+        @Html.Partial("AddBudgetModal", Model.NewBudget)
     }
 }

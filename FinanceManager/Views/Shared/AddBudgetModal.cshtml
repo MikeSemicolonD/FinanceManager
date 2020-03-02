@@ -1,4 +1,4 @@
-﻿@model FinanceManager.Models.BudgetModelList
+﻿@model FinanceManager.Models.BudgetModel
 
 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 <div id="MyModal" class="modal" tabindex="-1" role="dialog">
@@ -14,30 +14,30 @@
                 <div style="text-align:center">
                     <div>
                         <div class="card-body">
-                                <label for="Description">@Resources.Global.Description:</label>
-                                <input type="text" class="form-control" id="BudgetDescription" style="max-width: 100%;"/>
-                                <br />
-                                <label for="Budget">@Resources.Global.Amount:</label>
-                                <input type="text" class="form-control" id="BudgetAmount" style="max-width: 100%;"/>
-                                <br />
-                                <label for="Frequency">@Resources.Global.Frequency:</label>
-                                @Html.DropDownList("Frequencies", new SelectList(Model.Frequencies, "ID", "Frequency"), new { @class = "form-control", id = "FrequenciesDropDown", style = "max-width: 100%;" })
-                                <br />
-                                <label for="AccountType">@Resources.Global.AccountType:</label>
-                                @Html.DropDownList("Account Types", new SelectList(Model.AccountTypes, "ID", "AccountType"), new { @class = "form-control", id = "AccountTypesDropDown", style = "max-width: 100%;" })
-                                @*<br />
-            <span>Total:</span>
-            <span>*Amount left*</span>*@
-                                <br />
-                                <br />
-                                <div class="text-center">
-                                    <label class="form-check-label">
-                                        @*<input id="IncludeEssentials" type="checkbox" class="form-check-input" name="Include Essentials" />@Resources.Global.Include @Resources.Global.Essentials
-                    <br />
-                    <input id="ExcludeEssentials" type="checkbox" class="form-check-input" name="Exclude Essentials" />@Resources.Global.Exclude @Resources.Global.Essentials
-                    <br />*@
-                                    </label>
-                                </div>
+                            <label for="Description">@Resources.Global.Description:</label>
+                            @Html.TextBoxFor(m => m.Description, null, new { @class = "form-control", type = "text", id = "BudgetDescription", style = "max-width: 100%;" })
+                            <br />
+                            <label for="Budget">@Resources.Global.Amount:</label>
+                            @Html.TextBoxFor(m => m.Amount, null, new { @class = "form-control", type = "text", id = "BudgetAmount", style = "max-width: 100%;" })
+                            <br />
+                            <label for="Frequency">@Resources.Global.Frequency:</label>
+                            @Html.DropDownListFor(m => m.Frequency_ID, (SelectList)ViewBag.Frequencies, new { @class = "form-control", id = "FrequenciesDropDown", style = "max-width: 100%;" })
+                            <br />
+                            <label for="AccountType">@Resources.Global.AccountType:</label>
+                            @Html.DropDownListFor(m => m.Account_ID, (SelectList)ViewBag.AccountTypes, new { @class = "form-control", id = "AccountTypesDropDown", style = "max-width: 100%;" })
+                            @*<br />
+        <span>Total:</span>
+        <span>*Amount left*</span>*@
+                            <br />
+                            <br />
+                            <div class="text-center">
+                                <label class="form-check-label">
+                                    @*<input id="IncludeEssentials" type="checkbox" class="form-check-input" name="Include Essentials" />@Resources.Global.Include @Resources.Global.Essentials
+                <br />
+                <input id="ExcludeEssentials" type="checkbox" class="form-check-input" name="Exclude Essentials" />@Resources.Global.Exclude @Resources.Global.Essentials
+                <br />*@
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>

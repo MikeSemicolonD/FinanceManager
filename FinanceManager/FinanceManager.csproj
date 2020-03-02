@@ -196,6 +196,7 @@
     <Compile Include="Controllers\AnalyticsController.cs" />
     <Compile Include="Controllers\BudgetController.cs" />
     <Compile Include="Controllers\AccountTypeController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\TransactionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
