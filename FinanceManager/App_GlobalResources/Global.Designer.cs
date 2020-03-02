@@ -115,6 +115,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add a Budget.
+        /// </summary>
+        internal static string AddaBudget {
+            get {
+                return ResourceManager.GetString("AddaBudget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add a phone number.
         /// </summary>
         internal static string AddAPhoneNumber {
@@ -759,6 +768,15 @@ namespace Resources {
         internal static string TwoFactorAuthentication {
             get {
                 return ResourceManager.GetString("TwoFactorAuthentication", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Budget.
+        /// </summary>
+        internal static string UpdateBudget {
+            get {
+                return ResourceManager.GetString("UpdateBudget", resourceCulture);
             }
         }
         

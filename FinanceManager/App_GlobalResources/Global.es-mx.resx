@@ -360,4 +360,10 @@
   <data name="AllTypes" xml:space="preserve">
     <value>Todos los tipos</value>
   </data>
+  <data name="AddaBudget" xml:space="preserve">
+    <value>Agregar un presupuesto</value>
+  </data>
+  <data name="UpdateBudget" xml:space="preserve">
+    <value>Actualizar presupuesto</value>
+  </data>
 </root>
