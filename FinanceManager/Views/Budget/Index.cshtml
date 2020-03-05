@@ -4,15 +4,20 @@
     IEnumerable<SelectListItem> DashboardViewFrequencies = (ViewBag.Frequencies != null) ? (IEnumerable<SelectListItem>)ViewBag.Frequencies : null;
     IEnumerable<SelectListItem> DashboardViewAccountTypes = (ViewBag.AccountTypes != null) ? (IEnumerable<SelectListItem>)ViewBag.AccountTypes : null;
 
-    <h2 class="text-center">@Resources.Global.BudgetStats:</h2>
-    @Html.ActionLink(Resources.Global.AddaBudget, "Index", "Budget", null, new { @class = "btn btn-danger btn-sm"})
+    <br />
+    @Html.ActionLink(Resources.Global.AddaBudget, "Index", "Budget", null, new { @class = "btn btn-primary btn-sm" })
     <br />
     <br />
     <div style="display:flex">
         <div class="vertical-menu th" style="width: 500px;">
             @foreach (var budget in ViewBag.Budgets)
             {
-                <a href="#" onclick="ViewBudget(@budget.ID)">@budget.Description</a>
+                <div>
+                    <a style="border:none;cursor:pointer;" onclick="ViewBudget(@budget.ID)">
+                        <span style="padding-left: 12px; padding-bottom: 12px; padding-top: 12px; padding-right: 10%;">@budget.Description</span>
+                        <span onclick="DeleteBudget(@budget.ID)" style="padding-left: 12px; padding-top: 0px; padding-right: 12px; padding-bottom: 6px;" class="float-right"><img src="@Url.Content("~/Content/Images/icons8-trash-26.png")"></span>
+                    </a>
+                </div>
             }
         </div>
         <div id="BudgetStats" class="divRight float-right" style="margin-left:20%; display:initial; width:300px">
@@ -41,7 +46,7 @@
                                 <br />
                                 <input id="ExcludeEssentials" type="checkbox" class="form-check-input" name="Exclude Essentials" />@Resources.Global.Exclude @Resources.Global.Essentials
                                 <br />*@
-                            @Html.ActionLink(Resources.Global.UpdateBudget, "Index", "Budget", null, new { @class = "btn btn-danger btn-sm", type = "button", style = "width:150px" })
+                            @Html.ActionLink(Resources.Global.UpdateBudget, "Index", "Budget", null, new { @class = "btn btn-primary btn-sm", type = "button", style = "width:150px" })
                         </label>
                     </div>
                 </div>
@@ -50,18 +55,29 @@
     </div>
     <script>
 
-    function ViewBudget(id) {
-    $.ajax({
-    type: "GET",
-    url: '@Url.Action("GetBudgetByID", "Budget")',
-    contentType: "application/json; charset=utf-8",
-    data: { id: id },
-    dataType: "json",
-    success: function (data) {
-    UpdateBudgetView(data),
-    $("#SelectedID").val(id) },
-    error: function () { alert("Error Getting Budget: " + id); }
-    });
+        function DeleteBudget(id)
+        {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("DeleteBudget", "Budget")',
+                contentType: "application/json; charset=utf-8",
+                data: { id: id },
+                dataType: "json",
+                success: function () { location.reload(); },
+                error: function () { alert("Error Getting Budget: " + id); }
+            });
+        }
+
+        function ViewBudget(id) {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("GetBudgetByID", "Budget")',
+                contentType: "application/json; charset=utf-8",
+                data: { id: id },
+                dataType: "json",
+                success: function (data) { UpdateBudgetView(data),  $("#SelectedID").val(id) },
+                error: function () { alert("Error Getting Budget: " + id); }
+            });
         }
 
         function UpdateBudgetView(data) {
@@ -83,7 +99,7 @@ else //Below will be shown on the main budget page
     ViewBag.Frequencies = (Model.Frequencies != null) ? new SelectList(Model.Frequencies, "ID", "Frequency") : null;
     ViewBag.AccountTypes = (Model.AccountTypes != null) ? new SelectList(Model.AccountTypes, "ID", "AccountType") : null;
 
-    <h2 class="text-center">@Resources.Global.BudgetStats:</h2>
+    <br />
     <span class="btn btn-primary" data-target="#MyModal" data-toggle="modal">@Resources.Global.AddaBudget</span>
     <br />
     <br />
@@ -91,7 +107,12 @@ else //Below will be shown on the main budget page
         <div class="vertical-menu th" style="width: 500px;">
             @foreach (var budget in Model.Budgets)
             {
-                <a href="#" onclick="ViewBudget(@budget.ID)">@budget.Description</a>
+                <div>
+                    <a href="#" onclick="ViewBudget(@budget.ID)">
+                        <span style="padding-left: 12px; padding-bottom: 12px; padding-top: 12px; padding-right: 10%;">@budget.Description</span>
+                        <span onclick="DeleteBudget(@budget.ID)" style="padding-left: 12px; padding-top: 0px; padding-right: 12px; padding-bottom: 6px;" class="float-right"><img src="@Url.Content("~/Content/Images/icons8-trash-26.png")"></span>
+                    </a>
+                </div>
             }
         </div>
         <div id="BudgetStats" class="divRight float-right" style="margin-left:20%; display:none; width:300px">
@@ -128,6 +149,19 @@ else //Below will be shown on the main budget page
         </div>
     </div>
     <script>
+        function DeleteBudget(id)
+        {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("DeleteBudget", "Budget")',
+                contentType: "application/json; charset=utf-8",
+                data: { id: id },
+                dataType: "json",
+                success: function () { location.reload(); },
+                error: function () { alert("Error Getting Budget: " + id); }
+            });
+        }
+
         function ViewBudget(id) {
             $.ajax({
                 type: "GET",

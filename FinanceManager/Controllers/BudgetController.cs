@@ -83,12 +83,13 @@ namespace FinanceManager.Controllers
             return RedirectToAction("Index", "Budget", null);
         }
 
+        [HttpGet]
         public ActionResult DeleteBudget(long ID)
         {
             BudgetAdapter budgetAdapter = new BudgetAdapter();
             budgetAdapter.DeleteBudgetByIDAndUID(ID, User.Identity.Name);
 
-            return RedirectToAction("Index", "Budget", null);
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
 
     }

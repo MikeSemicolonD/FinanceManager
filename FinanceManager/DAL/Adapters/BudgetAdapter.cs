@@ -110,7 +110,7 @@ namespace FinanceManager.DAL
                 SqlDataProvider db = new SqlDataProvider();
 
                 //Parse each id into query
-                string query = "DELETE FROM [dbo].[User_Budget] AS UB WHERE UB.UID = '" + UID + "' AND UB.Budget_ID = " + id + "; DELETE FROM [dbo].[Budget] AS b WHERE b.ID = " + id;
+                string query = "DELETE FROM [dbo].[User_Budget] WHERE UID = '" + UID + "' AND Budget_ID = " + id + "; DELETE FROM [dbo].[Budget] WHERE ID = " + id;
 
                 using (SqlConnection connection = (SqlConnection)db.GetConnection())
                 {
