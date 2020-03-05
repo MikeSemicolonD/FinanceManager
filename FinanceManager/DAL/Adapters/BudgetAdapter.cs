@@ -227,13 +227,14 @@ namespace FinanceManager.DAL
             {
                 SqlDataProvider db = new SqlDataProvider();
 
-                string queryTemplate = "UPDATE [dbo].[Budget] b SET Account_ID = '{0}', Amount = '{1}', Times = {2}, Frequency_ID = {3} WHERE b.ID = {4}; ";
+                //TODO: Update to support assigning categories
+                string queryTemplate = "UPDATE [dbo].[Budget] SET Description = '{0}', Account_ID = '{1}', Amount = '{2}', Frequency_ID = {3} WHERE ID = {4}; ";
                 string query = "";
 
                 foreach (BudgetModel budget in Budgets)
                 {
                     //Account_ID, Amount, Times, Frequency_ID, UID
-                    query += string.Format(queryTemplate, budget.Account_ID, budget.Amount, budget.Amount, budget.Frequency_ID, (budget.UID.Length != 0) ? budget.UID : Utilities.GetUsersUID(UserEmail));
+                    query += string.Format(queryTemplate, budget.Description, budget.Account_ID, budget.Amount, budget.Frequency_ID, budget.ID);// (budget.UID.Length != 0) ? budget.UID : Utilities.GetUsersUID(UserEmail));
                 }
 
                 using (SqlConnection connection = (SqlConnection) db.GetConnection())

@@ -1,18 +1,88 @@
-﻿@{
-    ViewBag.Title = Resources.Global.Budget;
-    ViewBag.Frequencies = new SelectList(Model.Frequencies, "ID", "Frequency");
-    ViewBag.AccountTypes = new SelectList(Model.AccountTypes, "ID", "AccountType");
-}
-@model FinanceManager.Models.BudgetModelList
+﻿@model FinanceManager.Models.BudgetModelList
 @if (ViewBag.IsNotDashboard == null) //Below will be shown on the dashboard page
 {
-    <div class="jumbotron">
-        <h1>@Resources.Global.Budgets</h1>
-        <p class="lead">@Resources.Global.YouCanManageAddBudgetsHere</p>
+    IEnumerable<SelectListItem> DashboardViewFrequencies = (ViewBag.Frequencies != null) ? (IEnumerable<SelectListItem>)ViewBag.Frequencies : null;
+    IEnumerable<SelectListItem> DashboardViewAccountTypes = (ViewBag.AccountTypes != null) ? (IEnumerable<SelectListItem>)ViewBag.AccountTypes : null;
+
+    <h2 class="text-center">@Resources.Global.BudgetStats:</h2>
+    @Html.ActionLink(Resources.Global.AddaBudget, "Index", "Budget", null, new { @class = "btn btn-danger btn-sm"})
+    <br />
+    <br />
+    <div style="display:flex">
+        <div class="vertical-menu th" style="width: 500px;">
+            @foreach (var budget in ViewBag.Budgets)
+            {
+                <a href="#" onclick="ViewBudget(@budget.ID)">@budget.Description</a>
+            }
+        </div>
+        <div id="BudgetStats" class="divRight float-right" style="margin-left:20%; display:initial; width:300px">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <input id="SelectedID" hidden />
+                    <label for="Description">@Resources.Global.Description:</label>
+                    @Html.TextBoxFor(m => m.EdittingBudget.Description, null, new { @class = "form-control", type = "text", id = "BudgetDescription", style = "max-width: 100%;" })
+                    <br />
+                    <label for="Budget">@Resources.Global.Amount:</label>
+                    @Html.TextBoxFor(m => m.EdittingBudget.Amount, null, new { @class = "form-control", type = "text", id = "BudgetAmount", style = "max-width: 100%;" })
+                    <br />
+                    <label for="Frequency">@Resources.Global.Frequency:</label>
+                    @Html.DropDownList("Frequencies", DashboardViewFrequencies, new { @class = "form-control", id = "FrequenciesDropDown", style = "max-width: 100%;" })
+                    <br />
+                    <label for="AccountType">@Resources.Global.AccountType:</label>
+                    @Html.DropDownList("AccountTypes", DashboardViewAccountTypes, new { @class = "form-control", id = "AccountTypesDropDown", style = "max-width: 100%;" })
+                    @*<br />
+                        <span>Total:</span>
+                        <span>*Amount left*</span>*@
+                    <br />
+                    <br />
+                    <div class="text-center">
+                        <label class="form-check-label">
+                            @*<input id="IncludeEssentials" type="checkbox" class="form-check-input" name="Include Essentials" />@Resources.Global.Include @Resources.Global.Essentials
+                                <br />
+                                <input id="ExcludeEssentials" type="checkbox" class="form-check-input" name="Exclude Essentials" />@Resources.Global.Exclude @Resources.Global.Essentials
+                                <br />*@
+                            @Html.ActionLink(Resources.Global.UpdateBudget, "Index", "Budget", null, new { @class = "btn btn-danger btn-sm", type = "button", style = "width:150px" })
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    <script>
+
+    function ViewBudget(id) {
+    $.ajax({
+    type: "GET",
+    url: '@Url.Action("GetBudgetByID", "Budget")',
+    contentType: "application/json; charset=utf-8",
+    data: { id: id },
+    dataType: "json",
+    success: function (data) {
+    UpdateBudgetView(data),
+    $("#SelectedID").val(id) },
+    error: function () { alert("Error Getting Budget: " + id); }
+    });
+        }
+
+        function UpdateBudgetView(data) {
+            if ($("#BudgetStats").css('display') == 'none') {
+                $("#BudgetStats").css('display', 'initial');
+            }
+
+            $("#BudgetDescription").val(data.Description);
+            $("#BudgetAmount").val(data.Amount);
+            $("#FrequenciesDropDown").val(data.Frequency_ID);
+            $("#AccountTypesDropDown").val(data.Account_ID);
+        }
+
+    </script>
 }
 else //Below will be shown on the main budget page
 {
+    ViewBag.Title = Resources.Global.Budget;
+    ViewBag.Frequencies = (Model.Frequencies != null) ? new SelectList(Model.Frequencies, "ID", "Frequency") : null;
+    ViewBag.AccountTypes = (Model.AccountTypes != null) ? new SelectList(Model.AccountTypes, "ID", "AccountType") : null;
+
     <h2 class="text-center">@Resources.Global.BudgetStats:</h2>
     <span class="btn btn-primary" data-target="#MyModal" data-toggle="modal">@Resources.Global.AddaBudget</span>
     <br />
@@ -27,34 +97,32 @@ else //Below will be shown on the main budget page
         <div id="BudgetStats" class="divRight float-right" style="margin-left:20%; display:none; width:300px">
             <div class="card bg-light">
                 <div class="card-body">
-                    @using (Html.BeginForm("UpdateBudget", "Budget", FormMethod.Post, Model.NewBudget))
-                    {
+                    <input id="SelectedID" hidden />
                     <label for="Description">@Resources.Global.Description:</label>
-                    <input type="text" class="form-control" id="BudgetDescription" />
+                    @Html.TextBoxFor(m => m.EdittingBudget.Description, null, new { @class = "form-control", type = "text", id = "BudgetDescription", style = "max-width: 100%;" })
                     <br />
                     <label for="Budget">@Resources.Global.Amount:</label>
-                    <input type="text" class="form-control" id="BudgetAmount" />
+                    @Html.TextBoxFor(m => m.EdittingBudget.Amount, null, new { @class = "form-control", type = "text", id = "BudgetAmount", style = "max-width: 100%;" })
                     <br />
                     <label for="Frequency">@Resources.Global.Frequency:</label>
-                    @Html.DropDownList("Frequencies", new SelectList(Model.Frequencies, "ID", "Frequency"), new { @class = "form-control", id = "FrequenciesDropDown" })
+                    @Html.DropDownListFor(m => m.EdittingBudget.Frequency_ID, (SelectList)ViewBag.Frequencies, new { @class = "form-control", id = "FrequenciesDropDown", style = "max-width: 100%;" })
                     <br />
                     <label for="AccountType">@Resources.Global.AccountType:</label>
-                    @Html.DropDownList("Account Types", new SelectList(Model.AccountTypes, "ID", "AccountType"), new { @class = "form-control", id = "AccountTypesDropDown" })
+                    @Html.DropDownListFor(m => m.EdittingBudget.Account_ID, (SelectList)ViewBag.AccountTypes, new { @class = "form-control", id = "AccountTypesDropDown", style = "max-width: 100%;" })
                     @*<br />
-        <span>Total:</span>
-        <span>*Amount left*</span>*@
+                        <span>Total:</span>
+                        <span>*Amount left*</span>*@
                     <br />
                     <br />
                     <div class="text-center">
                         <label class="form-check-label">
                             @*<input id="IncludeEssentials" type="checkbox" class="form-check-input" name="Include Essentials" />@Resources.Global.Include @Resources.Global.Essentials
-                            <br />
-                            <input id="ExcludeEssentials" type="checkbox" class="form-check-input" name="Exclude Essentials" />@Resources.Global.Exclude @Resources.Global.Essentials
-                            <br />*@
-                            <button type="submit" class="btn btn-primary" @*onclick="SaveBudget()"*@ style="width:150px">@Resources.Global.UpdateBudget</button>
+                                <br />
+                                <input id="ExcludeEssentials" type="checkbox" class="form-check-input" name="Exclude Essentials" />@Resources.Global.Exclude @Resources.Global.Essentials
+                                <br />*@
+                            <button type="button" class="btn btn-primary" onclick="SaveBudget()" style="width:150px">@Resources.Global.UpdateBudget</button>
                         </label>
                     </div>
-                    }
                 </div>
             </div>
         </div>
@@ -67,13 +135,32 @@ else //Below will be shown on the main budget page
                 contentType: "application/json; charset=utf-8",
                 data: { id: id },
                 dataType: "json",
-                success: function (data) { UpdateBudgetView(data); },
+                success: function (data) {
+                    UpdateBudgetView(data),
+                    $("#SelectedID").val(id) },
                 error: function () { alert("Error Getting Budget: " + id); }
             });
         }
 
         function SaveBudget() {
-            alert("Save button pressed");
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("UpdateBudget", "Budget")',
+                contentType: 'application/json; charset=utf-8',
+                data: {
+                    data: JSON.stringify(
+                        {
+                            Id : $("#SelectedID").val(),
+                            Description : $("#BudgetDescription").val(),
+                            Amount : $("#BudgetAmount").val(),
+                            FrequencyID : $("#FrequenciesDropDown").val(),
+                            AccountTypeID : $("#AccountTypesDropDown").val()
+                        })
+                },
+                datatype: "json",
+                success: function (data) { location.reload(); },
+                error: function () { alert("Error Updating Budget"); }
+            });
         }
 
         function UpdateBudgetView(data) {

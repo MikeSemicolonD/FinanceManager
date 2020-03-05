@@ -1,6 +1,8 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using FinanceManager.DAL;
 using FinanceManager.Models;
+using Newtonsoft.Json;
 
 namespace FinanceManager.Controllers
 {
@@ -21,8 +23,7 @@ namespace FinanceManager.Controllers
                 Budgets = budgetAdapter.GetBudgetsByUID(Utilities.GetUsersUID(User.Identity.Name)),
                 Categories = budgetAdapter.GetUniqueCategoryByUID(Utilities.GetUsersUID(User.Identity.Name)),
                 Frequencies = frequencyAdapter.GetAllFrequencies(),
-                AccountTypes = accountTypeAdapter.GetAccountTypesByUID(Utilities.GetUsersUID(User.Identity.Name)),
-                NewBudget = new BudgetModel()
+                AccountTypes = accountTypeAdapter.GetAccountTypesByUID(Utilities.GetUsersUID(User.Identity.Name))
             };
 
 
@@ -51,17 +52,25 @@ namespace FinanceManager.Controllers
             return Json(selectedBudget, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
-        public ActionResult UpdateBudget(BudgetModel budgetToUpdate)
+        [HttpGet]
+        public JsonResult UpdateBudget(string data)
         {
+            Dictionary<string,string> variables = JsonConvert.DeserializeObject<Dictionary<string, string>>(data);
             BudgetAdapter budgetAdapter = new BudgetAdapter();
-            budgetAdapter.SetBudget(budgetToUpdate, User.Identity.Name);
+            BudgetModel budget = budgetAdapter.GetBudgetByID(long.Parse(variables["Id"]));
+
+            budget.Description = variables["Description"].ToString();
+            budget.Amount = decimal.Parse(variables["Amount"]);
+            budget.Frequency_ID = int.Parse(variables["FrequencyID"]);
+            budget.Account_ID = int.Parse(variables["AccountTypeID"]);
+
+            budgetAdapter.SetBudget(budget, User.Identity.Name);
 
             //Refresh page
             //Re-get info
-            ViewBag.PreviouslySelectedBudget = budgetToUpdate.ID;
+            //ViewBag.PreviouslySelectedBudget = budgetToUpdate.ID;
 
-            return RedirectToAction("Index", "Budget", null);
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
 
 

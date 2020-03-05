@@ -14,5 +14,7 @@ namespace FinanceManager.Models
 
         public BudgetModel NewBudget { get; set; } = new BudgetModel();
 
+        public BudgetModel EdittingBudget { get; set; } = new BudgetModel();
+
     }
 }
