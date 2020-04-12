@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace FinanceManager.Models
 {
@@ -23,6 +25,10 @@ namespace FinanceManager.Models
 
         [Required]
         public int AccountType { get; set; }
+
+        public IEnumerable<SelectListItem> AvailableAccountTypeList { get; set; }
+
+        public IEnumerable<SelectListItem> CategoryList { get; set; }
 
     }
 }

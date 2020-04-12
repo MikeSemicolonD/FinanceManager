@@ -1,9 +1,9 @@
-﻿@{
+﻿@model FinanceManager.Models.TransactionModelList
+@{
     ViewBag.Title = Resources.Global.Transactions;
     IEnumerable<SelectListItem> DashboardViewCategories = (ViewBag.Categories != null) ? (IEnumerable<SelectListItem>)ViewBag.Categories : null;
     IEnumerable<SelectListItem> DashboardViewAccountTypes = (ViewBag.AccountTypes != null) ? (IEnumerable<SelectListItem>)ViewBag.AccountTypes : null;
 }
-@model FinanceManager.Models.TransactionModelList
 @if (ViewBag.IsNotDashboard == null) //Below will be shown on the dashboard page
 {
     <nav class="navbar navbar-light navbar-expand-lg" style="background-color:#8dc4bc;">
@@ -155,10 +155,10 @@ else //Below will be shown on the main transactions page
             </tbody>
         </table>
     </div>
-    using (Html.BeginForm("AddTransaction", "Transaction", FormMethod.Post, new { @class = "form" }))
+    using (Html.BeginForm("AddTransaction", "Transaction", Model.AddNewTransactionModel, FormMethod.Post, new { @class = "form" }))
     {
         @Html.AntiForgeryToken()
-        @Html.Partial("AddTransactionModal")
+        @Html.Partial("AddTransactionModal", Model.AddNewTransactionModel)
     }
 }
 @section scripts{

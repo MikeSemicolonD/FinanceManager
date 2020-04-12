@@ -10,7 +10,7 @@ namespace FinanceManager.Controllers
     {
 
         [Authorize]
-        public ActionResult Index()
+        public ActionResult Index(BudgetModel BudgetTryingToAdd = null)
         {
             ViewBag.IsNotDashboard = true;
 
@@ -26,6 +26,8 @@ namespace FinanceManager.Controllers
                 AccountTypes = accountTypeAdapter.GetAccountTypesByUID(Utilities.GetUsersUID(User.Identity.Name))
             };
 
+            if (BudgetTryingToAdd != null)
+                pageData.NewBudget = BudgetTryingToAdd;
 
             //Can delete budgets
             //Can duplicate budgets
@@ -77,6 +79,10 @@ namespace FinanceManager.Controllers
         [HttpPost]
         public ActionResult AddBudget(BudgetModel budgetToAdd)
         {
+            if(!ModelState.IsValid)
+                return RedirectToAction("Index", "Budget", budgetToAdd);
+
+
             BudgetAdapter budgetAdapter = new BudgetAdapter();
             budgetAdapter.AddBudget(budgetToAdd, User.Identity.Name);
 

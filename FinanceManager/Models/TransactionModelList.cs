@@ -8,9 +8,9 @@ namespace FinanceManager.Models
         public List<TransactionModel> TransactionModels { get; set; }
         
         public IEnumerable<SelectListItem> AvailableAccountTypes { get; set; }
-
-        public TransactionModel AddNewTransactionModel { get; set; }
-
+        
         public IEnumerable<SelectListItem> Categories { get; set; }
+
+        public TransactionModel AddNewTransactionModel { get; set; } = new TransactionModel();
     }
 }

@@ -177,6 +177,13 @@ else //Below will be shown on the main budget page
         }
 
         function SaveBudget() {
+            if ($("#BudgetDescription").val() == "" ||
+                $("#BudgetAmount").val() == "" ||
+                $("#SelectedID").val() == "" ||
+                $("#FrequenciesDropDown").val() == "" ||
+                $("#AccountTypesDropDown").val() == "")
+                return;
+
             $.ajax({
                 type: "GET",
                 url: '@Url.Action("UpdateBudget", "Budget")',

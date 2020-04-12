@@ -1,6 +1,4 @@
-﻿@model FinanceManager.Models.TransactionModelList
-
-<!--TODO: Form validation -->
+﻿@model FinanceManager.Models.TransactionModel
 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 <div id="MyModal" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -16,7 +14,7 @@
                     <div class="container-fluid ml-auto">
                         <div class="mb-3">
                             <label title="Category this Transaction belongs under">@Resources.Global.Category:</label>
-                            @Html.DropDownListFor(m => m.AddNewTransactionModel.Category, new SelectList(Model.Categories, "Value", "Text"))
+                            @Html.DropDownListFor(m => m.Category, new SelectList(Model.CategoryList, "Value", "Text"))
                             <div class="invalid-feedback">
                                 @Resources.Global.Category @Resources.Global.IsRequired.
                             </div>
@@ -24,7 +22,7 @@
 
                         <div class="mb-3">
                             <label title="Transaction Details">@Resources.Global.Description:</label>
-                            @Html.TextBoxFor(m => m.AddNewTransactionModel.Description)
+                            @Html.TextBoxFor(m => m.Description)
                             <div class="invalid-feedback">
                                 @Resources.Global.Description @Resources.Global.IsRequired.
                             </div>
@@ -32,7 +30,7 @@
 
                         <div class="mb-3">
                             <label title="Money spent on Transaction">@Resources.Global.Amount:</label>
-                            @Html.TextBoxFor(m => m.AddNewTransactionModel.Amount, new { @type = "number", step = "0.01" })
+                            @Html.TextBoxFor(m => m.Amount, new { @type = "number", step = "0.01" })
                             <div class="invalid-feedback">
                                 @Resources.Global.Amount @Resources.Global.IsRequired.
                             </div>
@@ -40,19 +38,19 @@
 
                         <div class="mb-3">
                             <label title="Type of Account this Transaction belongs to">@Resources.Global.AccountType:</label>
-                            @Html.DropDownListFor(m => m.AddNewTransactionModel.AccountType, new SelectList(Model.AvailableAccountTypes, "Value", "Text"), new { @style = "min-width:100%;" })
+                            @Html.DropDownListFor(m => m.AccountType, new SelectList(Model.AvailableAccountTypeList, "Value", "Text"), new { @style = "min-width:100%;" })
 
                         </div>
 
                         <div class="mb-3">
                             <label title="Date of Transaction">@Resources.Global.Date:</label>
                             <!--TODO: Set to today by default-->
-                            @Html.TextBoxFor(m => m.AddNewTransactionModel.TransactionDate, new { @type = "date" })
+                            @Html.TextBoxFor(m => m.TransactionDate, new { @type = "date" })
                         </div>
 
                         <div class="mb-3">
                             <label title="(Example: Food, Gas, Water, Electricity)">@Resources.Global.Essentials @Resources.Global.Transactions:</label>
-                            @Html.TextBoxFor(m => m.AddNewTransactionModel.IsEssential, new { @type = "checkbox" })
+                            @Html.TextBoxFor(m => m.IsEssential, new { @type = "checkbox" })
                         </div>
                     </div>
                 </div>

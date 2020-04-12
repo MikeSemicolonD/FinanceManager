@@ -12,7 +12,7 @@ namespace FinanceManager.Controllers
         CategoryAdapter categoryAdapter = new CategoryAdapter();
 
         [Authorize]
-        public ActionResult Index()
+        public ActionResult Index(TransactionModel transactionModelTryingToAdd = null)
         {
 
             //Gets transactions / available account types for the given user, put them in a model to display it on the view
@@ -23,6 +23,13 @@ namespace FinanceManager.Controllers
                 Categories = categoryAdapter.GetCategories().Select(x => new SelectListItem { Value = x.ID.ToString(), Text = x.Category })
             };
 
+            if (transactionModelTryingToAdd != null)
+                transactions.AddNewTransactionModel = transactionModelTryingToAdd;
+
+            transactions.AddNewTransactionModel.AvailableAccountTypeList = transactions.AvailableAccountTypes;
+            transactions.AddNewTransactionModel.CategoryList = transactions.Categories;
+
+
             ViewBag.IsNotDashboard = true;
 
             //Home page for transactions page
@@ -30,9 +37,13 @@ namespace FinanceManager.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddTransaction(TransactionModelList transaction)
+        public ActionResult AddTransaction(TransactionModel transaction)
         {
-            transactionsAdapter.AddTransaction(transaction.AddNewTransactionModel, User.Identity.Name);
+            if(!ModelState.IsValid)
+                return RedirectToAction("Index", "Transaction", transaction);
+
+
+            transactionsAdapter.AddTransaction(transaction, User.Identity.Name);
 
             return RedirectToAction("Index", "Transaction", null);
         }
