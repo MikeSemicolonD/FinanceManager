@@ -9,7 +9,7 @@
     <br />
     <br />
     <div style="display:flex">
-        <div class="vertical-menu th" style="width: 500px;">
+        <div class="vertical-menu th" style="border:ridge black; background-color:white; width: 500px;">
             @foreach (var budget in ViewBag.Budgets)
             {
                 <div>
@@ -21,7 +21,7 @@
             }
         </div>
         <div id="BudgetStats" class="divRight float-right" style="margin-left:20%; display:initial; width:300px">
-            <div class="card bg-light">
+            <div class="card bg-light" style="border:ridge black; ">
                 <div class="card-body">
                     <input id="SelectedID" hidden />
                     <label for="Description">@Resources.Global.Description:</label>
@@ -104,7 +104,7 @@ else //Below will be shown on the main budget page
     <br />
     <br />
     <div style="display:flex">
-        <div class="vertical-menu th" style="width: 500px;">
+        <div class="vertical-menu th" style="border:ridge black; background-color:white; width: 500px;">
             @foreach (var budget in Model.Budgets)
             {
                 <div>
@@ -116,7 +116,7 @@ else //Below will be shown on the main budget page
             }
         </div>
         <div id="BudgetStats" class="divRight float-right" style="margin-left:20%; display:none; width:300px">
-            <div class="card bg-light">
+            <div class="card bg-light" style="border:ridge black;">
                 <div class="card-body">
                     <input id="SelectedID" hidden />
                     <label for="Description">@Resources.Global.Description:</label>

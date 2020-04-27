@@ -37,7 +37,7 @@
                 </tr>
             </thead>
             <tbody id="TransactionsTable">
-                @if (ViewBag.AccountTypes == null)
+                @if (ViewBag.AccountTypes == null || ((List<FinanceManager.Models.TransactionModel>)ViewBag.Transactions).Count == 0)
                 {
                     <tr>
                         <th colspan="7" scope="col" style="text-align:center">@Resources.Global.NoTransactionsWereFound</th>
@@ -113,7 +113,7 @@ else //Below will be shown on the main transactions page
                 </tr>
             </thead>
             <tbody id="TransactionsTable">
-                @if (Model.TransactionModels == null)
+                @if (Model.TransactionModels.Count == 0)
                 {
                     <tr>
                         <th colspan="7" scope="col" style="text-align:center">@Resources.Global.NoTransactionsWereFound.</th>
