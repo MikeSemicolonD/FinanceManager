@@ -29,18 +29,6 @@ namespace FinanceManager.Controllers
             if (BudgetTryingToAdd != null)
                 pageData.NewBudget = BudgetTryingToAdd;
 
-            //Can delete budgets
-            //Can duplicate budgets
-            //Can Add a Budget via Modal
-
-            //Select what Budget to View via list
-            //Selecting one bring up data for that budget
-            //Assign budget to Account Types
-            //Can exclude Transactions by
-            //  : Category
-            //  : Include Essentials
-            //  : Exclude Essentials
-            //Click 'Save' to save settings
             return View(pageData);
         }
 
@@ -67,10 +55,6 @@ namespace FinanceManager.Controllers
             budget.Account_ID = int.Parse(variables["AccountTypeID"]);
 
             budgetAdapter.SetBudget(budget, User.Identity.Name);
-
-            //Refresh page
-            //Re-get info
-            //ViewBag.PreviouslySelectedBudget = budgetToUpdate.ID;
 
             return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }

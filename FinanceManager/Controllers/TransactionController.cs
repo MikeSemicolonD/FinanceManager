@@ -39,7 +39,10 @@ namespace FinanceManager.Controllers
         [HttpPost]
         public ActionResult AddTransaction(TransactionModel transaction)
         {
-            if(!ModelState.IsValid)
+            ModelState.Remove("AvailableAccountTypeList");
+            ModelState.Remove("CategoryList");
+
+            if (!ModelState.IsValid)
                 return RedirectToAction("Index", "Transaction", transaction);
 
 
